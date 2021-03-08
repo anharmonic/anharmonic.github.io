@@ -25,10 +25,11 @@ These codes are loosely coupled with Quantum-ESPRESSO, can natively use force co
 </d1>
 
 
-![Graphene intrinsic linewidth]()
-![Silicon intrinsic linewidth]()
-![GaAs hyperacoustic waves attenuation]()
-![Bi2Se3 thermal conductivity]()
+![Graphene intrinsic linewidth (dispersion)](https://anharmonic.github.io/images/1.png)
+![Graphene intrinsic linewidth (BZ)](https://anharmonic.github.io/images/graphene-bz.png)
+![Silicon intrinsic linewidth](https://anharmonic.github.io/images/2.png)
+![GaAs hyperacoustic waves attenuation](https://anharmonic.github.io/images/gaas-50K.png)
+![Bi2Se3 thermal conductivity](https://anharmonic.github.io/images/plot-best.png)
 
 
 Text can be **bold**, _italic_, or ~~strikethrough~~.
