@@ -2,6 +2,35 @@
 layout: default
 ---
 
+The anharmonic codes are composed of two main parts:
+<d1>
+<dt>
+d3q
+</dt>
+<dd>
+To compute fully ab-initio, using perturbation theory the third order dynamical matrix and the three-body force constants. This code is very efficient, it uses the _2n+1_ extension of density functional perturbation theory to compute the response of the system to harmonic perturbations. It does not use expensive supercell and no range cutoff has to be imposed. This code is tightly couple with quantum-espresso, it supports norm-conserving pseudopotentials.
+</dd>
+<dt>
+thermal2
+</dt>
+<dd>
+A suite of codes to manipulate 2-body and 3-body force constants to study vibrational properties of materials:
+- Thermal transport from first principles, in the single-mode approximation or exact
+- Phonon intrinsic lifetime and lineshift
+- Infrared reflectivity simulation, vibration spectral weight (including neutron scattering form factor), phonon self-energy
+- A simple and efficient implementation of quasi-harmonic approximation, including hydrostatic pressure
+- Fourier interpolation of harmonic and anharmonic force constants
+These codes are loosely coupled with Quantum-ESPRESSO, can natively use force constants from the ph and d3q codes, but can also import them from real-space thirorder and phonon3py codes.
+</dd>
+</d1>
+
+
+![Graphene intrinsic linewidth]()
+![Silicon intrinsic linewidth]()
+![GaAs hyperacoustic waves attenuation]()
+![Bi2Se3 thermal conductivity]()
+
+
 Text can be **bold**, _italic_, or ~~strikethrough~~.
 
 [Link to another page](./another-page.html).
