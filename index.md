@@ -15,14 +15,14 @@ thermal2
 </dt>
 <dd>
 A suite of codes to manipulate 2-body and 3-body force constants to study vibrational properties of materials:
+</dd>
+</d1>
 - Thermal transport from first principles, in the single-mode approximation or exact
 - Phonon intrinsic lifetime and lineshift
 - Infrared reflectivity simulation, vibration spectral weight (including neutron scattering form factor), phonon self-energy
 - A simple and efficient implementation of quasi-harmonic approximation, including hydrostatic pressure
 - Fourier interpolation of harmonic and anharmonic force constants
 These codes are loosely coupled with Quantum-ESPRESSO, can natively use force constants from the ph and d3q codes, but can also import them from real-space thirorder and phonon3py codes.
-</dd>
-</d1>
 
 
 ![Graphene intrinsic linewidth (dispersion)](https://anharmonic.github.io/images/1.png)
