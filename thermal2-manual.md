@@ -18,10 +18,12 @@ We would greatly appreciate if when using the thermal2 suite of codes you cite t
 - A. Cepellotti, G. Fugallo, L. Paulatto, M. Lazzeri, F. Mauri, N. Marzari, Nat. Comm. 6 (2015)
 - G. Fugallo, A. Cepellotti, L. Paulatto, M. Lazzeri, N. Marzari, F. Mauri, Nano Letters 14 (11), 6109-6114 (2014)
 
+# Table of contents
 <!--ts-->
    * [Thermal2 manual](#thermal2-manual)
       * [Copyright](#copyright)
       * [Citing](#citing)
+   * [Table of contents](#table-of-contents)
    * [Quick Reference Manual](#quick-reference-manual)
       * [Compiling the code](#compiling-the-code)
       * [List of codes](#list-of-codes)
@@ -139,7 +141,7 @@ We would greatly appreciate if when using the thermal2 suite of codes you cite t
    * [Bibliography](#bibliography)
    * [Change Log](#change-log)
 
-<!-- Added by: paulatto, at: Tue Mar  9 17:54:23 CET 2021 -->
+<!-- Added by: paulatto, at: Tue Mar  9 17:56:12 CET 2021 -->
 
 <!--te-->
 

@@ -15,11 +15,13 @@ We would greatly appreciate if when using the d3q code you cite the following pa
 - L. Paulatto, F. Mauri, and M. Lazzeri,  Phys. Rev. B 87, 214303 (2013)
 - G. Fugallo, M. Lazzeri, L. Paulatto, and F. Mauri", Phys. Rev. B 88, 045430 (2013)
 
+# Table of contents
 <!--ts-->
    * [D3Q manual](#d3q-manual)
    * [Foreword](#foreword)
       * [Copyright](#copyright)
       * [Citing](#citing)
+   * [Table of contents](#table-of-contents)
    * [Capabilities of the d3q code](#capabilities-of-the-d3q-code)
    * [Compiling the code](#compiling-the-code)
    * [Preparing a D3Q calculation](#preparing-a-d3q-calculation)
@@ -55,7 +57,7 @@ We would greatly appreciate if when using the d3q code you cite the following pa
       * [Running D3Q](#running-d3q)
          * [Note on pools parallelisation](#note-on-pools-parallelisation)
 
-<!-- Added by: paulatto, at: Tue Mar  9 17:54:23 CET 2021 -->
+<!-- Added by: paulatto, at: Tue Mar  9 17:56:12 CET 2021 -->
 
 <!--te-->
 
