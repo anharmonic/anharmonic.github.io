@@ -22,7 +22,7 @@ We would greatly appreciate if when using the thermal2 suite of codes you cite t
 ## Compiling the code
 The thermal2 codes come bundled with the D3Q code, used to compute ab-initio the 3rd order dynamical matrices. We refer you to the D3Q manual for more detailed instruction on compiling. A separate stand-alone distribution of the thermal2 codes is being considered and may be available in the future.
 
-# List of codes
+## List of codes
 The thermal2 suite of codes contains a number of small specialized codes that only take command line arguments, and a few larger codes that read input from a file. This is the list of codes and a brief description.
 
 ### Main codes
