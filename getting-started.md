@@ -29,7 +29,7 @@ Example on importing three-body force constants produced with the thirorder.py c
 ####  mat3R.NULL
 Example of fake mat3R file that will produce zero anharmonicity, useful for testing.
 
-### input.SQOM
+#### input.SQOM
 Example input file for the d3_sqom.x code, to compute inelastic neutron scattering cross sections.
 
 ## Tutorial
