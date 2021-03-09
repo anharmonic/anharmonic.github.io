@@ -170,14 +170,14 @@ This code can compute the phonon frequency at a q-point or along a path, it can 
 #### d3_q2r.x
 This code is analogous to the q2r.x code of QE and  it uses the same input, but produces a file of Force Constants (FCs) which has already been re-centered in the reciprocal space Wigner-Seitz cell to make Fourier Interpolation faster.
 #### d3_qq2rr.x
-Analogous to q2r.x but operates on the 3rd order matrices. This codes takes as command line arguments the dimension of the q-points grid and optionally the name of the output file. You must feed it feed by standard input the list of anharmonic dynamical matrices in the XML format produced by d3q.x. For example, d3q was run with fild3dyn=”anh” for a NQX x NQY  x NQZ grid, you can compute the 3rd order Fcs as:
+Analogous to q2r.x but operates on the 3rd order matrices. This codes takes as command line arguments the dimension of the q-points grid and optionally the name of the output file. You must feed it feed by standard input the list of anharmonic dynamical matrices in the XML format produced by d3q.x. For example, d3q was run with fild3dyn=”anh” for a NQX x NQY  x NQZ grid, you can compute the 3rd order FCs as:
 ```
 ls anh* | qq2rr.x NQX NQY NQZ [-o mat3R] [-f NFAR] [-w]
 ```
 The result will be written by default to a file called mat3R, but you can change this with the -o option.
-You can specify the optional argument NFAR (default=2) which is the number of neighbors that the code will scan to build the Wigner-Seitz cell. The default value usually works, you can set it to zero to avoid any re-centering: The resulting force constant will be unsuitable for doing any further calculation, due to aliasing in the Fourier interpolation, but they may be easier to import in another code.
+You can specify the optional argument NFAR (default=2) which is the number of neighbors that the code will scan to build the Wigner-Seitz cell. The default value usually works, a larger value may be necessary with very anisotropic cells or if atoms are placed very far away from the origin. You can set it to zero to avoid any re-centering: The resulting force constant will be unsuitable for doing any further calculation, due to aliasing in the Fourier interpolation, but they may be easier to import/convert to another code format.
 
-The code will automatically select from the list the files that it needs to fill the grid; all the other files will be discarded.  Which means that you can easily compute the force constants for any sub-lattice of the one compute, just by changing the values of  NQX, NQY  and NQZ.
+The code will automatically select from the list the files that it needs to fill the grid; all the other files will be discarded.  Which means that you can easily compute the force constants for any sub-lattice of the one available, just by changing the values of  NQX, NQY  and NQZ.
 
 After writing the force constant to file, the code will perform two optional tests (you can skip them pressing CTRL-C). First test: for this test the initial D3 matrices will be recomputed using the force constants with both the real and imaginary parts (which should be zero). Second test: recompute the D3 matrices with only the real part of the force constants. If any discrepancy is detected it will be printed on output. Notice that any discrepancy in the first test indicate a very serious problem with the D3 calculation.  On the other hand, some discrepancy is inevitable in the second test; especially if you your atoms where not in the theoretical equilibrium positions. Also, increasing the cutoff and k-points can improve the consistency of the second test.
 
@@ -532,8 +532,8 @@ Set this variable to true to include scattering with boundary, by cutting off th
 #### volume_factor (REAL, default: 1)
 A dimensionless parameter to rescale the volume of the crystal unit cell. When studying a 2D material, it is useful to normalize the thermal conductivity with the volume of bulk, excluding the vacuum space left between periodic copies of the 2D slab. I.e. if the bulk material has an inter-layer spacing of H and you have built your 2D slab geometry with a vacuum distance V, you have to set volume_factor=H/V.
 
-## Output format
-### SMA calculation
+### Output format
+#### SMA calculation
 When doing a SMA calculation the tk.x code will produce two output files:
 1. A file named $prefix.$grid_size.out, where $prefix is the input value of prefix and $grid_size is the size of the integration grid (e.g. “20x20x20”). This file will contain one line per configuration, containing 1) the configuration number, 2) the value of sigma 3) the temperature 4-6) the diagonal elements of the thermal conductivity Kxx, Kyy and Kzz 7-12) The off-diagonal elements of K, in this order:  Kxy, Kyz, Kyz , Kyx, Kzx, Kzy.
 If the option store_lw is used, several more files will be created, containing all the quantities required to recompute the SMA thermal conductivity by hand:
@@ -543,7 +543,7 @@ If the option store_lw is used, several more files will be created, containing a
 4. vel.$prefix.$grid_size.out: the phonon groups velocity, x,y and z for each band (in Rydberg units, 9x number of atoms columns)
 In the tools directory you can find a mathlab/octave script recompute_sma.m to recompute the thermal conductivity by hand starting from these files. It is not completely automatic and it has no user interface, it is just a template for you to edit.
 
-### CGP calculation
+#### CGP calculation
 When a CGP calculation several files are created: one with the results at the last iterations for all the configurations and one file for each configurations with the results at each iteration. The thermal conductivity K is always in W/(m·K).
 1. A file named $prefix.$grid_size.out, where $prefix is the input value of prefix and $grid_size is the size of the integration grid (e.g. “20x20x20”). This file will contain with the results from the last completed iteration of the code, one line per configuration, containing 1) the configuration number, 2) the value of sigma 3) the temperature 4-6) the diagonal elements of the thermal conductivity Kxx, Kyy and Kzz 7-12) The off-diagonal elements of K, in this order:  Kxy, Kyz, Kyz , Kyx, Kzx, Kzy.
 2. A file for every input configuration, named $prefix.$grid_size_s$XX_T$YY.out, where $XX is the smearing in cm-1 and $YY is the temperature in Kelvin. A line is appended to each file at each iteration containing: 1) the number of the iteration, 2) the value of sigma 3) the temperature 4-6) the diagonal elements of the thermal conductivity Kxx, Kyy and Kzz 7-12) The off-diagonal elements of K, in this order:  Kxy, Kyz, Kyz , Kyx, Kzx, Kzy.
