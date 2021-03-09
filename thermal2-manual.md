@@ -859,7 +859,7 @@ CONFIGS
 ```
 
 # Data Flow
-![Data flow](images/dataflow.png)
+![Data flow](images/dataflow.svg)
 
 # Bibliography
 A list of essential bibliographic references follows. When using this code you are not required to cite all of these work, however the authors would greatly appreciate if you cited references 1-4 where the theory and implementation of this work is described in detail.

@@ -237,7 +237,7 @@ Once you have prepared you d3q.x calculation, running pw.x and ph.x and your inp
 It is not strictly necessary to run d3q.x with the same number of CPUs or pools than pw.x, however this is the most commonly tested case and there is a small chance that some unexpected bug may appear if you do otherwise. The fildrho files produced by phonon do not depends on the number of CPUs or pools,  it is perfectly safe to reuse them with different number of CPUs.
 
 ### Note on pools parallelisation
-Note: this is no longer necessary as of QE v6.x, of the code d3q and pw can run with a different number of pools and pw can be restarted with more pools than k-points.
+Update: this is no longer necessary as of QE v6.x, d3q and pw can run with a different number of pools and pw can be restarted with more pools than k-points.
 
 ~~~Because d3q uses less symmetry than pw.x and because it needs several grids of k-points (k+q1, k-q1, k+q2,… ) you may want to run d3q with more pools than pw. However, because of a long standing bug, it is not possible to run d3q with more pools than the number of k-points present in the pw.x calculation. This can be work-around in the following way:~~~
 1. ~~~run the normal pw.x self-consistent calculation. run a dummy pw.x non-self consistent calculation (NSCF) with many more k-points, i.e. with as many k-points as the number of pools you later want to use~~~
@@ -262,5 +262,5 @@ Each file contains the D3 matrix (more strictly, the D3 tensor) in an XML format
 
 ## Data flow
 Note: All the d3_ codes used to manipulate the force constants are documented in manual-thermal2
-![data flow](images/dataflow.png)
+![data flow](images/dataflow.svg)
 
