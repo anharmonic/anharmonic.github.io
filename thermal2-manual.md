@@ -800,26 +800,28 @@ CONFIGS
 ```
 
 # Data Flow
-
+![Data flow](images/dataflow.png)
 
 # Bibliography
 A list of essential bibliographic references follows. When using this code you are not required to cite all of these work, however the authors would greatly appreciate if you cited references 1-4 where the theory and implementation of this work is described in detail.
 
-In particular ref. 1 describes the calculation of 3rd order dynamical matrices using DFPT, and the calculation of ph-ph linewidth; ref. 2 describes the iterative solution of the BTE. In ref. 9 the formula used to compute the phonon-phonon scattering is derived. See also refs. 10-14 for previous methods, and for the inclusion of isotopic and border scattering. Ref. 3 and 4 include important applications and analysis of the BTE exact solution. Reference 5 describes the calculation of phonon spectra functions and the combination of 3rd and 4th order. References 6-8 contain the foundation of the theory used.
-    1. L. Paulatto, F. Mauri, and M. Lazzeri, Phys. Rev. B 87, 214303 (2013).
-    2. G. Fugallo, M. Lazzeri, L. Paulatto, and F. Mauri, Phys. Rev. B 88, 045430 (2013).
-    3. A. Cepellotti, G. Fugallo, L. Paulatto, M. Lazzeri, F. Mauri, N. Marzari, Nature communications 6 (2015)
-    4. G. Fugallo, A. Cepellotti, L. Paulatto, M. Lazzeri, N. Marzari, F. Mauri, Nano letters 14 (11), 6109-6114 (2014)
-    5. Lorenzo Paulatto, Ion Errea, Matteo Calandra, and Francesco Mauri, Phys. Rev. B 91, 054304 (2015)
-    6. M. Calandra, M. Lazzeri, F. Mauri, Physica C 456, 38–44 (2007)
-    7. Michele Lazzeri and Stefano de Gironcoli, Phys. Rev. Lett. 81, 2096 (1998)
-    8. N. Bonini, M. Lazzeri, N. Marzari, and F. Mauri, Phys. Rev. Lett. 99, 176802 (2007)
-    9. J. Garg, N. Bonini, B. Kozinsky et al., Phys. Rev. Lett. 106, 045901 (2011)
-    10. Joseph Callaway, Phys. Rev. 113, 1046
-    11. M. Omini, A. Sparavigna, Il Nuovo Cimento, 19, 1537 (1997)
-    12. M. Omini and A. Sparavigna, Phys. Rev. B 53, 9064 (1996)
-    13. M. Omini, A. Sparavigna, Physica B: Condensed Matter 212, 101-112, (1995)
-    14. M. Omini and A. Sparavigna, Phys. Rev. B 61, 6677 (2000)
+In particular ref. 1 describes the calculation of 3rd order dynamical matrices using DFPT, and the calculation of ph-ph linewidth; ref. 2 describes the iterative solution of the BTE. In ref. 9 the formula used to compute the phonon-phonon scattering is derived. See also refs. 10-14 for previous methods, and for the inclusion of isotopic and border scattering. Ref. 3 and 4 include important applications and analysis of the BTE exact solution. Reference 5 describes the calculation of phonon spectral functions and the combination of 3rd and 4th order. References 6-8 contain the foundation of the theory used. The geometric terms used to include finite-size effects are described in detail in ref. 20.
+
+1. L. Paulatto, F. Mauri, and M. Lazzeri, Phys. Rev. B 87, 214303 (2013).
+2. G. Fugallo, M. Lazzeri, L. Paulatto, and F. Mauri, Phys. Rev. B 88, 045430 (2013).
+3. A. Cepellotti, G. Fugallo, L. Paulatto, M. Lazzeri, F. Mauri, N. Marzari, Nature communications 6 (2015)
+4. G. Fugallo, A. Cepellotti, L. Paulatto, M. Lazzeri, N. Marzari, F. Mauri, Nano letters 14 (11), 6109-6114 (2014)
+5. Lorenzo Paulatto, Ion Errea, Matteo Calandra, and Francesco Mauri, Phys. Rev. B 91, 054304 (2015)
+6. M. Calandra, M. Lazzeri, F. Mauri, Physica C 456, 38–44 (2007)
+7. Michele Lazzeri and Stefano de Gironcoli, Phys. Rev. Lett. 81, 2096 (1998)
+8. N. Bonini, M. Lazzeri, N. Marzari, and F. Mauri, Phys. Rev. Lett. 99, 176802 (2007)
+9. J. Garg, N. Bonini, B. Kozinsky et al., Phys. Rev. Lett. 106, 045901 (2011)
+10. Joseph Callaway, Phys. Rev. 113, 1046
+11. M. Omini, A. Sparavigna, Il Nuovo Cimento, 19, 1537 (1997)
+12. M. Omini and A. Sparavigna, Phys. Rev. B 53, 9064 (1996)
+13. M. Omini, A. Sparavigna, Physica B: Condensed Matter 212, 101-112, (1995)
+14. M. Omini and A. Sparavigna, Phys. Rev. B 61, 6677 (2000)
+15. L Paulatto, D Fournier, M Marangolo, M Eddrief, P Atkinson, M Calandra. Phys. Rev. B 101 (20), 205419 (2020)
 
 # Change Log
 See the changelog file in Doc.
