@@ -932,8 +932,9 @@ This is an example from graphene (done using 128x128 BZ-centered points):
 
 
 ## d3_tk.x
-Compute the SMA solution of the BTE
+### Compute the SMA solution of the BTE
 The following input file computes the thermal conductivity in the Single-Mode Approximation. This example uses a finer grid of 24x24x24 q-points to compute the phonon lifetime on a grid of 12x12x12 points, which is integrated to compute the thermal conductivity. Furthermore, the natural isotopic distribution of Silicon is used.
+```
 &tkinput 
  calculation = 'sma' 
  prefix="tk"
