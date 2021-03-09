@@ -39,7 +39,9 @@ This code can compute the phonon frequency at a q-point or along a path, it can 
 This code is analogous to the q2r.x code of QE and  it uses the same input, but produces a file of Force Constants (FCs) which has already been re-centered in the reciprocal space Wigner-Seitz cell to make Fourier Interpolation faster.
 ### d3_qq2rr.x
 Analogous to q2r.x but operates on the 3rd order matrices. This codes takes as command line arguments the dimension of the q-points grid and optionally the name of the output file. You must feed it feed by standard input the list of anharmonic dynamical matrices in the XML format produced by d3q.x. For example, d3q was run with fild3dyn=”anh” for a NQX x NQY  x NQZ grid, you can compute the 3rd order Fcs as:
+```
 ls anh* | qq2rr.x NQX NQY NQZ [-o mat3R] [-f NFAR] [-w]
+```
 The result will be written by default to a file called mat3R, but you can change this with the -o option.
 You can specify the optional argument NFAR (default=2) which is the number of neighbors that the code will scan to build the Wigner-Seitz cell. The default value usually works, you can set it to zero to avoid any re-centering: The resulting force constant will be unsuitable for doing any further calculation, due to aliasing in the Fourier interpolation, but they may be easier to import in another code.
 The code will automatically select from the list the files that it needs to fill the grid; all the other files will be discarded.  Which means that you can easily compute the force constants for any sub-lattice of the one compute, just by changing the values of  NQX, NQY  and NQZ.
@@ -83,6 +85,7 @@ See also import_phonopy.py.
 NOTE: this code is experimental and not widely tested, use at your own risk.
 This codes reads a spectral weight file from d3_lw.x and computes the convolution with a Lorentzian function that has an energy-dependent FWHM. This procedures simulates the broadening introduced by Raman spectroscopy experiments. This code can also sum and average the spectral function coming from several different files, to simulate the uncertainty of the neutron wavevectors. It reads its input from a file called input.SQOM. Please see the code of PROGRAM_sqom.f90 for details.
 
+## Tools
 ### funcoft.sh
 This is a short bash script to get a plottable file of the linewidth of a specific phonon mode as a function of temperature.
 It reads a list of linewidth files produced by d3_lw.x and extracts the frequency, linewidth (and if possible shifted frequency) from all files for a specific phonon q-point and band and prints a list ordered by temperature and smearing. Syntax:
@@ -98,6 +101,8 @@ The output will contain 5 columns:
 4. linewidth (gamma, HWHM)
 5. shifted frequency (if available in the file)
 This script is provided “as is”, using non-standard names for the output files can break it.
+### recompute-sma.m
+A simple octave/mathlab script that allow you to recompute the thermal conductivity in single mode approximation using the output from d3_tk.x (using store_lw=.true.) and d3_r2q.x (using calculation="extr"). This script allow you to quickly combine different intrinsic/extrinsic scattering sources without repeating the entire calculation, to manually change parameter and to extract useful information, like the per-mod contribution to thermal transport. Please note that this is not a brainless script: some editing (i.e. at the very list the unit cell volume) and understanding of the physics is requires.
 
 ### diffd3.x
 Compare two D3 files, write on output the matrix elements and the maximum difference. Take as arguments either two file names (the first and second D3 matrix) or two directory names a file name, which will be opened in both directories.
@@ -147,20 +152,20 @@ Method used to apply the acoustic sum rule, can be
 Number of q-points to read (see the QPOINTS section below)
 #### print_dynmat (LOGICAL, default: .false.)
 If set to .true. A file containing the dynamical matrix, in phonon format, will be saved for each q-point (only works for calculation="freq"). The file name will be “r2q_dyn_NQ” where NQ is the progressive number of the point.
-sort_freq (CHARACTER, default: "default")
+#### sort_freq (CHARACTER, default: "default")
 When plotting the linewidth and frequencies along a path, there are several ways to order the frequencies and associated linewidth and shifted frequencies:
     • "default": keep the default order of increasing frequencies
     • "overlap": sort each point in order to maximize the overlap of each band polarization with the corresponding band at the previous point. This is the best choice for paths, but probably will not work for 2D or 3D grid plots
-print_velocity (LOGICAL, default: .false.)
+#### print_velocity (LOGICAL, default: .false.)
 If set to .true. a file containing the phonon group velocities will be saved (only applies when calculation="freq"). The file name will be prefix_vel.out, after the path length and the q-point, the velocities are printed in Cartesian coordinates, Rydberg units (1.09×106 m·s−1).
 ne, de, e0, sigma_e (INTEGER, REAL, REAL, in cm-1 no default)
 Used for jdos calculation, see the description in &lwinput section, below.
 ### Output format
 The r2q.x code will produce an output file for every configuration. The output files will be named $prefix.out (where $prefix is the value of the input variable prefix). It contains the following columns:
-1.	A progressive integer number
-2.	The length of the q-point path or, if computing over a grid the weight of the q-points
-3→5.	The coordinates of the q-point in units of 2π/alat
-6→5+3 nat.
+- 1.	A progressive integer number
+- 2.	The length of the q-point path or, if computing over a grid the weight of the q-points
+- 3→5.	The coordinates of the q-point in units of 2π/alat
+- 6→5+3 nat.
 	The phonon frequencies in cm-1.
 
 ## d3_lw.x
@@ -168,12 +173,12 @@ This code can compute the intrinsic phonon-phonon interaction and the interactio
 ### Namelist &lwinput
 #### calculation (CHARACTER, default: “lw”)
 The type of calculation to perform, it can take several different values:
-    • “lw imag”: compute the imaginary part of the self-energy, i.e. the phonon linewidth. In this mode the code will enforce conservation of energy with a Diract delta function approximated with a Gaussian function of width delta, read from the CONFIGS section.
-    • “lw full”: compute the entire self energy, the real part is the lineshift and the imaginary part is the linewidth. In this case the value of delta from the CONFIGS will be used as a regularization for the self-energy.
-    • “spf full”: compute the spectra function, also known as σ(ω), for a list of energies, provided by the input variables ne, de, e0 and siigma_e (see below) and for all q-points. 
-    • "spf imag": as "spf full", but only the imaginary part of the self-energy will be used, i.e. the spectra function will be centered around the non-shifted phonon energy. This is often in better agreement with experiments than "spf full", unless you also include somehow the 4-phonons self-energy contribution, because the real part of the 3-phonon term and the 4-phonon terms tend to cancel each other out.
-    • “spf simple”: simulate the spectral function as a superposition of Lorentzian functions centered around the phonon frequencies and appropriate width, see also ne, de and n0. This is equivalent to "spf full" when the anharmonicity is very weak.
-    • “final”: decompose the contribution to the linewidth to a specific energy and q-point (specified with the e_initial and q_initial keywords) over the energy of the final states in the scattering process or over the final q, or both (see q_summed and q_resolved). In the first case you must specify the range of final energies to consider with the ne, de and e0 keywords; in the second case the possible final q-points will be read from the QPOINTS section.
+- “lw imag”: compute the imaginary part of the self-energy, i.e. the phonon linewidth. In this mode the code will enforce conservation of energy with a Diract delta function approximated with a Gaussian function of width delta, read from the CONFIGS section.
+- “lw full”: compute the entire self energy, the real part is the lineshift and the imaginary part is the linewidth. In this case the value of delta from the CONFIGS will be used as a regularization for the self-energy.
+- “spf full”: compute the spectra function, also known as σ(ω), for a list of energies, provided by the input variables ne, de, e0 and siigma_e (see below) and for all q-points. 
+- "spf imag": as "spf full", but only the imaginary part of the self-energy will be used, i.e. the spectra function will be centered around the non-shifted phonon energy. This is often in better agreement with experiments than "spf full", unless you also include somehow the 4-phonons self-energy contribution, because the real part of the 3-phonon term and the 4-phonon terms tend to cancel each other out.
+- “spf simple”: simulate the spectral function as a superposition of Lorentzian functions centered around the phonon frequencies and appropriate width, see also ne, de and n0. This is equivalent to "spf full" when the anharmonicity is very weak.
+- “final”: decompose the contribution to the linewidth to a specific energy and q-point (specified with the e_initial and q_initial keywords) over the energy of the final states in the scattering process or over the final q, or both (see q_summed and q_resolved). In the first case you must specify the range of final energies to consider with the ne, de and e0 keywords; in the second case the possible final q-points will be read from the QPOINTS section.
 #### prefix (CHARACTER, default: the value of calculation)
 The first part of the output file name, the file will be called “prefix*.out”. Where the * part depend on the kind of calculation (See the Output format section, page 16)
 #### outdir (CHARACTER, default: “./”, i.e. the current directory)
@@ -198,7 +203,7 @@ Set to “bz” to use a grid centered in the Brillouin zone. This option will d
 A shift to apply to the grid of k-points, in units of half the lattice spacing; i.e. set it to (1,1,1) to have the Monkhorst-Pack shifted grid, any fractional values is allowed.
 #### ne, de, e0, sigma_e (INTEGER, REAL, REAL, in cm-1 no default)
 When doing a Spectral function (d3_lw.x) or Final state (d3_lw.x ) or Joint-DOS (d3_r2q.x) calculation you have to define an energy axis with these variables. The axis will include ne equally spaced points starting from e0 and up to e0+ne de. The sum over the q-points will be convoluted with a gaussian of width sigma_e (default: 5 de) to obtain a smooth curve.
-e_initial (in cm-1, no default)
+#### e_initial (in cm-1, no default)
 When doing a Final state decomposition calculation, this is the energy of the initial state considered in the scattering process. If you want to consider a specific phonon mode, just enter its energy by hand, in cm-1.
 #### q_initial (3x REAL, in units of 2π/alat)
 As e_initial, specifies the initial q-point.
@@ -210,8 +215,10 @@ will output as the final lines the most important decay processes. See also sigm
 #### q_resolved (LOGICAL, default: false)
 As q_summed, but the energy dependence is not integrated out. The output file will contain an analysis of the decay process as a function of the final state q-point and energy. Note that this file can be huge, and it is almost impossible to plot for an entire grid. Along a line, you can produce a color plot using this gnuplot command (assuming that the file freq.out contains the frequencies):
 set palette defined (0  "white", 1  "red") 
+```
 plot "fs_qresolved_T300_s1.out" u 1:2:6 w image, \
      for [i=6:11] 'freq.out' u 2:i w l lt -1 not
+```
 See also sigmaq and q_summed and the output format. Note that the “image” plot mode suppose that the x-axis spacing is constant, if it is not, you will have to do a 3D “splot” with “view map” in order to obtain a good plot.
 #### sigmaq (REAL,  default: 0.1 in units of 2π/alat)
 Used in conjunction with q_summed or q_resolved to obtain a nice smooth plot over the q-points by convoluting it with a Gaussian function of width sigmaq. Set it to something of the order of the spacing between the q-points.
@@ -219,9 +226,9 @@ Used in conjunction with q_summed or q_resolved to obtain a nice smooth plot ove
 UNTESTED/EXPERIMENTAL! When doing a spectra function calculation, add an elastic peak  of equation (1 + f_bose(e,T)) / e) which should emulate the elastic peak of neutron spectroscopy.
 #### sort_freq (CHARACTER, default: "default")
 When plotting the linewidth and frequencies along a path, there are several ways to order the frequencies and associated linewidth and shifted frequencies:
-    • "default": keep the default order of increasing frequencies
-    • "overlap": sort each point in order to maximize the overlap of each band polarization with the corresponding band at the previous point. This is the best choice for paths, but probably will not work for 2D or 3D grid plots
-    • "shifted": sort in order of shifted frequencies, i.e. frequency+lineshift. It is only meaningful when doing a "lw full" calculation, it can help to have good quality plots when "overlap" fails.
+- "default": keep the default order of increasing frequencies
+- "overlap": sort each point in order to maximize the overlap of each band polarization with the corresponding band at the previous point. This is the best choice for paths, but probably will not work for 2D or 3D grid plots
+- "shifted": sort in order of shifted frequencies, i.e. frequency+lineshift. It is only meaningful when doing a "lw full" calculation, it can help to have good quality plots when "overlap" fails.
 #### isotopic_disorder (LOGICAL, default: false)
 Set this to true to include scattering from isotopic disorder. You will also have to specify the isotopic composition of every element in the system in the ISOTOPES section. NOTE: isotopes are only used for linewidth calculation, they are no used for spectral functions and final state decomposition.
 #### casimir_scattering (LOGICAL, default: false)
@@ -243,42 +250,39 @@ Where $XX is the temperature in Kelvin and $YY the delta in cm-1. Each output fi
 NOTE: In all of the following cases case when specifying QPOINTS as “grid” or “bz”, the length of the path will actually be replaced by the weight of the point used to do an integral in reciprocal space.
 Calculation “lw imag”
 Number of the column, or columns and its and content:
-1.		A progressive integer number
-2.		The length of the q-point path (when doing a path)
+- 1.		A progressive integer number
+- 2.		The length of the q-point path (when doing a path)
 		or the weight of the q-point (when doing a grid calculation)
-3→5.		The coordinates of the q-point in 2π/alat.
-6→5+3 nat.	The unperturbed phonon frequencies in cm-1
-6+3 nat→5+6 nat.	
+- 3→5.		The coordinates of the q-point in 2π/alat.
+- 6→5+3 nat.	The unperturbed phonon frequencies in cm-1
+- 6+3 nat→5+6 nat.	
 		The linewidth (HWHM) in cm-1
 Calculation “lw full”:
-1→5+6 nat.	Same content as “lw imag”
-6+6 nat→5+8 nat.
+- 1→5+6 nat.	Same content as “lw imag”
+- 6+6 nat→5+8 nat.
 The shifted phonon frequencies (i.e. frequency+shift) in cm-1. If the sort_shifted_q keyword was set to true, the shifted frequencies are sorted in increasing order and the corresponding linewidth are sorted accordingly. The unperturbed frequencies are left unchanged.
 Calculation “spf”:
-1.		The energy axis in cm-1
-2.		The length of the q-point path (when doing a path)
-		or the weight of the q-point (when doing a grid calculation)
-3.		The total spectral function in 1/cm-1
-4→3+3 nat.	Contribution to the spectral function from each band in 1/cm-1
+- 1.		The energy axis in cm-1
+- 2.		The length of the q-point path (when doing a path) or the weight of the q-point (when doing a grid calculation)
+- 3.		The total spectral function in 1/cm-1
+- 4→3+3 nat.	Contribution to the spectral function from each band in 1/cm-1
 Note that the energy axis cycles faster than the path length and there is a whitespace after each q-point which makes plotting with gnuplot “pm3d” style easy with this syntax (column 3 is used twice, both for heigth and colour):
 sp “file” u 1:2:3:3 w pm3d
 Calculation “final”:
-1.		The energy axis in cm-1
-2.		The total final state weight in 1/cm-1
-3→2+3 nat.	Contribution to the final state from each band in 1/cm-1
+- 1.		The energy axis in cm-1
+- 2.		The total final state weight in 1/cm-1
+- 3→2+3 nat.	Contribution to the final state from each band in 1/cm-1
 Calculation “final”, q_resolved TRUE:
-1.		The energy axis in cm-1
-2.		The length of the q-point path (when doing a path, units 2π/alat)
-		or the weight of the q-point (when doing a grid calculation)
-3→5.		The coordinates of the q-point in (2π/alat).
-6.		The infinitesimal contribution to the linewidth, as a function of energy and q  (1/cm-1)
-7→6+3 nat.	The infinitesimal contribution to the linewidth, decomposed by band (1/cm-1)
+- 1.		The energy axis in cm-1
+- 2.		The length of the q-point path (when doing a path, units 2π/alat) or the weight of the q-point (when doing a grid calculation)
+- 3→5.		The coordinates of the q-point in (2π/alat).
+- 6.		The infinitesimal contribution to the linewidth, as a function of energy and q  (1/cm-1)
+- 7→6+3 nat.	The infinitesimal contribution to the linewidth, decomposed by band (1/cm-1)
 Calculation “final”, q_summed TRUE:
-1.		The length of the q-point path (when doing a path, units 2π/alat)
-		or the weight of the q-point (when doing a grid calculation)
-2→4.		The coordinates of the q-point in (2π/alat).
-5.		The infinitesimal contribution to the linewidth from this q-point  (1/cm-1)
-6→5+3 nat.	The infinitesimal contribution to the linewidth,  decomposed by band (1/cm-1)
+- 1.		The length of the q-point path (when doing a path, units 2π/alat) or the weight of the q-point (when doing a grid calculation)
+- 2→4.		The coordinates of the q-point in (2π/alat).
+- 5.		The infinitesimal contribution to the linewidth from this q-point  (1/cm-1)
+- 6→5+3 nat.	The infinitesimal contribution to the linewidth,  decomposed by band (1/cm-1)
 
 ## d3_tk.x
 The d3_tk.x code can compute the thermal conductivity coefficient in the SMA or by exact diagonalization of the BTE. Most of its input variables are the same as d3_lw.x, we refer to the previous section for their description
@@ -314,17 +318,17 @@ A dimensionless parameter to rescale the volume of the crystal unit cell. When s
 ## Output format
 ### SMA calculation
 When doing a SMA calculation the tk.x code will produce two output files:
-    1. A file named $prefix.$grid_size.out, where $prefix is the input value of prefix and $grid_size is the size of the integration grid (e.g. “20x20x20”). This file will contain one line per configuration, containing 1) the configuration number, 2) the value of sigma 3) the temperature 4-6) the diagonal elements of the thermal conductivity Kxx, Kyy and Kzz 7-12) The off-diagonal elements of K, in this order:  Kxy, Kyz, Kyz , Kyx, Kzx, Kzy.
+1. A file named $prefix.$grid_size.out, where $prefix is the input value of prefix and $grid_size is the size of the integration grid (e.g. “20x20x20”). This file will contain one line per configuration, containing 1) the configuration number, 2) the value of sigma 3) the temperature 4-6) the diagonal elements of the thermal conductivity Kxx, Kyy and Kzz 7-12) The off-diagonal elements of K, in this order:  Kxy, Kyz, Kyz , Kyx, Kzx, Kzy.
 If the option store_lw is used, several more files will be created, containing all the quantities required to recompute the SMA thermal conductivity by hand:
-    1. q.$prefix.$grid_size.out: the list of q-vectors (3 columns, in cartesian coordinates of 2π/alat) and their respective weight (1 columns)
-    2. freq.$prefix.$grid_size.out: the phonon frequencies (in cm-1, 3x number of atoms columns)
-    3. lw.$prefix.$grid_size.out: the phonon FWHM (in cm-1, 3x number of atoms columns)
-    4. vel.$prefix.$grid_size.out: the phonon groups velocity, x,y and z for each band (in Rydberg units, 9x number of atoms columns)
+1. q.$prefix.$grid_size.out: the list of q-vectors (3 columns, in cartesian coordinates of 2π/alat) and their respective weight (1 columns)
+2. freq.$prefix.$grid_size.out: the phonon frequencies (in cm-1, 3x number of atoms columns)
+3. lw.$prefix.$grid_size.out: the phonon FWHM (in cm-1, 3x number of atoms columns)
+4. vel.$prefix.$grid_size.out: the phonon groups velocity, x,y and z for each band (in Rydberg units, 9x number of atoms columns)
 In the tools directory you can find a mathlab/octave script recompute_sma.m to recompute the thermal conductivity by hand starting from these files. It is not completely automatic and it has no user interface, it is just a template for you to edit.
 ### CGP calculation
 When a CGP calculation several files are created: one with the results at the last iterations for all the configurations and one file for each configurations with the results at each iteration. The thermal conductivity K is always in W/(m·K).
-    1. A file named $prefix.$grid_size.out, where $prefix is the input value of prefix and $grid_size is the size of the integration grid (e.g. “20x20x20”). This file will contain with the results from the last completed iteration of the code, one line per configuration, containing 1) the configuration number, 2) the value of sigma 3) the temperature 4-6) the diagonal elements of the thermal conductivity Kxx, Kyy and Kzz 7-12) The off-diagonal elements of K, in this order:  Kxy, Kyz, Kyz , Kyx, Kzx, Kzy.
-    2. A file for every input configuration, named $prefix.$grid_size_s$XX_T$YY.out, where $XX is the smearing in cm-1 and $YY is the temperature in Kelvin. A line is appended to each file at each iteration containing: 1) the number of the iteration, 2) the value of sigma 3) the temperature 4-6) the diagonal elements of the thermal conductivity Kxx, Kyy and Kzz 7-12) The off-diagonal elements of K, in this order:  Kxy, Kyz, Kyz , Kyx, Kzx, Kzy.
+1. A file named $prefix.$grid_size.out, where $prefix is the input value of prefix and $grid_size is the size of the integration grid (e.g. “20x20x20”). This file will contain with the results from the last completed iteration of the code, one line per configuration, containing 1) the configuration number, 2) the value of sigma 3) the temperature 4-6) the diagonal elements of the thermal conductivity Kxx, Kyy and Kzz 7-12) The off-diagonal elements of K, in this order:  Kxy, Kyz, Kyz , Kyx, Kzx, Kzy.
+2. A file for every input configuration, named $prefix.$grid_size_s$XX_T$YY.out, where $XX is the smearing in cm-1 and $YY is the temperature in Kelvin. A line is appended to each file at each iteration containing: 1) the number of the iteration, 2) the value of sigma 3) the temperature 4-6) the diagonal elements of the thermal conductivity Kxx, Kyy and Kzz 7-12) The off-diagonal elements of K, in this order:  Kxy, Kyz, Kyz , Kyx, Kzx, Kzy.
 
 ## QPOINTS
 The “QPOINTS” card instruct the code to start reading a list of nq q-points, nq has been previously entered in the namelist. On the same line as QPOINTS thre optional keywords can be specified:
