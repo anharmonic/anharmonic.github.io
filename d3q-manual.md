@@ -188,25 +188,33 @@ If you set safe_io to true, every file is closed and reopened after each write. 
 ### GRID and QPOINTS
 
 After the &inputd3q namelist, the grid dimension or q-points coordinates have to be specified. Here, are some examples taken from a hexagonal system:
-If mode="gamma-q", compute the point M=(1/2, 0, 0):
+Using mode="gamma-q", compute the point M=(1/2, 0, 0):
+```
  0.5 0.0 0.0
-If mode="single" case, compute (M, X, -M-X)
+```
+Using mode="single", compute (M, X, -M-X)
+```
  0.5 0.0 0.0
  0.333333 0.333333 0.0
+```
 In the "partial" case, compute 4x4x1 a grid centered around Γ:
+```
  0. 0.0 0.0
  4 4 1
-In the  "full" case, compute the entire 4x4x1 grid
+```
+In the "full" case, compute the entire 4x4x1 grid
+```
  4 4 1
+```
  
 ### &d3_debug namelist
 The variables inside the d3_debug namelist can be used to disable some parts of the calculation or to print more output.
 WARNING! no sanity check is done on these variables, setting this namelist can result in crash and random results. No bug report will be taken into consideration if the code was run with debug variables! 
-All variable in this namelist default to values default to .true.; except for dbg_write_d3_part.
+All variable in this namelist default to .true.; except for dbg_write_d3_part which defaults to false.
 - dbg_do_dwfc: compute d^q psi
-- dbg_do_dpdvp:  pre-compute &lt;d psi| dV| psi&gt;
-- dbg_do_dpdvdp: compute the &lt;d psi| d V | d psi&gt; term 
-- dbg_do_dpdpdv: compute the &lt;d psi|d psi&gt;&lt;psi| dV |psi&gt; term
+- dbg_do_dpdvp:  pre-compute &lt;d psi&#124; dV&#124; psi&gt;
+- dbg_do_dpdvdp: compute the &lt;d psi&#124; d V&#124; d psi&gt; term 
+- dbg_do_dpdpdv: compute the &lt;d psi&#124;d psi&gt;&lt;psi&#124; dV &#124;psi&gt; term
 - dbg_do_drhod2v: compute the d rho d^2 V term (and related wfc terms)
 - dbg_do_rhod3v: compute the tho d^3 V term (and related)
 - dbg_do_ion: compute Ion-Ion terms (using the Ewald sum technique)
