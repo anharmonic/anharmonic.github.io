@@ -33,16 +33,11 @@ Example of fake mat3R file that will produce zero anharmonicity, useful for test
 Example input file for the d3_sqom.x code, to compute inelastic neutron scattering cross sections.
 
 ## Tutorial
-In the Tutorial2016 directory you will find the exercise from the Psi-K 
-Quantum-ESPRESSO School on Ab-Initio Thermal Transport hosted in Paris in June 
-2016. The exercises include verbose comments and explanations. 
+In the Tutorial2016 directory you will find the exercise from the Psi-K Quantum-ESPRESSO School on Ab-Initio Thermal Transport hosted in Paris in June 2016. The exercises include verbose comments and explanations. 
 
-We recommend that you reproduce the exercises in the Tutorial in order  to 
-familiarize with the D3Q and thermal2 codes. If you are already familiar with 
-Quantum-ESPRESSO calculation you may want to skip DAY1 (total energy 
-calculation) and DAY2 (phonon calculation and interpolation).
+We recommend that you reproduce the exercises in the Tutorial in order  to familiarize with the D3Q and thermal2 codes. If you are already familiar with Quantum-ESPRESSO calculation you may want to skip DAY1 (total energy calculation) and DAY2 (phonon calculation and interpolation).
 
-
+## Getting further
 For more details, please check the [manuals of d3q](https://anharmonic.github.io/d3q/) and [thermal2](https://anharmonic.github.io/thermal2/) that you can find on this website.
 
 
