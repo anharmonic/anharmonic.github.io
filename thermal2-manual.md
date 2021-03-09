@@ -130,12 +130,15 @@ We would greatly appreciate if when using the thermal2 suite of codes you cite t
          * [Compute the linewidth along a path in the BZ](#compute-the-linewidth-along-a-path-in-the-bz)
          * [Compute the spectral function along a path](#compute-the-spectral-function-along-a-path)
          * [Compute the final state decomposition](#compute-the-final-state-decomposition)
+         * [Color-map plot of the LW in the BZ (2D systems)](#color-map-plot-of-the-lw-in-the-bz-2d-systems)
+      * [d3_tk.x](#d3_tkx-2)
+         * [Compute the SMA solution of the BTE](#compute-the-sma-solution-of-the-bte)
          * [Compute the exact solution of the BTE](#compute-the-exact-solution-of-the-bte)
    * [Data Flow](#data-flow)
    * [Bibliography](#bibliography)
    * [Change Log](#change-log)
 
-<!-- Added by: paulatto, at: Tue Mar  9 17:42:18 CET 2021 -->
+<!-- Added by: paulatto, at: Tue Mar  9 17:52:47 CET 2021 -->
 
 <!--te-->
 
