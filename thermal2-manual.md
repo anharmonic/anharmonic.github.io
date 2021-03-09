@@ -121,10 +121,11 @@ We would greatly appreciate if when using the thermal2 suite of codes you cite t
          * [SMA calculation](#sma-calculation)
          * [CGP calculation](#cgp-calculation)
       * [QPOINTS](#qpoints)
-      * [CONFIGS](#configs)
          * [Examples](#examples)
-      * [ISOTOPES](#isotopes)
+      * [CONFIGS](#configs)
          * [Examples](#examples-1)
+      * [ISOTOPES](#isotopes)
+         * [Examples](#examples-2)
       * [d3_lw.x](#d3_lwx-2)
          * [Testing convergence with smearing and grid](#testing-convergence-with-smearing-and-grid)
          * [Compute the linewidth along a path in the BZ](#compute-the-linewidth-along-a-path-in-the-bz)
@@ -138,7 +139,7 @@ We would greatly appreciate if when using the thermal2 suite of codes you cite t
    * [Bibliography](#bibliography)
    * [Change Log](#change-log)
 
-<!-- Added by: paulatto, at: Tue Mar  9 17:52:47 CET 2021 -->
+<!-- Added by: paulatto, at: Tue Mar  9 17:54:23 CET 2021 -->
 
 <!--te-->
 
@@ -586,7 +587,8 @@ e2x e2y e2z
 q0x q0y q0z
 ```
 Which are the grid size (n1, n2) two vectors defining the surface (e1,e2) and the origin (q0). The first point in the surface is q0, the last is q0+e1+e2
-Examples
+
+### Examples
 Select the Γ point (000) and the X point (001) in a cubic lattice:
 ```
 QPOINTS
