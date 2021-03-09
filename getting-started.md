@@ -40,5 +40,8 @@ We recommend that you reproduce the exercises in the Tutorial in order  to famil
 ## Getting further
 For more details, please check the [manuals of d3q](https://anharmonic.github.io/d3q/) and [thermal2](https://anharmonic.github.io/thermal2/) that you can find on this website.
 
+## Issue and bugs
+If you need help with the code, you can ask a question in the [discussions](https://github.com/anharmonic/d3q/discussions) section of GitHub. Please report any bug and in the [issues tracker](https://github.com/anharmonic/d3q/issues)a be sure to include full input and output file, pseudopotentials and enough information to reproduce the calculation.
+
 
 
