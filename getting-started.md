@@ -16,13 +16,13 @@ Calculation of D3 matrices (NOTE: very far from convergence!!) and phonon linewi
 #### Silicon
 Calculation of D3 matrices, force constants, linewidth and thermal conductivity (both in single-mode approximation and exact).
 
-### MgO
+#### MgO
 Calculation of D3 matrices and three-body force constants.
 
 #### QHA
 Ab-initio thermal expansion curve of Silicon.
 
-### Import_FD
+#### Import_FD
 Example on importing three-body force constants produced with the thirorder.py code from ShngBTE.
 
 
