@@ -349,30 +349,30 @@ Calculation “lw full”:
 The shifted phonon frequencies (i.e. frequency+shift) in cm-1. If the sort_shifted_q keyword was set to true, the shifted frequencies are sorted in increasing order and the corresponding linewidth are sorted accordingly. The unperturbed frequencies are left unchanged.
 
 Calculation “spf”:
-- 1.		The energy axis in cm-1
-- 2.		The length of the q-point path (when doing a path) or the weight of the q-point (when doing a grid calculation)
-- 3.		The total spectral function in 1/cm-1
-- 4→3+3 nat.	Contribution to the spectral function from each band in 1/cm-1
+- 1		The energy axis in cm-1
+- 2		The length of the q-point path (when doing a path) or the weight of the q-point (when doing a grid calculation)
+- 3		The total spectral function in 1/cm-1
+- 4→3+3 nat	Contribution to the spectral function from each band in 1/cm-1
 Note that the energy axis cycles faster than the path length and there is a whitespace after each q-point which makes plotting with gnuplot “pm3d” style easy with this syntax (column 3 is used twice, both for heigth and colour):
 sp “file” u 1:2:3:3 w pm3d
 
 Calculation “final”:
-- 1.		The energy axis in cm-1
-- 2.		The total final state weight in 1/cm-1
-- 3→2+3 nat.	Contribution to the final state from each band in 1/cm-1
+- 1		The energy axis in cm-1
+- 2		The total final state weight in 1/cm-1
+- 3→2+3 nat	Contribution to the final state from each band in 1/cm-1
 
 Calculation “final”, q_resolved TRUE:
-- 1.		The energy axis in cm-1
-- 2.		The length of the q-point path (when doing a path, units 2π/alat) or the weight of the q-point (when doing a grid calculation)
-- 3→5.		The coordinates of the q-point in (2π/alat).
-- 6.		The infinitesimal contribution to the linewidth, as a function of energy and q  (1/cm-1)
-- 7→6+3 nat.	The infinitesimal contribution to the linewidth, decomposed by band (1/cm-1)
+- 1		The energy axis in cm-1
+- 2		The length of the q-point path (when doing a path, units 2π/alat) or the weight of the q-point (when doing a grid calculation)
+- 3→5		The coordinates of the q-point in (2π/alat).
+- 6		The infinitesimal contribution to the linewidth, as a function of energy and q  (1/cm-1)
+- 7→6+3 nat	The infinitesimal contribution to the linewidth, decomposed by band (1/cm-1)
 
 Calculation “final”, q_summed TRUE:
-- 1.		The length of the q-point path (when doing a path, units 2π/alat) or the weight of the q-point (when doing a grid calculation)
-- 2→4.		The coordinates of the q-point in (2π/alat).
-- 5.		The infinitesimal contribution to the linewidth from this q-point  (1/cm-1)
-- 6→5+3 nat.	The infinitesimal contribution to the linewidth,  decomposed by band (1/cm-1)
+- 1		The length of the q-point path (when doing a path, units 2π/alat) or the weight of the q-point (when doing a grid calculation)
+- 2→4		The coordinates of the q-point in (2π/alat).
+- 5		The infinitesimal contribution to the linewidth from this q-point  (1/cm-1)
+- 6→5+3 nat	The infinitesimal contribution to the linewidth,  decomposed by band (1/cm-1)
 
 ## d3_tk.x
 The d3_tk.x code can compute the thermal conductivity coefficient in the SMA or by exact diagonalization of the BTE. Most of its input variables are the same as d3_lw.x, we refer to the previous section for their description
