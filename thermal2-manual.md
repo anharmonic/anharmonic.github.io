@@ -2,6 +2,7 @@
 layout: default
 title: THERMAL2
 subtitle: User Manual and Quick Reference
+permalink: /thermal2/
 ---
 # Foreword
 The thermal2 suite of codes has been written starting in 2014 by Lorenzo Paulatto1. It is based on an initial set of unreleased codes written by Giorgia Fugallo1,2 and Andrea Cepellotti3, both have also participated in the development. The code contains contributions from Michele Lazzeri1 and Francesco Mauri1,4, as well as some subroutines from the Quantum-ESPRESSO distribution. Other people who have participated to the code development include Raffaelo Bianco1, Ion Errea1,5 and Nicola Marzari3.
