@@ -898,8 +898,12 @@ CONFIGS
 20      295 
 QPOINTS 
 0.0 0.0 0.0
-Color-map plot of the LW in the BZ (2D systems)
+```
+![final state](images/final.png)
+
+### Color-map plot of the LW in the BZ (2D systems)
 In bidimensional materials it can be interesting to plot the linewidth of a certain band over the entire Brillouin zone. In a 3D materials, it is more tricky to get a nice picture, the possibility to automatically compute a 2D slice of a 3D BZ may be added in the future, if there is request.
+```
 &lwinput 
  calculation = 'lw full' 
  prefix="lw_2d" 
@@ -923,7 +927,7 @@ p 'lw_2d.50x50x1@bz_T300_s10.out' u 3:4:12 w points palette pt 7 pointsize 1.7 n
 ```
 
 This is an example from graphene (done using 128x128 BZ-centered points):
-```
+
 ![graphene bz](images/graphene-bz.png)
 
 
