@@ -2,8 +2,7 @@
 layout: default
 permalink: /description/
 ---
-
-# Description
+<h1 style="color:#6f02ec; font-size:36px; font-weight:bold;">Anharmonic properties of materials</h1>
 
 The anharmonic codes are composed of two main parts:
 ## d3q
