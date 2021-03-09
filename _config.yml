@@ -1,3 +1,4 @@
 title: Anharmonic properties of materials
 description: d3q + thermal2
-theme: jekyll-theme-leap-day
+theme:  jekyll-theme-dinky
+#theme: jekyll-theme-leap-day
