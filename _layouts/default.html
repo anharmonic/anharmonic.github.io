@@ -39,6 +39,8 @@
       </header>
 
       <section>
+        <h1 class="htitle">{{ site.title | default: site.github.repository_name }}</h1>
+        <h1 class="hsubtitle">{{ site.subtitle | default: site.github.repository_name }}</h1>
         {{ content }}
       </section>
 
