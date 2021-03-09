@@ -25,24 +25,24 @@ The thermal2 codes come bundled with the D3Q code, used to compute ab-initio the
 # List of codes
 The thermal2 suite of codes contains a number of small specialized codes that only take command line arguments, and a few larger codes that read input from a file. This is the list of codes and a brief description.
 
-## Main codes
+### Main codes
 Each of these codes will be reviewed  in detail in a separate section.
-### d3_qha.x
+#### d3_qha.x
 An efficient and very easy to use quasi-harmonic approximation implementation. It includes hydrostatic pressure effect and equation-of-state fitting.
-### d3_lw.x
+#### d3_lw.x
 This code computes several quantities:
     1. phonon linewidth (i.e. its inverse lifetime, or HWHM, or minus the Imaginary part of the bubble-diagram self energy), 
     2. the entire bubble-diagram self energy (comprising both the linewidth and the lineshift) and
     3. the phonon spectral weight for a range of energies.
 It always includes the intrinsic anharmonic contribution from phonon-phonon interaction and can optionally include Casimir border scattering and isotope scattering.
-### d3_tk.x
+#### d3_tk.x
 The tk code computes the thermal conductivity. It can use the Single-Mode Approximation (SMA) or the variational approaches implemented by Fugallo et.al. [2] using a robust conjugate gradient minimization. It can include Casimir and isotope scattering.
-### d3_r2q.x
+#### d3_r2q.x
 This code can compute the phonon frequency at a q-point or along a path, it can optionally print out the dynamical matrix. It is analogous to the matdyn.x code of the Quantum-ESPRESSO (QE) Phonon suite, but it uses the highly optimized subroutines developed for d3_lw.x and d3_tk.x. It should be used to check the phonon dispersion before doing more serious calculations.
-## Thermal2 utilities
-### d3_q2r.x
+### Thermal2 utilities
+#### d3_q2r.x
 This code is analogous to the q2r.x code of QE and  it uses the same input, but produces a file of Force Constants (FCs) which has already been re-centered in the reciprocal space Wigner-Seitz cell to make Fourier Interpolation faster.
-### d3_qq2rr.x
+#### d3_qq2rr.x
 Analogous to q2r.x but operates on the 3rd order matrices. This codes takes as command line arguments the dimension of the q-points grid and optionally the name of the output file. You must feed it feed by standard input the list of anharmonic dynamical matrices in the XML format produced by d3q.x. For example, d3q was run with fild3dyn=”anh” for a NQX x NQY  x NQZ grid, you can compute the 3rd order Fcs as:
 ```
 ls anh* | qq2rr.x NQX NQY NQZ [-o mat3R] [-f NFAR] [-w]
@@ -55,7 +55,7 @@ The code will automatically select from the list the files that it needs to fill
 After writing the force constant to file, the code will perform two optional tests (you can skip them pressing CTRL-C). First test: for this test the initial D3 matrices will be recomputed using the force constants with both the real and imaginary parts (which should be zero). Second test: recompute the D3 matrices with only the real part of the force constants. If any discrepancy is detected it will be printed on output. Notice that any discrepancy in the first test indicate a very serious problem with the D3 calculation.  On the other hand, some discrepancy is inevitable in the second test; especially if you your atoms where not in the theoretical equilibrium positions. Also, increasing the cutoff and k-points can improve the consistency of the second test.
 
 If the -w option is specified, when performing the FFT test, if the re-computed D3 matrix differs significantly from the initial one it will be printed to a file. The file will start with prefix 'anh_cmplx' for the first test and 'anh_real' for the second test.
-### d3_sparse.x
+#### d3_sparse.x
 This code converts a file of third order FCs from dense form to sparse form; it can optionally discard elements that are smaller than a custom threshold. It can also measure the speedup gained by using the sparse FCs instead of the dense ones.
 Syntax:
 ```
@@ -63,7 +63,7 @@ sparse.x [-i mat3R.input] [-o mat3R.output]
 	    [-t threshold] [-n num_trials]
 ```
 Where ma3R.input (default mat3R) is the name of the dense file of Fcs, mat3R.output will be the output file of sparse FCs (you can use “none” to avoid saving them to file); threshold is in Rydberg/bohr3 (all matrix elements smaller than this will be discarded, default: zero, do not discard anything) and num_trials is the number of random trial q-point triplets to compute by Fourier interpolation. If num_trials is provided, the code will print out the elapsed time using the dense and sparse algorithm, the speedup and the eventual discrepancy between the two methods (which should be zero if the threshold is zero)
-### d3_asr3.x
+#### d3_asr3.x
 This code applies the acoustic sum rules (ASR) to the third order FCs. It can only work on dense Fcs, not on the sparse ones. As the sum is applied iteratively, it will automatically stop after 10,000 iterations, or when the residual violation of the ASR is less than 10-12 or if a file named STOP is created in the running directory. 
 Syntax:
 ```
@@ -71,7 +71,7 @@ asr3.x [-i mat3R.input] [-o mat3R.output]
        [-t threshold] [-n iter_max]
 ```       
 This syntax will read the dense Fcs from file mat3R.input, apply the ASR iteratively until threshold is reached (default 10-12), or for iter_max, then save it to mat3R.output (default: mat3R.input.asr). If a file named “STOP” is found in the working directory, the code will stop after the next iteration and  immediately save the Fcs to mat3R.output
-### d3_recenter.x
+#### d3_recenter.x
 NOTE: this code is experimental and while useful for debugging, use at your own risk.
 ```
 d3_recenter.x NQX NQY NQZ [-n NFAR]
@@ -82,7 +82,7 @@ Reads force constants from mat3R.input, interpolate them on a grid of NQX x NQY 
 Uses the properties of Fourier interpolation to transform the 3rd order force constants from a grid to another. If the new grid is different than the initial one, some interpolation will be done, if the grid is the same, you can use the nfar parameter to recalculate the Wigner-Seitz cell centering. This code be useful to compare the results from grids of different sizes, or to put the force constants in a format that is easier to understand for external codes.
 
 If the -w option is specified, the intermediate D3 matrices will, for the NQX x NQY x NQZ grid will be written to files called atmp_Q1*_Q2*_Q3*.
-### d3_import_shengbte.x
+#### d3_import_shengbte.x
 ```
 d3_import_shengbte.x NQX NQY NQZ [-n NFAR] [-w] [-s mat2R]
            [-i FORCE_CONSTANT_THIRD] [-o mat3R.shengbte] 
@@ -94,15 +94,15 @@ In order to read the system information (cell and position of the atoms) a file 
 If the -w option is specified, the intermediate D3 matrices, generated on the NQX x NQY x NQZ grid, will be written to files  with names atmp_Q1*_Q2*_Q3* (check the manual of d3q for details on the file names).
 
 See also import_phonopy.py.
-### d3_sqom.x
+#### d3_sqom.x
 NOTE: this code is experimental and not widely tested, use at your own risk.
 
 This codes reads a spectral weight file from d3_lw.x and computes the convolution with a Lorentzian function that has an energy-dependent FWHM. This procedures simulates the broadening introduced by Raman spectroscopy experiments. This code can also sum and average the spectral function coming from several different files, to simulate the uncertainty of the neutron wavevectors. It reads its input from a file called input.SQOM. Please see the code of PROGRAM_sqom.f90 for details.
 
-## Tools
+### Tools
 In the tools/ directory, a selection of tools for pres- and post-processing of data.
 
-### funcoft.sh
+#### funcoft.sh
 This is a short bash script to get a plottable file of the linewidth of a specific phonon mode as a function of temperature.
 
 It reads a list of linewidth files produced by d3_lw.x and extracts the frequency, linewidth (and if possible shifted frequency) from all files for a specific phonon q-point and band and prints a list ordered by temperature and smearing. Syntax:
@@ -119,28 +119,28 @@ The output will contain 5 columns:
 5. shifted frequency (if available in the file)
 
 This script is provided “as is”, using non-standard names for the output files can break it.
-### recompute-sma.m
+#### recompute-sma.m
 A simple octave/mathlab script that allow you to recompute the thermal conductivity in single mode approximation using the output from d3_tk.x (using store_lw=.true.) and d3_r2q.x (using calculation="extr"). This script allow you to quickly combine different intrinsic/extrinsic scattering sources without repeating the entire calculation, to manually change parameter and to extract useful information, like the per-mod contribution to thermal transport. Please note that this is not a brainless script: some editing (i.e. at the very list the unit cell volume) and understanding of the physics is requires.
 
-### diffd3.x
+#### diffd3.x
 Compare two D3 files, write on output the matrix elements and the maximum difference. Take as arguments either two file names (the first and second D3 matrix) or two directory names a file name, which will be opened in both directories.
-### d3_sc2c.x
+#### d3_sc2c.x
 Open two D3 files, the first for a unit cell calculation for an arbitrary triplet, the second for a supercell calculation for a triplet of kind (0,q,-q). Then it refold the super-cell D3 matrix to the unit cell and compares the two.
 
 The following scripts are in the tools subdirectory, they can be useful in specific circumstances. They have little documentation, do not hesitate to ask for help if you cannot make them work.
-### xml2giorgia.x
+#### xml2giorgia.x
 Reads a list of D3 matrix files in XML format from standard input and write them to a single ASCII file called d3.txt
 apply_asr.sh
 apply_asr.sh [-i FILDYN.in] [-o FILDYN.out] [-a ASR_TYPE]
 A simple bash script that applies the sum rule to a set of dynamical matrix files (FILDYN.in*, default: dyn) produced by phonon and saves them with a different name (FILDYN.out*, default: asr_dyn). Useful to apply the sum rule ‘crystal’ (default for ASR_TYPE) which is not supported by the thermal2 codes yet. The final fildyn files can be used normally with ###d3_q2r.x or q2r.x.
 
-### import_phonopy.py
+#### import_phonopy.py
 In tools you can also file a python script import_phonopy.py to import the FORCE_CONSTANTS files of 2-body force constants produced by phonopy (and VASP?). This script is in a very rudimentary stage, it will produce a file called "fc" with the force constants in the standard QE format. You will have to convert it to the thermal2 format with the fc2mat2R.sh script, also found in tools.
 
-### fc2mat2R.sh
+#### fc2mat2R.sh
 Convert a force constants file from the standard q2r format to the optimized format produced by d3_q2r and used bu thermal2. Do not use this script if you still have the original dynamical matrix files, use them instead as it is more accurate.
 
-### apply_asr.sh
+#### apply_asr.sh
 Apply the acoustic sum rule to a set of dynamical matrices using q2r and matdyn. Thermal2 doesn ot implement the more sofisticate sum-rule methods, but you can apply them directly to the dynamical matrices using this little script.
 
 # Codes input and output
