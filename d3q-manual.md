@@ -204,7 +204,7 @@ The variables inside the d3_debug namelist can be used to disable some parts of 
 WARNING! no sanity check is done on these variables, setting this namelist can result in crash and random results. No bug report will be taken into consideration if the code was run with debug variables! 
 All variable in this namelist default to values default to .true.; except for dbg_write_d3_part.
 - dbg_do_dwfc: compute d^q psi
-- dbg_do_dpdvp:  pre-compute &lt;d psi | dV| psi&gt;
+- dbg_do_dpdvp:  pre-compute &lt;d psi| dV| psi&gt;
 - dbg_do_dpdvdp: compute the &lt;d psi| d V | d psi&gt; term 
 - dbg_do_dpdpdv: compute the &lt;d psi|d psi&gt;&lt;psi| dV |psi&gt; term
 - dbg_do_drhod2v: compute the d rho d^2 V term (and related wfc terms)
