@@ -184,11 +184,10 @@ If set to .true. a file containing the phonon group velocities will be saved (on
 Used for jdos calculation, see the description in &lwinput section, below.
 ### Output format
 The r2q.x code will produce an output file for every configuration. The output files will be named $prefix.out (where $prefix is the value of the input variable prefix). It contains the following columns:
-- 1.	A progressive integer number
-- 2.	The length of the q-point path or, if computing over a grid the weight of the q-points
-- 3→5.	The coordinates of the q-point in units of 2π/alat
-- 6→5+3 nat.
-	The phonon frequencies in cm-1.
+- 1	A progressive integer number
+- 2	The length of the q-point path or, if computing over a grid the weight of the q-points
+- 3→5	The coordinates of the q-point in units of 2π/alat
+- 6→5+3 nat The phonon frequencies in cm-1.
 
 ## d3_qha.x
 This code reads the 2nd order FCs for a series of volumes, computes the phonon free energy for a given list of temperature, fits the total free energy with an equation of state to find the equilibrium volume at each temperature and find the thermal expansion coefficient.
@@ -336,12 +335,12 @@ Where $XX is the temperature in Kelvin and $YY the delta in cm-1. Each output fi
 NOTE: In all of the following cases case when specifying QPOINTS as “grid” or “bz”, the length of the path will actually be replaced by the weight of the point used to do an integral in reciprocal space.
 Calculation “lw imag”
 Number of the column, or columns and its and content:
-- 1.		A progressive integer number
-- 2.		The length of the q-point path (when doing a path)
+- 1		A progressive integer number
+- 2		The length of the q-point path (when doing a path)
 		or the weight of the q-point (when doing a grid calculation)
-- 3→5.		The coordinates of the q-point in 2π/alat.
-- 6→5+3 nat.	The unperturbed phonon frequencies in cm-1
-- 6+3 nat→5+6 nat.	
+- 3→5		The coordinates of the q-point in 2π/alat.
+- 6→5+3 nat	The unperturbed phonon frequencies in cm-1
+- 6+3 nat→5+6 nat	
 		The linewidth (HWHM) in cm-1
 Calculation “lw full”:
 - 1→5+6 nat.	Same content as “lw imag”
