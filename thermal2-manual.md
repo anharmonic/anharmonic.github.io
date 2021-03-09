@@ -5,9 +5,11 @@ subtitle: User Manual and Quick Reference
 ---
 # Foreword
 The thermal2 suite of codes has been written starting in 2014 by Lorenzo Paulatto1. It is based on an initial set of unreleased codes written by Giorgia Fugallo1,2 and Andrea Cepellotti3, both have also participated in the development. The code contains contributions from Michele Lazzeri1 and Francesco Mauri1,4, as well as some subroutines from the Quantum-ESPRESSO distribution. Other people who have participated to the code development include Raffaelo Bianco1, Ion Errea1,5 and Nicola Marzari3.
-Copyright
+
+##Copyright
 All the files are provided under the GPL license, v2 or newer and, when possible, under the CeCILL license. A single file nist_isotopes_db.f90 contains public domain data from the National Institute of Standards and Technology.
-Citing
+
+##Citing
 We would greatly appreciate if when using the thermal2 suite of codes you cite the following papers where the underlying theory is described in detail (see also page 32):
 - L. Paulatto, F. Mauri, and M. Lazzeri,  Phys. Rev. B 87, 214303 (2013)
 - G. Fugallo, M. Lazzeri, L. Paulatto, and F. Mauri", Phys. Rev. B 88, 045430 (2013)
@@ -17,6 +19,7 @@ We would greatly appreciate if when using the thermal2 suite of codes you cite t
 # Quick Reference Manual
 ## Compiling the code
 The thermal2 codes come bundled with the D3Q code, used to compute ab-initio the 3rd order dynamical matrices. We refer you to the D3Q manual for more detailed instruction on compiling. A separate stand-alone distribution of the thermal2 codes is being considered and may be available in the future.
+
 # List of codes
 The thermal2 suite of codes contains a number of small specialized codes that only take command line arguments, and a few larger codes that read input from a file. This is the list of codes and a brief description.
 
@@ -26,9 +29,9 @@ Each of these codes will be reviewed  in detail in a separate section.
 An efficient and very easy to use quasi-harmonic approximation implementation. It includes hydrostatic pressure effect and equation-of-state fitting.
 ### d3_lw.x
 This code computes several quantities:
-    1) phonon linewidth (i.e. its inverse lifetime, or HWHM, or minus the Imaginary part of the bubble-diagram self energy), 
-    2) the entire bubble-diagram self energy (comprising both the linewidth and the lineshift) and
-    3) the phonon spectral weight for a range of energies.
+    1. phonon linewidth (i.e. its inverse lifetime, or HWHM, or minus the Imaginary part of the bubble-diagram self energy), 
+    2. the entire bubble-diagram self energy (comprising both the linewidth and the lineshift) and
+    3. the phonon spectral weight for a range of energies.
 It always includes the intrinsic anharmonic contribution from phonon-phonon interaction and can optionally include Casimir border scattering and isotope scattering.
 ### d3_tk.x
 The tk code computes the thermal conductivity. It can use the Single-Mode Approximation (SMA) or the variational approaches implemented by Fugallo et.al. [2] using a robust conjugate gradient minimization. It can include Casimir and isotope scattering.
@@ -44,8 +47,11 @@ ls anh* | qq2rr.x NQX NQY NQZ [-o mat3R] [-f NFAR] [-w]
 ```
 The result will be written by default to a file called mat3R, but you can change this with the -o option.
 You can specify the optional argument NFAR (default=2) which is the number of neighbors that the code will scan to build the Wigner-Seitz cell. The default value usually works, you can set it to zero to avoid any re-centering: The resulting force constant will be unsuitable for doing any further calculation, due to aliasing in the Fourier interpolation, but they may be easier to import in another code.
+
 The code will automatically select from the list the files that it needs to fill the grid; all the other files will be discarded.  Which means that you can easily compute the force constants for any sub-lattice of the one compute, just by changing the values of  NQX, NQY  and NQZ.
+
 After writing the force constant to file, the code will perform two optional tests (you can skip them pressing CTRL-C). First test: for this test the initial D3 matrices will be recomputed using the force constants with both the real and imaginary parts (which should be zero). Second test: recompute the D3 matrices with only the real part of the force constants. If any discrepancy is detected it will be printed on output. Notice that any discrepancy in the first test indicate a very serious problem with the D3 calculation.  On the other hand, some discrepancy is inevitable in the second test; especially if you your atoms where not in the theoretical equilibrium positions. Also, increasing the cutoff and k-points can improve the consistency of the second test.
+
 If the -w option is specified, when performing the FFT test, if the re-computed D3 matrix differs significantly from the initial one it will be printed to a file. The file will start with prefix 'anh_cmplx' for the first test and 'anh_real' for the second test.
 ### d3_sparse.x
 This code converts a file of third order FCs from dense form to sparse form; it can optionally discard elements that are smaller than a custom threshold. It can also measure the speedup gained by using the sparse FCs instead of the dense ones.
@@ -70,7 +76,9 @@ d3_recenter.x NQX NQY NQZ [-n NFAR]
            [-i mat3R.input] [-o mat3R.output] [-w]
 ```
 Reads force constants from mat3R.input, interpolate them on a grid of NQX x NQY x NQZ points, recenter them on a Wigner-Seitz cell constructed up to NFAR unit cells and save the result in mat3R.input.recenter.
+
 Uses the properties of Fourier interpolation to transform the 3rd order force constants from a grid to another. If the new grid is different than the initial one, some interpolation will be done, if the grid is the same, you can use the nfar parameter to recalculate the Wigner-Seitz cell centering. This code be useful to compare the results from grids of different sizes, or to put the force constants in a format that is easier to understand for external codes.
+
 If the -w option is specified, the intermediate D3 matrices will, for the NQX x NQY x NQZ grid will be written to files called atmp_Q1*_Q2*_Q3*.
 ### d3_import_shengbte.x
 ```
@@ -78,16 +86,21 @@ d3_import_shengbte.x NQX NQY NQZ [-n NFAR] [-w] [-s mat2R]
            [-i FORCE_CONSTANT_THIRD] [-o mat3R.shengbte] 
 ```
 Reads the 3-body force constants produced by Mingo & Carrete code thirdorder.py6 and import them to the thermal2 format. The size of the supercell used for the FCs calculation must be specified as NQX x NQY x NQZ. In order to prepare the FCs for Fourier interpolation, they are taken to reciprocal space and then back to real space, and re-centered including up to NFAR neighbouring cell to ensure locality.
+
 In order to read the system information (cell and position of the atoms) a file containing the force constants header in the thermal2 format must be provided with the -s option (default: mat2R). Note that a 2nd order FCs file, produced with d3_q2r.x or even with normal q2r.x, for the same system, is sufficient.
+
 If the -w option is specified, the intermediate D3 matrices, generated on the NQX x NQY x NQZ grid, will be written to files  with names atmp_Q1*_Q2*_Q3* (check the manual of d3q for details on the file names).
+
 See also import_phonopy.py.
 ### d3_sqom.x
 NOTE: this code is experimental and not widely tested, use at your own risk.
+
 This codes reads a spectral weight file from d3_lw.x and computes the convolution with a Lorentzian function that has an energy-dependent FWHM. This procedures simulates the broadening introduced by Raman spectroscopy experiments. This code can also sum and average the spectral function coming from several different files, to simulate the uncertainty of the neutron wavevectors. It reads its input from a file called input.SQOM. Please see the code of PROGRAM_sqom.f90 for details.
 
 ## Tools
 ### funcoft.sh
 This is a short bash script to get a plottable file of the linewidth of a specific phonon mode as a function of temperature.
+
 It reads a list of linewidth files produced by d3_lw.x and extracts the frequency, linewidth (and if possible shifted frequency) from all files for a specific phonon q-point and band and prints a list ordered by temperature and smearing. Syntax:
 ```
   funcoft.sh point mode file [file2 [file3...]]
@@ -100,6 +113,7 @@ The output will contain 5 columns:
 3. omega
 4. linewidth (gamma, HWHM)
 5. shifted frequency (if available in the file)
+
 This script is provided “as is”, using non-standard names for the output files can break it.
 ### recompute-sma.m
 A simple octave/mathlab script that allow you to recompute the thermal conductivity in single mode approximation using the output from d3_tk.x (using store_lw=.true.) and d3_r2q.x (using calculation="extr"). This script allow you to quickly combine different intrinsic/extrinsic scattering sources without repeating the entire calculation, to manually change parameter and to extract useful information, like the per-mod contribution to thermal transport. Please note that this is not a brainless script: some editing (i.e. at the very list the unit cell volume) and understanding of the physics is requires.
@@ -108,7 +122,8 @@ A simple octave/mathlab script that allow you to recompute the thermal conductiv
 Compare two D3 files, write on output the matrix elements and the maximum difference. Take as arguments either two file names (the first and second D3 matrix) or two directory names a file name, which will be opened in both directories.
 ### d3_sc2c.x
 Open two D3 files, the first for a unit cell calculation for an arbitrary triplet, the second for a supercell calculation for a triplet of kind (0,q,-q). Then it refold the super-cell D3 matrix to the unit cell and compares the two.
-Tools File format and import tools
+
+## Tools File format and import tools
 The following scripts are in the tools subdirectory, they can be useful in specific circumstances. They have little documentation, do not hesitate to ask for help if you cannot make them work.
 ### xml2giorgia.x
 Reads a list of D3 matrix files in XML format from standard input and write them to a single ASCII file called d3.txt
@@ -122,6 +137,9 @@ In tools you can also file a python script import_phonopy.py to import the FORCE
 ### fc2mat2R.sh
 Convert a force constants file from the standard q2r format to the optimized format produced by d3_q2r and used bu thermal2. Do not use this script if you still have the original dynamical matrix files, use them instead as it is more accurate.
 
+### apply_asr.sh
+Apply the acoustic sum rule to a set of dynamical matrices using q2r and matdyn. Thermal2 doesn ot implement the more sofisticate sum-rule methods, but you can apply them directly to the dynamical matrices using this little script.
+
 # Codes input and output
 The three main codes read their configuration from input files. All the variables included in the namelists can also be specified as command line arguments with the format
 --keyword value
@@ -130,6 +148,7 @@ You may have to put quotes around the value if it contains special characters or
 ## d3_r2q.x
 This code reads the 2nd order FCs and computes a number of different quantities that only depend on the harmonic 2nd order force constants, it is currently evolving and should be quite easy to modify and extend according to your needs.
 It reads its input from a Fortran namelist called &r2qinput which contains the variables listed in the next section.
+
 After the namelist, the code will look for the keyword QPOINTS and will start reading the list of q-points. This part is described in detail in section QPOINTS
 ### Namelist &r2qinput 
 #### calculation (CHARACTER, default: “freq”)
@@ -158,7 +177,7 @@ When plotting the linewidth and frequencies along a path, there are several ways
     • "overlap": sort each point in order to maximize the overlap of each band polarization with the corresponding band at the previous point. This is the best choice for paths, but probably will not work for 2D or 3D grid plots
 #### print_velocity (LOGICAL, default: .false.)
 If set to .true. a file containing the phonon group velocities will be saved (only applies when calculation="freq"). The file name will be prefix_vel.out, after the path length and the q-point, the velocities are printed in Cartesian coordinates, Rydberg units (1.09×106 m·s−1).
-ne, de, e0, sigma_e (INTEGER, REAL, REAL, in cm-1 no default)
+#### ne, de, e0, sigma_e (INTEGER, REAL, REAL, in cm-1 no default)
 Used for jdos calculation, see the description in &lwinput section, below.
 ### Output format
 The r2q.x code will produce an output file for every configuration. The output files will be named $prefix.out (where $prefix is the value of the input variable prefix). It contains the following columns:
@@ -197,8 +216,11 @@ Number of configurations to read in the CONFIGS section, see the detailed descri
 The size of the grid used to integrate the phonon-phonon interaction processes.
 #### grid_type (CHARACTER, default: “simple”)
 Set this to “simple” to use a regular unshifted grid in reciprocal space.
+
 Use "random" to use a grid shifted by a random vector; the random shift is not applied to the directions where there is only one k-point, i.e. if you have a NxMx1 grid, there will be no shift along z. Furthermore, in a CGP calculation the shift applied to the inner and outer grid will be the same, while in all other calculations, they will be independent. Using a random shifted grid, can easily reduce the number of points required for convergence by half in each direction, for a speed-up of 8 for linewidth calculations and 64 times for tk calculations; however, it will break symmetry, and give (slightly) different thermal conductivity for different directions, even in highly symmetric crystals. See also xk0 to manually apply a grid shift.
+
 Set to “bz” to use a grid centered in the Brillouin zone. This option will duplicate the points that are on the boundary of the BZ and assign them an appropriate integration weight. Using a BZ grid should eliminate a possible source of unwanted symmetry breaking, although it adds some complexity, uses more points, and its effectiveness is not evident in practice. It can be useful for doing plots. We recommend using “simple” instead of “bz”, unless you have some specific reason.
+
 #### xk0 (3x REAL, default: 0,0,0)
 A shift to apply to the grid of k-points, in units of half the lattice spacing; i.e. set it to (1,1,1) to have the Monkhorst-Pack shifted grid, any fractional values is allowed.
 #### ne, de, e0, sigma_e (INTEGER, REAL, REAL, in cm-1 no default)
@@ -209,6 +231,7 @@ When doing a Final state decomposition calculation, this is the energy of the in
 As e_initial, specifies the initial q-point.
 #### q_summed (LOGICAL, default: false)
 When doing a final state calculation, set to true to project the infinitesimal contribution to the linewidth over the given final q-points, the energy dependence is integrated out. The analysis is performed over the q-points specified in the QPOINTS section, you can use either a path or a grid, depending on the kind of plot you want. The full grid, specified by nk, will still be used to compute the linewidth, but te contribution will be projected to each q-point in the list with a Gaussian smearing given by sigmaq.
+
 Note that even high-symmetry points can, and often do, decay toward lower symmetry points; a high-symmetry path can easily miss the most important final states. We recommend using a relatively coarse grid first, you will be able to spot the most favored points by sorting the output file. I.e. this command:
  sort -gk 5 final_T300_s1.out
 will output as the final lines the most important decay processes. See also sigmaq and q_resolved and the output format.
@@ -247,6 +270,7 @@ The maximum running time after which the code will stop, you can only set one of
 The lw.x code will produce an output file for every configuration. The output files will be named
 $prefix_T$XX_s$YY.out
 Where $XX is the temperature in Kelvin and $YY the delta in cm-1. Each output file will contain a relatively large number of columns, depending on the calculation. 
+
 NOTE: In all of the following cases case when specifying QPOINTS as “grid” or “bz”, the length of the path will actually be replaced by the weight of the point used to do an integral in reciprocal space.
 Calculation “lw imag”
 Number of the column, or columns and its and content:
@@ -261,6 +285,7 @@ Calculation “lw full”:
 - 1→5+6 nat.	Same content as “lw imag”
 - 6+6 nat→5+8 nat.
 The shifted phonon frequencies (i.e. frequency+shift) in cm-1. If the sort_shifted_q keyword was set to true, the shifted frequencies are sorted in increasing order and the corresponding linewidth are sorted accordingly. The unperturbed frequencies are left unchanged.
+
 Calculation “spf”:
 - 1.		The energy axis in cm-1
 - 2.		The length of the q-point path (when doing a path) or the weight of the q-point (when doing a grid calculation)
@@ -268,16 +293,19 @@ Calculation “spf”:
 - 4→3+3 nat.	Contribution to the spectral function from each band in 1/cm-1
 Note that the energy axis cycles faster than the path length and there is a whitespace after each q-point which makes plotting with gnuplot “pm3d” style easy with this syntax (column 3 is used twice, both for heigth and colour):
 sp “file” u 1:2:3:3 w pm3d
+
 Calculation “final”:
 - 1.		The energy axis in cm-1
 - 2.		The total final state weight in 1/cm-1
 - 3→2+3 nat.	Contribution to the final state from each band in 1/cm-1
+
 Calculation “final”, q_resolved TRUE:
 - 1.		The energy axis in cm-1
 - 2.		The length of the q-point path (when doing a path, units 2π/alat) or the weight of the q-point (when doing a grid calculation)
 - 3→5.		The coordinates of the q-point in (2π/alat).
 - 6.		The infinitesimal contribution to the linewidth, as a function of energy and q  (1/cm-1)
 - 7→6+3 nat.	The infinitesimal contribution to the linewidth, decomposed by band (1/cm-1)
+
 Calculation “final”, q_summed TRUE:
 - 1.		The length of the q-point path (when doing a path, units 2π/alat) or the weight of the q-point (when doing a grid calculation)
 - 2→4.		The coordinates of the q-point in (2π/alat).
@@ -293,9 +321,10 @@ outdir, prefix, file_mat2, file_mat3, asr2,  nconf, nk, grid_type, xk0, isotopic
 The following variables are specific of d3_tk.x.
 #### calculation (CHARACTER, default: “sma”)
 Set this variable to “sma” to compute use the single mode approximation or to “cgp” to do an iterative diagonalization of the BTE with the Conjugate Gradient algorithm with preconditioning. Please note that “cgp” algorithm will also output the SMA thermal conductivity at its first iteration, but computed in a slightly different way which is slower but guarantees the phonon-phonon scattering matrix to be well defined and the functional to be minimized to be positive definite.
-Note that isotopic_disorder and casimir_scattering are properly implemented in for both SMA and CGP calculations.
+
 #### nk_in (3x INTEGER, default: same value as nk)
 When doing a “sma” calculation, the linewidth will be computed, for each point in the nk grid, integrating over the nk_in grid. Thermal conductivity will then be integrated over the nk grid. In principle, there is no reason for the two grids to be identical, as one quantity could be harder to converge than the other. When doing a CGP calculation, the inner and outer grids must be identical, nk_in will be ignored and nk used instead.
+
 #### grid_type_in (CHARACTER, default: same value as grid_type)
 Same as grid_type, but applied to the inner grid. Ignored for ‘cgp’ calculations.
 #### xk0_in (3x REAL, default: same value as xk0)
@@ -325,6 +354,7 @@ If the option store_lw is used, several more files will be created, containing a
 3. lw.$prefix.$grid_size.out: the phonon FWHM (in cm-1, 3x number of atoms columns)
 4. vel.$prefix.$grid_size.out: the phonon groups velocity, x,y and z for each band (in Rydberg units, 9x number of atoms columns)
 In the tools directory you can find a mathlab/octave script recompute_sma.m to recompute the thermal conductivity by hand starting from these files. It is not completely automatic and it has no user interface, it is just a template for you to edit.
+
 ### CGP calculation
 When a CGP calculation several files are created: one with the results at the last iterations for all the configurations and one file for each configurations with the results at each iteration. The thermal conductivity K is always in W/(m·K).
 1. A file named $prefix.$grid_size.out, where $prefix is the input value of prefix and $grid_size is the size of the integration grid (e.g. “20x20x20”). This file will contain with the results from the last completed iteration of the code, one line per configuration, containing 1) the configuration number, 2) the value of sigma 3) the temperature 4-6) the diagonal elements of the thermal conductivity Kxx, Kyy and Kzz 7-12) The off-diagonal elements of K, in this order:  Kxy, Kyz, Kyz , Kyx, Kzx, Kzy.
@@ -332,8 +362,10 @@ When a CGP calculation several files are created: one with the results at the la
 
 ## QPOINTS
 The “QPOINTS” card instruct the code to start reading a list of nq q-points, nq has been previously entered in the namelist. On the same line as QPOINTS thre optional keywords can be specified:
+
 *cartesian (DEFAULT)*
 The points will be specified on Cartesian axis in units of 2π/alat, where alat is the lattice parameter. This is the default behavior of the code and is equivalent to not specifying any keyword.
+
 *crystal*
 The points are going to be specified on the basis of the reciprocal lattice vectors.
 
@@ -342,8 +374,8 @@ In the default, “cartesian” and “crystal” cases, the code will now start
 The code will also compute the total length of the path along the q-points. This length is printed in the output file (usually, 2nd column) and is useful for plotting. 
 
 You can use the special value -1 for np, to reset the length of the path at a certain point. The d3_lw.x code will also perform a special action depending on the context:
-    • When doing a linewidth calculation: print an empty line (useful for gnuplot 3D plots).
-    • When doing a spectral function calculation: continue writing to a new output file, which will have “_pN” appended to its name; N is a number increasing at each path reset.
+- When doing a linewidth calculation: print an empty line (useful for gnuplot 3D plots).
+- When doing a spectral function calculation: continue writing to a new output file, which will have “_pN” appended to its name; N is a number increasing at each path reset.
 
 If two consecutive points in the list are equivalent minus a G-vector, and if the latter has no np, or np=1, then the two points are added to the list with the same path length. This allows one to jump between equivalent point without having a discontinuity in the plot.
 
@@ -362,10 +394,12 @@ possibility to spacify a plane of kpoints:
 plane
 
 Specify a plane of q-points, it will read four lines:
+```
 n1 n2
 e1x e1y e1z
 e2x e2y e2z
 q0x q0y q0z
+```
 Which are the grid size (n1, n2) two vectors defining the surface (e1,e2) and the origin (q0). The first point in the surface is q0, the last is q0+e1+e2
 Examples
 Select the Γ point (000) and the X point (001) in a cubic lattice:
@@ -418,9 +452,12 @@ QPOINTS
 ## CONFIGS
 The “CONFIGS” card instructs the code to start reading a list of sigma (in cm-1)/temperature (in K) configurations. Sigma can be the width of a Gaussian smearing or the regularization of the self-energy, depending on the type of calculation. Configurations can be specified as a list (default), or as a matrix. In the former case a simple list is expected; in the latter case the code reads two lists: one of  sigma and one of T and generates all possible couples. 
 list
+
 If you specify "CONFIGS list" or just "CONFIGS", the number of configurations "nconf" is expected on the next line (deprecated: you can also use the nconf variable in the namelist). Afterwards, the code will read nconf lines, and expects a couple "sigma T" on each line. If on a certain line only one number is present, the code assumes it to be a temperature and it reuses the previous value of the delta.
-matrix
+
+*matrix*
 After "CONFIGS matrix" the code will scan for the keyword "T" ("sigma"), followed, on the same line, by the number of temperatures (sigmas), the default value of 1 is taken if missing. The code will the read, on the following lines, the required values of temperature (sigma). See also the example below.
+
 ### Examples
 Select three configurations of increasing values of sigma and temperature:
 ```
@@ -431,6 +468,8 @@ CONFIGS
 3.0  300
 ```
 Select five different temperatures, all with the same smearing of 1cm-1:
+
+```
 CONFIGS
  5
 1.0 	0
@@ -438,7 +477,9 @@ CONFIGS
 	200
 	300
 	400
+```
 Build thirty configurations, from 10 values of temperature (K) and 3 of smearing (cm-1):
+```
 CONFIGS matrix
   T  10
  10.  20.  50. 100.  200.
@@ -447,29 +488,48 @@ CONFIGS matrix
 2.
 3.
 4.
+```
 Undocumented: using a negative or zero value for the smearing. This features can change at any time in the future, possibly to become a proper input variables. A negative value of the smearing can activate a few "hidden" features of the d3_lw.x code. In particular, when doing a "lw full" or "final state" calculation, setting the smearing to zero will use the static formula for the linewidth, where the energy denominators are just ω1+ω2 and  ω1-ω2, the latter becomes a derivative (of the Bose-Einstein distribution) when the modes 2 and 3 are degenerate. A negative value of sigma, will also use the static limit but with a regularization of the denominator. The static limit is not currently implemented for the spectral function, and it does not make sense for the "lw imag" calculation.
-ISOTOPES
+
+## ISOTOPES
 After this card the code will read the information about the isotopic composition of all elements present in the calculation. This list will only be read if “isotopic_disorder” is set to true in the namelist. Note that specifying the isotopes is not necessary, if this card is omitted the natural isotopic concentration will be used.
+
 Each element, identified by its name, must appear in the same order as in the file of the force constants. The isotopic composition can be specified in several different ways.
+
 An isotopically pure element can be specified either by atomic number of the isotope or by setting manually its mass in atomic mass units (i.e. mass of 12C=12):
+```
 Xx N natm
+```
 Where Xx is the name of the element (e.g., H, Na, Cl), “N” is a keyword and natm is the atomic number
+```
 Xx M matm
+```
 Where Xx is the name of the element (e.g., H, Na, Cl), “M” is a keyword and matm is the atomic mass
+
 If you wish to use the natural isotope concentration for an element you can use the following syntax:
+```
 Xx natural
+```
 Where Xx is the name of the element and “natural” is a keyword. The natural isotope concentration is stored in the file nist_isotopes_db.f90 of the thermal2 distribution. It is obtained from the NIST online database, available on the NIST website7.
+
 If you wish to set the isotope concentration by hand you can use the following syntax
+```
 Xx isotopes niso
  m1 c1
  …
  mniso cniso
+```
 Where Xx is the name of the element, “isotopes” is a keyword and niso is the number of isotopes. You will then list the mass and concentration of each isotopes, on niso separate lines.
+
 Finally, you can also specify directly the average mass for the element and its variance, which are the only two quantities that are actually used in the linewidth and thermal conductivity calculation. You can use the following syntax:
+```
 Xx manual gm gs
+```
 Where Xx is the element name, “manual” is a keyword, gm is the average mass and gs is its variance (both in Dalton units).
-Examples
+
+### Examples
 In the following example we will set Hydrogen isotopic concentration to 1) pure one-proton H 2) pure Deuterium 3) 50% H and 50% D 4) Hydrogen natural concentration 5) set gm and gs manually
+```
 H N 1
 H M 2.01410178
 H isotopes 2
@@ -477,11 +537,15 @@ H isotopes 2
 	2.01410178 0.5
 H natural
 H manual 1.02  0.01
-Input Examples
+```
+
+#Input Examples
 In the next sections you will find some example input files for the main codes of thermal2. You will find more examples, included a
-d3_lw.x
+## d3_lw.x
 Computing the linewidth of a single point
+
 This example input would compute the linewidth of q-point (1/3 1/3 0) in crystal (aka fractional) coordinates for 15 different values of temperature.
+```
 &lwinput 
  calculation = 'lw real' 
  prefix="lw_rnozp" 
@@ -537,7 +601,10 @@ CONFIGS
 10.0 300
 QPOINTS 
 0 0 0
+```
+
 You can then extract the data with a script like this:
+```
 #!/bin/bash
 for smr in 0.1 0.2 0.5 1.0 2.0 5.0 10.0;do
 	grep "^ *1 " lw_*s${smr}.out|\
@@ -545,10 +612,16 @@ for smr in 0.1 0.2 0.5 1.0 2.0 5.0 10.0;do
 	sed -re 's/lw_|_T|_s|.out|:/  /g' |\
 	sort -k 1n > s${smr}.dat;
 done
+```
+
 And proceed to plot the curves included in the files s0.1.dat … s10.0.dat, e.g. with gnuplot.
+
 You see that larger values of smearing converge with smaller grids but not to exactly the same value as smaller smearing. Using a smearing of the same order of magnitude as the average linewidth of the acoustic band is a good idea as the smearing can be identified with the intrinsic uncertainty of the phonon energy. An ideal procedure would use the actual linewidth for the smearing, but this should be done iteratively which would be much more computationally expensive. This scheme may eventually be implemented in the code if there is enough request.
+
 In brief: do not take a value too small for the smearing, something of the order of a cm-1 is usually fine.
-Compute the linewidth along a path in the BZ
+
+### Compute the linewidth along a path in the BZ
+```
 &lwinput 
  calculation = 'lw full'
  file_mat2 = 'mat2R' 
@@ -582,8 +655,12 @@ QPOINTS
 0.33333333333 0.333333333333 0.0 74 
 0.0 0.0 0.0 94 
 0.0 0.0 0.5 25
-Compute the spectral function along a path
+```
+
+### Compute the spectral function along a path
+
 Spectral function calculations are not as well optimized as linewidth ones and can be much more memory intensive. If you are running out of memory, do not use more configuration that necessary, especially if running on massive parallel machines such as IBM BlueGENE.
+```
 &lwinput 
  calculation = 'spf'
  file_mat2 = 'mat2R' 
@@ -604,10 +681,17 @@ QPOINTS
 0.33333333333 0.333333333333 0.0 74 
 0.0 0.0 0.0 94 
 0.0 0.0 0.5 25
+```
+
 You can obtain a color plot like those of ref. 5 with this gnuplot script:
+
+```
 set log cb 
 splot 'spf_full_T300_s0.3.out' u 1:2:3 w image
-Compute the final state decomposition
+```
+
+### Compute the final state decomposition
+```
 &lwinput 
  calculation = 'final' 
  file_mat2 = 'T_295K/mat2R' 
@@ -646,10 +730,15 @@ CONFIGS
 1.0    300
 QPOINTS bz 
  50 50 1
+```
 
-You can than plot the resulting file with a gnuplot command like this (you will have to tune the pointsize and of course select the correct band to plot):
+You can then plot the resulting file with a gnuplot command like this (you will have to tune the pointsize and of course select the correct band to plot):
+```
 p 'lw_2d.50x50x1@bz_T300_s10.out' u 3:4:12 w points palette pt 7 pointsize 1.7 not
+```
+
 This is an example from graphene (done using 128x128 BZ-centered points):
+```
 d3_tk.x
 Compute the SMA solution of the BTE
 The following input file computes the thermal conductivity in the Single-Mode Approximation. This example uses a finer grid of 24x24x24 q-points to compute the phonon lifetime on a grid of 12x12x12 points, which is integrated to compute the thermal conductivity. Furthermore, the natural isotopic distribution of Silicon is used.
@@ -670,8 +759,11 @@ CONFIGS
 5.0    10 
 ISOTOPES 
  Si natural
-Compute the exact solution of the BTE
+```
+
+### Compute the exact solution of the BTE
 The following input file computes the thermal conductivity solving the BTE by functional minimization. This example also includes border scattering on grains of 1 micrometer average size.
+```
 &tkinput 
  calculation = 'cgp' 
  prefix="tk"
@@ -696,12 +788,14 @@ CONFIGS
        500 
        1000 
        2000
+```
 
-Data Flow
+# Data Flow
 
 
-Bibliography
+# Bibliography
 A list of essential bibliographic references follows. When using this code you are not required to cite all of these work, however the authors would greatly appreciate if you cited references 1-4 where the theory and implementation of this work is described in detail.
+
 In particular ref. 1 describes the calculation of 3rd order dynamical matrices using DFPT, and the calculation of ph-ph linewidth; ref. 2 describes the iterative solution of the BTE. In ref. 9 the formula used to compute the phonon-phonon scattering is derived. See also refs. 10-14 for previous methods, and for the inclusion of isotopic and border scattering. Ref. 3 and 4 include important applications and analysis of the BTE exact solution. Reference 5 describes the calculation of phonon spectra functions and the combination of 3rd and 4th order. References 6-8 contain the foundation of the theory used.
     1. L. Paulatto, F. Mauri, and M. Lazzeri, Phys. Rev. B 87, 214303 (2013).
     2. G. Fugallo, M. Lazzeri, L. Paulatto, and F. Mauri, Phys. Rev. B 88, 045430 (2013).
@@ -717,5 +811,7 @@ In particular ref. 1 describes the calculation of 3rd order dynamical matrices u
     12. M. Omini and A. Sparavigna, Phys. Rev. B 53, 9064 (1996)
     13. M. Omini, A. Sparavigna, Physica B: Condensed Matter 212, 101-112, (1995)
     14. M. Omini and A. Sparavigna, Phys. Rev. B 61, 6677 (2000)
-Change Log
+
+# Change Log
 See the changelog file in Doc.
+
