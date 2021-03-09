@@ -15,7 +15,49 @@ We would greatly appreciate if when using the d3q code you cite the following pa
 - L. Paulatto, F. Mauri, and M. Lazzeri,  Phys. Rev. B 87, 214303 (2013)
 - G. Fugallo, M. Lazzeri, L. Paulatto, and F. Mauri", Phys. Rev. B 88, 045430 (2013)
 
-{:toc}
+<!--ts-->
+   * [D3Q manual](#d3q-manual)
+   * [Foreword](#foreword)
+      * [Copyright](#copyright)
+      * [Citing](#citing)
+   * [Capabilities of the d3q code](#capabilities-of-the-d3q-code)
+   * [Compiling the code](#compiling-the-code)
+   * [Preparing a D3Q calculation](#preparing-a-d3q-calculation)
+      * [Running the pw.x calculation](#running-the-pwx-calculation)
+      * [Running the ph.x calculation](#running-the-phx-calculation)
+      * [Example pw.x and ph.x input files](#example-pwx-and-phx-input-files)
+         * [Input of pw.x](#input-of-pwx)
+         * [Input of ph.x](#input-of-phx)
+      * [D3Q Input File](#d3q-input-file)
+         * [QPOINTS or GRID specifications](#qpoints-or-grid-specifications)
+            * [prefix (CHARACTER, no default)](#prefix-character-no-default)
+            * [outdir (CHARACTER, default $ESPRESSO_TMPDIR)](#outdir-character-default-espresso_tmpdir)
+            * [d3dir (CHARACTER, default outdir, or $ESPRESSO_D3DIR)](#d3dir-character-default-outdir-or-espresso_d3dir)
+            * [fildrho_dir (CHARACTER, default outdir, or $ESPRESSO_FILDRHO_DIR)](#fildrho_dir-character-default-outdir-or-espresso_fildrho_dir)
+            * [fild3dyn (CHARACTER, default: "anh")](#fild3dyn-character-default-anh)
+            * [ethr_ph (REAL, default: 1.d-8)](#ethr_ph-real-default-1d-8)
+            * [amass (REAL, array, default: same as pw.x)](#amass-real-array-default-same-as-pwx)
+            * [fildrho (CHARACTER, default: "drho")](#fildrho-character-default-drho)
+            * [first, last (INTEGER, default: 1, 0)](#first-last-integer-default-1-0)
+            * [offset, step (INTEGER, default: 0, 1)](#offset-step-integer-default-0-1)
+            * [restart (LOGICAL, default: .true.)](#restart-logical-default-true)
+            * [max_seconds (no default, in seconds)](#max_seconds-no-default-in-seconds)
+            * [max_time (format hh.mmss)](#max_time-format-hhmmss)
+            * [nk1, nk2, nk3 (3x INTEGER, default: same as pw.x)](#nk1-nk2-nk3-3x-integer-default-same-as-pwx)
+            * [k1, k2, k3 (3x INTEGER, default: same as pw.x)](#k1-k2-k3-3x-integer-default-same-as-pwx)
+            * [degauss (REAL, default: same as pw.x)](#degauss-real-default-same-as-pwx)
+            * [print_star (LOGICAL, default: .true.)](#print_star-logical-default-true)
+            * [print_perm (LOGICAL, default: .false.)](#print_perm-logical-default-false)
+            * [print_trev (LOGICAL, default: .false.](#print_trev-logical-default-false)
+            * [safe_io (LOGICAL, default: .false.)](#safe_io-logical-default-false)
+         * [GRID and QPOINTS](#grid-and-qpoints)
+         * [&amp;d3_debug namelist](#d3_debug-namelist)
+      * [Running D3Q](#running-d3q)
+         * [Note on pools parallelisation](#note-on-pools-parallelisation)
+
+<!-- Added by: paulatto, at: Tue Mar  9 17:42:27 CET 2021 -->
+
+<!--te-->
 
 # Capabilities of the d3q code
 The d3q code computes the third derivative of the Density Functional Theory ground-state energy with respect to three harmonic perturbations, identified by their wavevectors q1, q2 and q3=-q1-q2. The code can use a certain number of methods:
