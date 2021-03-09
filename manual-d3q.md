@@ -251,3 +251,5 @@ Each file contains the D3 matrix (more strictly, the D3 tensor) in an XML format
 
 ## Data flow
 Note: All the d3_ codes used to manipulate the force constants are documented in manual-thermal2
+![data flow](images/dataflow.svg)
+
