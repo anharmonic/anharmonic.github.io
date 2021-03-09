@@ -1,6 +1,5 @@
 ---
 layout: default
-permalink: /description/
 ---
 <h1 style="color:#6f02ec; font-size:36px; font-weight:bold;">Anharmonic properties of materials</h1>
 
