@@ -119,16 +119,19 @@ We would greatly appreciate if when using the thermal2 suite of codes you cite t
             * [restart (LOGICAL, default: .false.)](#restart-logical-default-false)
             * [mfp_cutoff (LOGICAL, default: false)](#mfp_cutoff-logical-default-false)
             * [volume_factor (REAL, default: 1)](#volume_factor-real-default-1)
-      * [Output format](#output-format-3)
-         * [SMA calculation](#sma-calculation)
-         * [CGP calculation](#cgp-calculation)
-      * [QPOINTS](#qpoints)
-         * [Examples](#examples)
-      * [CONFIGS](#configs)
-         * [Examples](#examples-1)
-      * [ISOTOPES](#isotopes)
-         * [Examples](#examples-2)
+         * [Output format](#output-format-3)
+            * [SMA calculation](#sma-calculation)
+            * [CGP calculation](#cgp-calculation)
+      * [Common input cards](#common-input-cards)
+         * [QPOINTS](#qpoints)
+            * [Examples](#examples)
+         * [CONFIGS](#configs)
+            * [Examples](#examples-1)
+         * [ISOTOPES](#isotopes)
+            * [Examples](#examples-2)
+   * [Input Examples](#input-examples)
       * [d3_lw.x](#d3_lwx-2)
+         * [Computing the linewidth of a single point](#computing-the-linewidth-of-a-single-point)
          * [Testing convergence with smearing and grid](#testing-convergence-with-smearing-and-grid)
          * [Compute the linewidth along a path in the BZ](#compute-the-linewidth-along-a-path-in-the-bz)
          * [Compute the spectral function along a path](#compute-the-spectral-function-along-a-path)
@@ -137,11 +140,10 @@ We would greatly appreciate if when using the thermal2 suite of codes you cite t
       * [d3_tk.x](#d3_tkx-2)
          * [Compute the SMA solution of the BTE](#compute-the-sma-solution-of-the-bte)
          * [Compute the exact solution of the BTE](#compute-the-exact-solution-of-the-bte)
-   * [Data Flow](#data-flow)
    * [Bibliography](#bibliography)
    * [Change Log](#change-log)
 
-<!-- Added by: paulatto, at: Tue Mar  9 17:56:12 CET 2021 -->
+<!-- Added by: paulatto, at: Tue Mar  9 18:10:12 CET 2021 -->
 
 <!--te-->
 
@@ -548,7 +550,9 @@ When a CGP calculation several files are created: one with the results at the la
 1. A file named $prefix.$grid_size.out, where $prefix is the input value of prefix and $grid_size is the size of the integration grid (e.g. “20x20x20”). This file will contain with the results from the last completed iteration of the code, one line per configuration, containing 1) the configuration number, 2) the value of sigma 3) the temperature 4-6) the diagonal elements of the thermal conductivity Kxx, Kyy and Kzz 7-12) The off-diagonal elements of K, in this order:  Kxy, Kyz, Kyz , Kyx, Kzx, Kzy.
 2. A file for every input configuration, named $prefix.$grid_size_s$XX_T$YY.out, where $XX is the smearing in cm-1 and $YY is the temperature in Kelvin. A line is appended to each file at each iteration containing: 1) the number of the iteration, 2) the value of sigma 3) the temperature 4-6) the diagonal elements of the thermal conductivity Kxx, Kyy and Kzz 7-12) The off-diagonal elements of K, in this order:  Kxy, Kyz, Kyz , Kyx, Kzx, Kzy.
 
-## QPOINTS
+
+## Common input cards 
+### QPOINTS
 The “QPOINTS” card instruct the code to start reading a list of nq q-points, nq has been previously entered in the namelist. On the same line as QPOINTS thre optional keywords can be specified:
 
 *cartesian (DEFAULT)*
@@ -590,7 +594,7 @@ q0x q0y q0z
 ```
 Which are the grid size (n1, n2) two vectors defining the surface (e1,e2) and the origin (q0). The first point in the surface is q0, the last is q0+e1+e2
 
-### Examples
+#### Examples
 Select the Γ point (000) and the X point (001) in a cubic lattice:
 ```
 QPOINTS
@@ -638,7 +642,7 @@ QPOINTS
 0 0.2 1  100
 ```
 
-## CONFIGS
+### CONFIGS
 The “CONFIGS” card instructs the code to start reading a list of sigma (in cm-1)/temperature (in K) configurations. Sigma can be the width of a Gaussian smearing or the regularization of the self-energy, depending on the type of calculation. Configurations can be specified as a list (default), or as a matrix. In the former case a simple list is expected; in the latter case the code reads two lists: one of  sigma and one of T and generates all possible couples. 
 list
 
@@ -647,7 +651,7 @@ If you specify "CONFIGS list" or just "CONFIGS", the number of configurations "n
 *matrix*
 After "CONFIGS matrix" the code will scan for the keyword "T" ("sigma"), followed, on the same line, by the number of temperatures (sigmas), the default value of 1 is taken if missing. The code will the read, on the following lines, the required values of temperature (sigma). See also the example below.
 
-### Examples
+#### Examples
 Select three configurations of increasing values of sigma and temperature:
 ```
 CONFIGS
@@ -680,7 +684,7 @@ CONFIGS matrix
 ```
 Undocumented: using a negative or zero value for the smearing. This features can change at any time in the future, possibly to become a proper input variables. A negative value of the smearing can activate a few "hidden" features of the d3_lw.x code. In particular, when doing a "lw full" or "final state" calculation, setting the smearing to zero will use the static formula for the linewidth, where the energy denominators are just ω1+ω2 and  ω1-ω2, the latter becomes a derivative (of the Bose-Einstein distribution) when the modes 2 and 3 are degenerate. A negative value of sigma, will also use the static limit but with a regularization of the denominator. The static limit is not currently implemented for the spectral function, and it does not make sense for the "lw imag" calculation.
 
-## ISOTOPES
+### ISOTOPES
 After this card the code will read the information about the isotopic composition of all elements present in the calculation. This list will only be read if “isotopic_disorder” is set to true in the namelist. Note that specifying the isotopes is not necessary, if this card is omitted the natural isotopic concentration will be used.
 
 Each element, identified by its name, must appear in the same order as in the file of the force constants. The isotopic composition can be specified in several different ways.
@@ -716,7 +720,7 @@ Xx manual gm gs
 ```
 Where Xx is the element name, “manual” is a keyword, gm is the average mass and gs is its variance (both in Dalton units).
 
-### Examples
+#### Examples
 In the following example we will set Hydrogen isotopic concentration to 1) pure one-proton H 2) pure Deuterium 3) 50% H and 50% D 4) Hydrogen natural concentration 5) set gm and gs manually
 ```
 H N 1
@@ -728,10 +732,10 @@ H natural
 H manual 1.02  0.01
 ```
 
-#Input Examples
+# Input Examples
 In the next sections you will find some example input files for the main codes of thermal2. You will find more examples, included a
 ## d3_lw.x
-Computing the linewidth of a single point
+### Computing the linewidth of a single point
 
 This example input would compute the linewidth of q-point (1/3 1/3 0) in crystal (aka fractional) coordinates for 15 different values of temperature.
 ```
@@ -989,9 +993,6 @@ CONFIGS
        1000 
        2000
 ```
-
-# Data Flow
-![Data flow](images/dataflow.svg)
 
 # Bibliography
 A list of essential bibliographic references follows. When using this code you are not required to cite all of these work, however the authors would greatly appreciate if you cited references 1-4 where the theory and implementation of this work is described in detail.
