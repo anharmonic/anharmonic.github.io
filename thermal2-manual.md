@@ -18,6 +18,8 @@ We would greatly appreciate if when using the thermal2 suite of codes you cite t
 - A. Cepellotti, G. Fugallo, L. Paulatto, M. Lazzeri, F. Mauri, N. Marzari, Nat. Comm. 6 (2015)
 - G. Fugallo, A. Cepellotti, L. Paulatto, M. Lazzeri, N. Marzari, F. Mauri, Nano Letters 14 (11), 6109-6114 (2014)
 
+{:toc}
+
 # Quick Reference Manual
 ## Compiling the code
 The thermal2 codes come bundled with the D3Q code, used to compute ab-initio the 3rd order dynamical matrices. We refer you to the D3Q manual for more detailed instruction on compiling. A separate stand-alone distribution of the thermal2 codes is being considered and may be available in the future.
