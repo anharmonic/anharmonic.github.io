@@ -7,10 +7,10 @@ permalink: /thermal2/
 # Foreword
 The thermal2 suite of codes has been written starting in 2014 by Lorenzo Paulatto1. It is based on an initial set of unreleased codes written by Giorgia Fugallo1,2 and Andrea Cepellotti3, both have also participated in the development. The code contains contributions from Michele Lazzeri1 and Francesco Mauri1,4, as well as some subroutines from the Quantum-ESPRESSO distribution. Other people who have participated to the code development include Raffaelo Bianco1, Ion Errea1,5 and Nicola Marzari3.
 
-##Copyright
+## Copyright
 All the files are provided under the GPL license, v2 or newer and, when possible, under the CeCILL license. A single file nist_isotopes_db.f90 contains public domain data from the National Institute of Standards and Technology.
 
-##Citing
+## Citing
 We would greatly appreciate if when using the thermal2 suite of codes you cite the following papers where the underlying theory is described in detail (see also page 32):
 - L. Paulatto, F. Mauri, and M. Lazzeri,  Phys. Rev. B 87, 214303 (2013)
 - G. Fugallo, M. Lazzeri, L. Paulatto, and F. Mauri", Phys. Rev. B 88, 045430 (2013)
