@@ -3,6 +3,7 @@ title: D3Q
 subtitle: User Manual and Quick Reference
 permalink: /d3q/
 ---
+<h1 style="color:#6f02ec; font-size:36px; font-weight:bold;">D3Q manual</h1>
 
 # Foreword
 The thermal2 suite of codes has been written starting in 2010 by Lorenzo Paulatto1 , Michele Lazzeri1,2 and Tobias Wassmann1. It is based on a previous less-general code developed by Michele Lazzeri and Stefano de Gironcoli2 which has been distributed with the Quantum-ESPRESSO suite of codes.
