@@ -190,6 +190,65 @@ The r2q.x code will produce an output file for every configuration. The output f
 - 6→5+3 nat.
 	The phonon frequencies in cm-1.
 
+## d3_qha.x
+This code reads the 2nd order FCs for a series of volumes, computes the phonon free energy for a given list of temperature, fits the total free energy with an equation of state to find the equilibrium volume at each temperature and find the thermal expansion coefficient.
+
+### Namelist &qhainput
+#### calculation (CHARACTER, default: “gibbs”)
+The type of calculation to perform, at the moment it can only do Gibbs free energy
+#### prefix (CHARACTER, default: the value of calculation)
+The first part of the output file name, the file will be called “prefix*.out”. Where the * part depend on the kind of calculation (See the Output format section)
+#### outdir (CHARACTER, default: “./”, i.e. the current directory)
+Location where the output file will be saved.
+#### nT, dT, T0 (INTEGER, REAL, REAL, in K)
+Define the list of temperatures to compute: T0, T0+dT, …, T0+(nT-1)dT. Use a sufficiently small value for dT in order to have a reliable thermal expansion coefficient.
+#### asr2 (CHARACTER, default: “no”)
+Method used to apply the acoustic sum rule, can be “no” (do not apply ASR), “simple” (apply the compensation term to the on-site force constant). You can use the script tools/apply_asr.sh in order to apply more sophisticated sum rules using matdyn.x from qe.
+#### nk (3x INTEGER, no default)
+The size of the grid used to integrate the phonon-phonon interaction processes.
+#### grid_type (CHARACTER, default: “simple”)
+Set this to “simple” to use a regular unshifted grid in reciprocal space. See the description of d3_lw.x input for more details about this option.
+#### press_kbar (REAL, kbar, 0)
+#### press_Gpa (REAL, Gpa, 0)
+Optionally add an hydrostatic pressure, which will contribute a term pV to the total energy. The sign convention for pressure is that higher positive pressure means pushing stronger on the sample (i.e. you may want to use a positive pressure value 99% of the times).
+#### n_volumes (INTEGER, no default)
+The number of volumes that have been computed ab-initio. The code expect to find a list of n_volumes force constant files and total electronic  energies after the namelist.
+
+###List of volumes
+After the namelist, the code reads n_volumes lines, each line contains the name of a force-constant file (produced by d3_q2r.x) and the total electronic energy corresponding to it. For examples:
+```
+&qhainput
+ ...
+ n_volumes = 3
+/
+mat2R_1   -128.1
+mat2R_2   -128.6
+mat2R_3   -127.9
+```
+It may be necessary to enclose the name of the file in quotes “…” if it contains any special character, such as “/”. The energy are in Ry and are just the “total energy” printed by pw.x at total convergence.
+### Output format
+The code will create, in outdir, a file for each temperature with the equation of state for that temperature, and a final file with the theoretical volume/temperature curve,
+For each temperature, a file called $prefix_T$temperature.dat, in the file header you will find these informations that are obtained by fitting the total Gibbs free energy with an equation of state:
+- v0: the equilibrium volume at this temperature
+- g0: the theoretical minimu of the free energy at v0
+- k0, dk0, d2k0: bulk modulus, its first and second derivatives
+Afterwards, the file will contain these columns:
+1. Cell volume in bohr
+2. total Gibbs temperature dependent energy (g)
+3. total electronic energy (from input)
+4.  zero-point vibrational energy
+5. phonon free energy
+6. hydrostatic contribution (pV)
+7. total energy w.r.t the minimum of the equation of state fitted (g-g0)
+8.  total Gibbs free energy from the fit
+The final file, called $prefix.dat, contains the following columns:
+1. Temperature            
+2. Volume (bohr3)     
+3. Volumetric thermal expansion            
+4. Theoretical total free energy, at the equilibrium volume for this temperature (g(T,v0))
+5. Bulk modulus, its first and second derivatives
+
+
 ## d3_lw.x
 This code can compute the intrinsic phonon-phonon interaction and the interaction of phonons with isotopic disorder and border scattering. It reads its input variables from the &lwinput namelist and from the QPOINTS, CONFIGS and ISOTOPES lists, which are described in detail in their corresponding sections.
 ### Namelist &lwinput
