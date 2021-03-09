@@ -19,9 +19,10 @@ We would greatly appreciate if when using the d3q code you cite the following pa
 # Capabilities of the d3q code
 The d3q code computes the third derivative of the Density Functional Theory ground-state energy with respect to three harmonic perturbations, identified by their wavevectors q1, q2 and q3=-q1-q2. The code can use a certain number of methods:
 - Norm Conserving pseudopotentials
-- Local Density Approximation (LDA) and Generalized Gradient Approximation (GGA) functionals, the latter is less thoroughly tested than the former
+- Local Density Approximation (LDA) and Generalized Gradient Approximation (GGA) functionals.
 - Insulators and Metals (i.e. partial occupation of the electronic bands)
-On the other hand, the codes does not implements the following features:
+
+On the other hand, the codes *does not* implements the following features:
 - Ultrasoft pseudopotentials and PAW datasets
 - Advanced functionals, e.g. meta-GGA, Grimme vdW corrections and non-local vdW functionals
 - Hybrid functionals
@@ -31,7 +32,7 @@ On the other hand, the codes does not implements the following features:
 - non-collinear spin and spin-orbit interaction
 Please be aware of these limitations! Adding any of these features would take a huge amount of work for developing the theory, implementing the code and validating the results. There is very little chance that we will implement any of them (perhaps with the exception of spin-polarized systems) in the near future. On the other hand, if you are willing to provide a consequent amount of workforce, we are available to provide as much assistance as possible.
 
-In most cases, we have have been able to obtain meaningful results despite these limitation, sometimes combining phonons computed with more advanced methods with 3rd order calculation computed on the same systems but with a simpler method, assuming that more advanced correction would not affect the 3rd order too much. If you want to take this approach we recommend that you validate the assumption on a simpler test, where the entire calculation can be performed with the methods available in d3q.x.
+In most cases, we have have been able to obtain meaningful results despite these limitation, sometimes combining phonons computed with more advanced methods with 3rd order calculation computed on the same systems but with a simpler method, assuming that more advanced correction would not affect the 3rd order too much. If you want to take this approach we recommend that you validate the assumption on a simpler test, where the entire calculation can be performed with the methods available in d3q.x.  Alternatively, you can use one of the compatible real-space codes.
 
 # Compiling the code
 The d3q.x code is distributed in a package bundled with the thermal2 codes for computing phonon-phonon interactions. The package has to be decompressed inside the main directory of a Quantum-ESPRESSO source distribution (which is usually called espresso-X.Y.Z, where X, Y and Z identify the version). Please be aware that each release of the D3Q code is developed and tested on top of a specific version of Quantum-ESPRESSO and it will probably not work on any other version: Take care to choose the correct package.
