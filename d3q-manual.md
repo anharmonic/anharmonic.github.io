@@ -182,7 +182,7 @@ You can change the k-points grid and smearing used in d3q, do it with care  and 
 #### print_star (LOGICAL, default: .true.)
 #### print_perm (LOGICAL, default: .false.)
 #### print_trev (LOGICAL, default: .false.
-The code saves the D3 matrix of each triple computed and of the star  of those triplet. It does not compute the permutations (q1,q2,q3) -> (q2,q3,q1); etc…  (although some symmetry operations may be equivalent to permutations) It also does not use time-reversal symmetry to send q->-q. You can control this behavior with these variables. Please note that the subsequent codes in the thermal2 require print_star=.true. in order to work correctly.
+The code saves the D3 matrix of each triplet computed and of the star  of those triplet. It does not compute the permutations (q1,q2,q3) -> (q2,q3,q1); etc…  (although some symmetry operations may be equivalent to permutations) It also does not use time-reversal symmetry to send q->-q. You can control this behavior with these variables. Please note that the subsequent codes in the thermal2 require print_star=.true. in order to work correctly.
 #### safe_io (LOGICAL, default: .false.)
 If you set safe_io to true, every file is closed and reopened after each write. This can make the code much slower, but can solve some problems with parallel filesystem not syncing or corrupted file when trying to restart. As long as partial q-point restart is not implemented and tested, this option should left to its default value.
 
