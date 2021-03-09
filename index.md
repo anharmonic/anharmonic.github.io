@@ -2,13 +2,15 @@
 layout: default
 ---
 
+# Description
+
 The anharmonic codes are composed of two main parts:
 <d1>
 <dt>
 d3q
 </dt>
 <dd>
-To compute fully ab-initio, using perturbation theory the third order dynamical matrix and the three-body force constants. This code is very efficient, it uses the _2n+1_ extension of density functional perturbation theory to compute the response of the system to harmonic perturbations. It does not use expensive supercell and no range cutoff has to be imposed. This code is tightly couple with quantum-espresso, it supports norm-conserving pseudopotentials.
+To compute fully ab-initio, the anharmonic third-order dynamical matrix and the three-body force constants. This code is very efficient, it uses the _2n+1_ extension of density functional perturbation theory to compute the response of the system to three harmonic perturbations. It does not use expensive supercell and no range cutoff has to be imposed. It is tightly couple with quantum-espresso, it supports norm-conserving pseudopotentials.
 </dd>
 <dt>
 thermal2
@@ -24,137 +26,21 @@ A suite of codes to manipulate 2-body and 3-body force constants to study vibrat
 - Fourier interpolation of harmonic and anharmonic force constants
 These codes are loosely coupled with Quantum-ESPRESSO, can natively use force constants from the ph and d3q codes, but can also import them from real-space thirorder and phonon3py codes.
 
+You can usually get the d3q+thermal2 codes directly inside quantum-espresso by doing "make d3q", there can be some delay between the release of a new QE version and the version of d3q+thermal2 being available. If you are interested in cutting edge features, you can [get the latest version from github]("https://github.com/anharmonic/d3q  "d3q+thermal2 github repositry"), which usually compiles with the git version of QE. You can also download a [snapshot including QE+d3q+thermal2](https://mycore.core-cloud.net/index.php/s/1RxbPmcxvHunFVF "bundle links")
 
+# Example applications
+##Intrinsic phonon linewidth
+### Graphene intrinsic linewidth
 ![Graphene intrinsic linewidth (dispersion)](https://anharmonic.github.io/images/1.png)
 ![Graphene intrinsic linewidth (BZ)](https://anharmonic.github.io/images/graphene-bz.png)
+### Silicon intrinsic linewidth
 ![Silicon intrinsic linewidth](https://anharmonic.github.io/images/2.png)
+## Hyperacoustic wave attenuation
+###Temperature dependent attenuation (GaAs)
 ![GaAs hyperacoustic waves attenuation](https://anharmonic.github.io/images/gaas-50K.png)
+###Final state decomposition
 ![GaAs hyperacoustic scattering phase space](https://anharmonic.github.io/images/FS-900GHz-111.png)
+## Thermal conductivity
+Including finite-size effect, disorder, isotopes
 ![Bi2Se3 thermal conductivity](https://anharmonic.github.io/images/plot-best.png)
 
-
-Text can be **bold**, _italic_, or ~~strikethrough~~.
-
-[Link to another page](./another-page.html).
-
-There should be whitespace between paragraphs.
-
-There should be whitespace between paragraphs. We recommend including a README, or a file with information about your project.
-
-# Header 1
-
-This is a normal paragraph following a header. GitHub is a code hosting platform for version control and collaboration. It lets you and others work together on projects from anywhere.
-
-## Header 2
-
-> This is a blockquote following a header.
->
-> When something is important enough, you do it even if the odds are not in your favor.
-
-### Header 3
-
-```fortran
-program test
-  call ciao()
-end program
-```
-
-```js
-// Javascript code with syntax highlighting.
-var fun = function lang(l) {
-  dateformat.i18n = require('./lang/' + l)
-  return true;
-}
-```
-
-```ruby
-# Ruby code with syntax highlighting
-GitHubPages::Dependencies.gems.each do |gem, version|
-  s.add_dependency(gem, "= #{version}")
-end
-```
-
-#### Header 4
-
-*   This is an unordered list following a header.
-*   This is an unordered list following a header.
-*   This is an unordered list following a header.
-
-##### Header 5
-
-1.  This is an ordered list following a header.
-2.  This is an ordered list following a header.
-3.  This is an ordered list following a header.
-
-###### Header 6
-
-| head1        | head two          | three |
-|:-------------|:------------------|:------|
-| ok           | good swedish fish | nice  |
-| out of stock | good and plenty   | nice  |
-| ok           | good `oreos`      | hmm   |
-| ok           | good `zoute` drop | yumm  |
-
-### There's a horizontal rule below this.
-
-* * *
-
-### Here is an unordered list:
-
-*   Item foo
-*   Item bar
-*   Item baz
-*   Item zip
-
-### And an ordered list:
-
-1.  Item one
-1.  Item two
-1.  Item three
-1.  Item four
-
-### And a nested list:
-
-- level 1 item
-  - level 2 item
-  - level 2 item
-    - level 3 item
-    - level 3 item
-- level 1 item
-  - level 2 item
-  - level 2 item
-  - level 2 item
-- level 1 item
-  - level 2 item
-  - level 2 item
-- level 1 item
-
-### Small image
-
-![Octocat](https://github.githubassets.com/images/icons/emoji/octocat.png)
-
-### Large image
-
-![Branching](https://guides.github.com/activities/hello-world/branching.png)
-
-
-### Definition lists can be used with HTML syntax.
-
-<dl>
-<dt>Name</dt>
-<dd>Godzilla</dd>
-<dt>Born</dt>
-<dd>1952</dd>
-<dt>Birthplace</dt>
-<dd>Japan</dd>
-<dt>Color</dt>
-<dd>Green</dd>
-</dl>
-
-```
-Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
-```
-
-```
-The final element.
-```

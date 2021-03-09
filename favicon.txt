@@ -1,0 +1,1 @@
+favicon-16x16.png mstile-150x150.png android-chrome-192x192.png site.webmanifest safari-pinned-tab.svg favicon.ico favicon-32x32.png apple-touch-icon.png browserconfig.xml
