@@ -100,6 +100,8 @@ NOTE: this code is experimental and not widely tested, use at your own risk.
 This codes reads a spectral weight file from d3_lw.x and computes the convolution with a Lorentzian function that has an energy-dependent FWHM. This procedures simulates the broadening introduced by Raman spectroscopy experiments. This code can also sum and average the spectral function coming from several different files, to simulate the uncertainty of the neutron wavevectors. It reads its input from a file called input.SQOM. Please see the code of PROGRAM_sqom.f90 for details.
 
 ## Tools
+In the tools/ directory, a selection of tools for pres- and post-processing of data.
+
 ### funcoft.sh
 This is a short bash script to get a plottable file of the linewidth of a specific phonon mode as a function of temperature.
 
@@ -125,7 +127,6 @@ Compare two D3 files, write on output the matrix elements and the maximum differ
 ### d3_sc2c.x
 Open two D3 files, the first for a unit cell calculation for an arbitrary triplet, the second for a supercell calculation for a triplet of kind (0,q,-q). Then it refold the super-cell D3 matrix to the unit cell and compares the two.
 
-## Tools File format and import tools
 The following scripts are in the tools subdirectory, they can be useful in specific circumstances. They have little documentation, do not hesitate to ask for help if you cannot make them work.
 ### xml2giorgia.x
 Reads a list of D3 matrix files in XML format from standard input and write them to a single ASCII file called d3.txt
@@ -580,8 +581,10 @@ CONFIGS
        900 
 QPOINTS crystal 
 0.33333333333 0.333333333333 0.0
-Testing convergence with smearing and grid
+```
+### Testing convergence with smearing and grid
 The following example is useful for testing the convergence of the linewidth calculation as a function of the smearing value. The input should be run several times replacing NK with increasing values. You can then collect the linewidth of a band and plot a curve for every smearing as a function of the grid size.
+```
 &lwinput 
  calculation = 'lw imag' 
  prefix = 'lw_NK' 
@@ -617,6 +620,7 @@ done
 ```
 
 And proceed to plot the curves included in the files s0.1.dat … s10.0.dat, e.g. with gnuplot.
+![convergence with k-points](images/conv.svg)
 
 You see that larger values of smearing converge with smaller grids but not to exactly the same value as smaller smearing. Using a smearing of the same order of magnitude as the average linewidth of the acoustic band is a good idea as the smearing can be identified with the intrinsic uncertainty of the phonon energy. An ideal procedure would use the actual linewidth for the smearing, but this should be done iteratively which would be much more computationally expensive. This scheme may eventually be implemented in the code if there is enough request.
 
@@ -741,7 +745,10 @@ p 'lw_2d.50x50x1@bz_T300_s10.out' u 3:4:12 w points palette pt 7 pointsize 1.7 n
 
 This is an example from graphene (done using 128x128 BZ-centered points):
 ```
-d3_tk.x
+![graphene bz](images/graphene-bz.png)
+
+
+## d3_tk.x
 Compute the SMA solution of the BTE
 The following input file computes the thermal conductivity in the Single-Mode Approximation. This example uses a finer grid of 24x24x24 q-points to compute the phonon lifetime on a grid of 12x12x12 points, which is integrated to compute the thermal conductivity. Furthermore, the natural isotopic distribution of Silicon is used.
 &tkinput 
