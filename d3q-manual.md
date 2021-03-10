@@ -61,7 +61,7 @@ We would greatly appreciate if when using the d3q code you cite the following pa
       * [Output format](d3q-manual.md#output-format)
       * [Data flow](d3q-manual.md#data-flow)
 
-<!-- Added by: paulatto, at: Wed Mar 10 10:26:57 CET 2021 -->
+<!-- Added by: paulatto, at: Wed Mar 10 10:59:00 CET 2021 -->
 
 <!--te-->
 
