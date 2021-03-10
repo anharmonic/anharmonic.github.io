@@ -6,14 +6,16 @@ permalink: /d3q/
 <h1 style="color:#6f02ec; font-size:36px; font-weight:bold;">D3Q manual</h1>
 
 # Foreword
-The thermal2 suite of codes has been written starting in 2010 by Lorenzo Paulatto1 , Michele Lazzeri1,2 and Tobias Wassmann1. It is based on a previous less-general code developed by Michele Lazzeri and Stefano de Gironcoli2 which has been distributed with the Quantum-ESPRESSO suite of codes.
+The thermal2 suite of codes has been written starting in 2010 by Lorenzo Paulatto<sup>1</sup>. It is based on a previous code developed by Michele Lazzeri and Stefano de Gironcoli<sup>2</sup> which has been distributed with the Quantum-ESPRESSO suite of codes.
 ## Copyright
-All the files are provided under the GPL license, v2 or newer; it is compiled and linked as a part of the Quantum-ESPRESSO distribution, although it is distributed separately and maintained independently.
+All the files are provided under the [GPL license, v2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html) or newer and, when possible, under the [CeCILL license](https://cecill.info/licences/Licence_CeCILL_V2.1-fr.html). 
+
 ## Citing
 We would greatly appreciate if when using the d3q code you cite the following papers where the underlying theory is described in detail:
-- M. Lazzeri, S. de Gironcoli, Phys. Rev. Lett. 81, 2096 (1998)
-- L. Paulatto, F. Mauri, and M. Lazzeri,  Phys. Rev. B 87, 214303 (2013)
-- G. Fugallo, M. Lazzeri, L. Paulatto, and F. Mauri", Phys. Rev. B 88, 045430 (2013)
+- *All applications*: L. Paulatto, F. Mauri, and M. Lazzeri,  Phys. Rev. B 87, 214303 (2013)
+- *Exact BTE solution*: G. Fugallo, M. Lazzeri, L. Paulatto, and F. Mauri, Phys. Rev. B 88, 045430 (2013)
+- *Spectral functions*: L. Paulatto, D. Fournier, M. Marangolo, M. Eddrief, P. Atkinson, M. Calandra. Phys. Rev. B 101 (20), 205419 (2020)
+- *Finite size effects*: L. Paulatto, I. Errea, M. Calandra, and F. Mauri, Phys. Rev. B 91, 054304 (2015)
 
 # Table of contents
 <!--ts-->
@@ -56,8 +58,10 @@ We would greatly appreciate if when using the d3q code you cite the following pa
          * [&amp;d3_debug namelist](d3q-manual.md#d3_debug-namelist)
       * [Running D3Q](d3q-manual.md#running-d3q)
          * [Note on pools parallelisation](d3q-manual.md#note-on-pools-parallelisation)
+      * [Output format](d3q-manual.md#output-format)
+      * [Data flow](d3q-manual.md#data-flow)
 
-<!-- Added by: paulatto, at: Wed Mar 10 10:04:49 CET 2021 -->
+<!-- Added by: paulatto, at: Wed Mar 10 10:26:57 CET 2021 -->
 
 <!--te-->
 
@@ -75,6 +79,7 @@ On the other hand, the codes *does not* implements the following features:
 - External electric field, via Berry phase or with a sawtooth potential
 - spin-polarized systems
 - non-collinear spin and spin-orbit interaction
+
 Please be aware of these limitations! Adding any of these features would take a huge amount of work for developing the theory, implementing the code and validating the results. There is very little chance that we will implement any of them (perhaps with the exception of spin-polarized systems) in the near future. On the other hand, if you are willing to provide a consequent amount of workforce, we are available to provide as much assistance as possible.
 
 In most cases, we have have been able to obtain meaningful results despite these limitation, sometimes combining phonons computed with more advanced methods with 3rd order calculation computed on the same systems but with a simpler method, assuming that more advanced correction would not affect the 3rd order too much. If you want to take this approach we recommend that you validate the assumption on a simpler test, where the entire calculation can be performed with the methods available in d3q.x.  Alternatively, you can use one of the compatible real-space codes.
@@ -172,6 +177,7 @@ This variable specify the mode in which d3q will operate, it can take the follow
 - "gamma-q": compute the matrix at (0,-q,q), like the old d3.x code; you have to specify the point after the namelist (units of 2π/alat)
 - "partial": compute a full grid of triplets around a specific point q0: (q0, q0+q, q0-q) with q = k1 b1/nq1 + k2 b2/nq2 + k3 b3/nq3 with ki = 0, 1, … , nqi. After the namelist, you will have to specify the point (units of 2π/alat) and then, on a  new line,  the size of the grid nq1 nq2 nq3. This method is in principle useful, as to compute the scattering matrix of phonon q0 you only need this set of D3 matrices, which can be especially useful for limiting the computational cost . However, using these matrices requires a specialized code, which is not implemented: the thermal2 suite of codes expects a full grid. If you badly need to use this feature, please contact us.
 - "full": compute a full grid of triplets (q1, q2, q3), where q1 and q2 span the grid and q3 =-(q1+q2). Symmetry is aggressively used to reduce the total number of triplets to compute, which makes it difficult to estimate; it is usually smaller than the square of the number of points in the irreducible wedge of the BZ, i.e. if the phonon calculation included N q-points, the D3 calculation will probably include less than N2 triplets.
+
 If you want to use the D3 matrices to do linewidth or thermal transport calculations with the thermal2 codes, you definitely have to use the "full" mode, although the other can be useful for testing convergence or in other special cases.
 
 #### prefix (CHARACTER, no default)
@@ -276,6 +282,7 @@ All variable in this namelist default to .true.; except for dbg_write_d3_part an
 - dbg_do_nlcc_123: nlcc correction to drhod2v
 - dbg_write_d3_parts: write each contribution to the D3 matrix separately (DEFAULT: .false.)
 - dbg_full_bands: solve the Sternheimer equation using all the empty bands (DEFAULT: .false.)
+
 These variables are useful for code debugging, but we do not recommend using them for any other reason, especially without knowledge of the code.
 
 ## Running D3Q
@@ -283,20 +290,16 @@ Once you have prepared you d3q.x calculation, running pw.x and ph.x and your inp
 It is not strictly necessary to run d3q.x with the same number of CPUs or pools than pw.x, however this is the most commonly tested case and there is a small chance that some unexpected bug may appear if you do otherwise. The fildrho files produced by phonon do not depends on the number of CPUs or pools,  it is perfectly safe to reuse them with different number of CPUs.
 
 ### Note on pools parallelisation
-Update: this is no longer necessary as of QE v6.x, d3q and pw can run with a different number of pools and pw can be restarted with more pools than k-points.
-
-~~~Because d3q uses less symmetry than pw.x and because it needs several grids of k-points (k+q1, k-q1, k+q2,… ) you may want to run d3q with more pools than pw. However, because of a long standing bug, it is not possible to run d3q with more pools than the number of k-points present in the pw.x calculation. This can be work-around in the following way:~~~
-1. ~~~run the normal pw.x self-consistent calculation. run a dummy pw.x non-self consistent calculation (NSCF) with many more k-points, i.e. with as many k-points as the number of pools you later want to use~~~
-3. ~~~rune d3q.x specifying the nk1, nk2, nk3 and k1, k2, k3 options to recover the initial grid~~~
-
-~~~The additional cost of the intermediate NSCF calculation should be negligible in the total, and the result does not change because NSCF does not change the ground-state charge density.~~~
+Update: as of QE v6.x, d3q and pw can run with a different number of pools and pw can be restarted with more pools than k-points.
 
 ## Output format
 
 The d3q.x code will write file containing the D3 matrix for every triplet it computes and for every triplet that can be obtained from it using symmetry operations. The name of the file depends on the coordinates of the q-points in the triplet, but it always start with the value of the fild3dyn input variable.
 
 The filename is constructed as:
+```
 $fild3dyn_Q1.q11_q12_q13_Q2.q21.q22.q23_Q3.q31.q32.q33
+```
 
 Where the parts in bold are constants and the components qij are is the j-th coordinate of q point number I, in crystalline fractional coordinates, expressed as a fraction (i.e. 1/2, 1/3) with the "/" replaced with an "o". E.g. these are the files corresponding to the triplets (Γ, Γ, Γ), (Γ, X, -X) and (X, M, -X-M) of an hexagonal system:
 ```

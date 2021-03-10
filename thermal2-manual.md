@@ -13,10 +13,10 @@ All the files are provided under the [GPL license, v2](https://www.gnu.org/licen
 
 ## Citing
 We would greatly appreciate if when using the thermal2 suite of codes you cite the following papers where the underlying theory is described in detail (see also the [the bibliography](#Bibliography)):
-- All applications: L. Paulatto, F. Mauri, and M. Lazzeri,  Phys. Rev. B 87, 214303 (2013)
-- Exact BTE solution: G. Fugallo, M. Lazzeri, L. Paulatto, and F. Mauri, Phys. Rev. B 88, 045430 (2013)
-- Spectral functions: L Paulatto, D Fournier, M Marangolo, M Eddrief, P Atkinson, M Calandra. Phys. Rev. B 101 (20), 205419 (2020)
-- Finite size effects: Lorenzo Paulatto, Ion Errea, Matteo Calandra, and Francesco Mauri, Phys. Rev. B 91, 054304 (2015)
+- *All applications*: L. Paulatto, F. Mauri, and M. Lazzeri,  Phys. Rev. B 87, 214303 (2013)
+- *Exact BTE solution*: G. Fugallo, M. Lazzeri, L. Paulatto, and F. Mauri, Phys. Rev. B 88, 045430 (2013)
+- *Spectral functions*: L. Paulatto, D. Fournier, M. Marangolo, M. Eddrief, P. Atkinson, M. Calandra. Phys. Rev. B 101 (20), 205419 (2020)
+- *Finite size effects*: L. Paulatto, I. Errea, M. Calandra, and F. Mauri, Phys. Rev. B 91, 054304 (2015)
 
 # Table of contents
 <!--ts-->
@@ -151,7 +151,7 @@ We would greatly appreciate if when using the thermal2 suite of codes you cite t
    * [Bibliography](thermal2-manual.md#bibliography)
    * [Change Log](thermal2-manual.md#change-log)
 
-<!-- Added by: paulatto, at: Wed Mar 10 10:04:49 CET 2021 -->
+<!-- Added by: paulatto, at: Wed Mar 10 10:26:57 CET 2021 -->
 
 <!--te-->
 
@@ -172,7 +172,9 @@ This code computes phonon anharmonic properties:
 2. the entire bubble-diagram self energy (comprising both the third order linewidth and the lineshift) and
 3. the phonon spectral weight for a range of energies.
 4. the final state decomposition of an energy, interpreted as two-phonons scattering
+
 It always includes the intrinsic anharmonic contribution from phonon-phonon interaction and can optionally include Casimir border scattering and isotope scattering.
+
 #### d3_tk.x
 The tk code computes the thermal conductivity. It can use the Single-Mode Approximation (SMA) or the variational approaches implemented by Fugallo et.al. [2] using a robust conjugate gradient minimization. It can include Casimir and isotope scattering [15].
 #### d3_r2q.x
@@ -319,6 +321,7 @@ The file of the 2nd order force constants, produced by thermal2 internal version
 Method used to apply the acoustic sum rule, can be 
 - “no” (do not apply ASR)
 - “simple” (apply the compensation term to the on-site force constant)
+
 #### nq (INTEGER, no default)
 Number of q-points to read (see the QPOINTS section below)
 #### print_dynmat (LOGICAL, default: .false.)
@@ -327,6 +330,7 @@ If set to .true. A file containing the dynamical matrix, in phonon format, will 
 When plotting the linewidth and frequencies along a path, there are several ways to order the frequencies and associated linewidth and shifted frequencies:
 - "default": keep the default order of increasing frequencies
 - "overlap": sort each point in order to maximize the overlap of each band polarization with the corresponding band at the previous point. This is the best choice for paths, but probably will not work for 2D or 3D grid plots
+
 #### print_velocity (LOGICAL, default: .false.)
 If set to .true. a file containing the phonon group velocities will be saved (only applies when calculation="freq"). The file name will be prefix_vel.out, after the path length and the q-point, the velocities are printed in Cartesian coordinates, Rydberg units (1.09×106 m·s−1).
 #### ne, de, e0, sigma_e (INTEGER, REAL, REAL, in cm-1 no default)
@@ -381,6 +385,7 @@ For each temperature, a file called $prefix_T$temperature.dat, in the file heade
 - v0: the equilibrium volume at this temperature
 - g0: the theoretical minimu of the free energy at v0
 - k0, dk0, d2k0: bulk modulus, its first and second derivatives
+
 Afterwards, the file will contain these columns:
 1. Cell volume in bohr
 2. total Gibbs temperature dependent energy (g)
