@@ -151,7 +151,7 @@ We would greatly appreciate if when using the thermal2 suite of codes you cite t
    * [Bibliography](thermal2-manual.md#bibliography)
    * [Change Log](thermal2-manual.md#change-log)
 
-<!-- Added by: paulatto, at: Wed Mar 10 10:00:16 CET 2021 -->
+<!-- Added by: paulatto, at: Wed Mar 10 10:04:49 CET 2021 -->
 
 <!--te-->
 
@@ -236,7 +236,8 @@ In order to read the system information (cell and position of the atoms) a file 
 
 If the -w option is specified, the intermediate D3 matrices, generated on the NQX × NQY × NQZ grid, will be written to files  with names atmp_Q1…\_Q2…\_Q3… (check the manual of d3q for details on the file names).
 
-See also import_phonopy.py.
+See also (import_phonopy.py)[#import_phonopypy].
+
 #### d3_sqom.x
 NOTE: this code is experimental and not widely tested, use at your own risk.
 
@@ -355,7 +356,7 @@ Method used to apply the acoustic sum rule, can be “no” (do not apply ASR), 
 #### nk (3x INTEGER, no default)
 The size of the grid used to integrate the phonon-phonon interaction processes.
 #### grid_type (CHARACTER, default: “simple”)
-Set this to “simple” to use a regular unshifted grid in reciprocal space. See the description of d3_lw.x input for more details about this option.
+Set this to “simple” to use a regular unshifted grid in reciprocal space. See the [description of d3_lw.x input](#grid_type-character-default-simple-1) for more details about this option.
 #### press_kbar (REAL, kbar, 0)
 #### press_Gpa (REAL, Gpa, 0)
 Optionally add an hydrostatic pressure, which will contribute a term pV to the total energy. The sign convention for pressure is that higher positive pressure means pushing stronger on the sample (i.e. you may want to use a positive pressure value 99% of the times).
@@ -411,7 +412,7 @@ The type of calculation to perform, it can take several different values:
 - “final”: decompose the contribution to the linewidth to a specific energy and q-point (specified with the e_initial and q_initial keywords) over the energy of the final states in the scattering process or over the final q, or both (see q_summed and q_resolved). In the first case you must specify the range of final energies to consider with the ne, de and e0 keywords; in the second case the possible final q-points will be read from the QPOINTS section.
 
 #### prefix (CHARACTER, default: the value of calculation)
-The first part of the output file name, the file will be called “prefix*.out”. Where the * part depend on the kind of calculation (See the Output format section, page 16)
+The first part of the output file name, the file will be called “prefix….out”. Where the “…” part depends on the kind of calculation (See the [Output format section](#output-format-2))
 #### outdir (CHARACTER, default: “./”, i.e. the current directory)
 Location where the output file will be saved.
 #### file_mat2 (CHARACTER, no default)
@@ -429,7 +430,7 @@ The size of the grid used to integrate the phonon-phonon interaction processes.
 #### grid_type (CHARACTER, default: “simple”)
 Set this to “simple” to use a regular unshifted grid in reciprocal space.
 
-Use "random" to use a grid shifted by a random vector; the random shift is not applied to the directions where there is only one k-point, i.e. if you have a N×M×1 grid, there will be no shift along z. Using a random shifted grid, can easily reduce the number of points required for convergence by half in each direction, for a speed-up of 8 for linewidth calculations and 64 times for tk calculations; however, it will break symmetry, and give (slightly) different thermal conductivity for different directions, even in highly symmetric crystals. See also xk0 to manually apply a grid shift. 
+Use "random" to use a grid shifted by a random vector; the random shift is not applied to the directions where there is only one k-point, i.e. if you have a N×M×1 grid, there will be no shift along z. Using a random shifted grid, can easily reduce the number of points required for convergence by half in each direction, for a speed-up of 8 for linewidth calculations and 64 times for tk calculations; however, it will break symmetry, and give (slightly) different thermal conductivity for different directions, even in highly symmetric crystals. See also [xk0](#xk0-3x-real-default-000) to manually apply a grid shift. 
 Shifted grids are currently disabled for CGP calculations, the reason is that we did not manage to impose the detailed balance condition in this case, causing convergency issues and runaway minimization. If you are at the limit of computational power, it is possible to disable this limitation in the code, but a careful examination of the minimization procedure must be done.
 
 Set to “bz” to use a grid centered in the Brillouin zone. This option will duplicate the points that are on the boundary of the BZ and assign them an appropriate integration weight. Using a BZ grid should eliminate a possible source of unwanted symmetry breaking, although it adds some complexity, uses more points, and its effectiveness is not evident in practice. It can be useful for doing plots, but apart from this case, we recommend using “simple” instead.
