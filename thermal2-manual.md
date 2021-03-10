@@ -6,7 +6,7 @@ permalink: /thermal2/
 ---
 <h1 style="color:#6f02ec; font-size:36px; font-weight:bold;">Thermal2 manual</h1>
 # Foreword
-The thermal2 suite of codes has been written starting in 2014 by Lorenzo Paulatto<sup>1</sup>. It descends from an initial set of unreleased codes written by Giorgia Fugallo<sup>1,2</sup> and Andrea Cepellotti<sup>3</sup>, both have also participated in the development. The code contains some subroutines from the [Quantum-ESPRESSO](https://www.quantum-espresso.org) distribution. Other people who have given a positive contribution to code development include Mauri<sup>1,4</sup>, Raffaelo Bianco<sup>1,16</sup>, Ion Errea<sup>1,5</sup> and Nicola Marzari<sup>3</sup>.
+The thermal2 suite of codes has been written starting in 2014 by Lorenzo Paulatto<sup>[1](#ref1)</sup>. It descends from an initial set of unreleased codes written by Giorgia Fugallo<sup>[1](#ref1),[2](#ref2)</sup> and Andrea Cepellotti<sup>[3](#ref3)</sup>, both have also participated in the development. The code contains some subroutines from the [Quantum-ESPRESSO](https://www.quantum-espresso.org) distribution. Other people who have given a positive contribution to code development include Mauri<sup>[1](#ref1),[4](#ref4)</sup>, Raffaelo Bianco<sup>[1](#ref1),[16](#ref16)</sup>, Ion Errea<sup>[1](#ref1),[5](#ref5)</sup> and Nicola Marzari<sup>[3](#ref3)</sup>.
 
 ## Copyright
 All the files are provided under the [GPL license, v2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html) or newer and, when possible, under the [CeCILL license](https://cecill.info/licences/Licence_CeCILL_V2.1-fr.html). A single file nist_isotopes_db.f90 contains public domain data from the National Institute of Standards and Technology.
@@ -247,7 +247,7 @@ This codes reads a spectral weight file from d3_lw.x and computes the convolutio
 
 ### Experimental codes:
 #### d3_db.x
-Uses the ansatz of ref. 16 to apply the anharmonic correction to the dynamical matrix (instead that on the phonon mode). Can be used to obtain 3rd-order corrected matrices that can be interpolated. In takes mostly the same input variables as d3_lw.x in [the “lw full” case](#calculation-character-default-lw) (but in namelist &dbinput) and will print out dynamical matrix files for all the requested q-points.
+Uses the ansatz of ref. [16](#ref16) to apply the anharmonic correction to the dynamical matrix (instead that on the phonon mode). Can be used to obtain 3rd-order corrected matrices that can be interpolated. In takes mostly the same input variables as d3_lw.x in [the “lw full” case](#calculation-character-default-lw) (but in namelist &dbinput) and will print out dynamical matrix files for all the requested q-points.
 
 ### Tools
 In the tools/ directory, a selection of tools for pre- and post-processing of data.
@@ -930,7 +930,7 @@ QPOINTS
 0.0 0.0 0.5 25
 ```
 
-You can obtain a color plot like those of ref. 5 with this gnuplot script:
+You can obtain a color plot like those of ref. [5](#ref5) with this gnuplot script:
 
 ```
 set log cb 
@@ -1050,22 +1050,22 @@ A list of essential bibliographic references follows. When using this code you a
 
 In particular ref. 1 describes the calculation of 3rd order dynamical matrices using DFPT, and the calculation of ph-ph linewidth; ref. 2 describes the iterative solution of the BTE. In ref. 9 the formula used to compute the phonon-phonon scattering is derived. See also refs. 10-14 for previous methods, and for the inclusion of isotopic and border scattering. Ref. 3 and 4 include important applications and analysis of the BTE exact solution. Reference 5 describes the calculation of phonon spectral functions and the combination of 3rd and 4th order. References 6-8 contain the foundation of the theory used. The geometric terms used to include finite-size effects are described in detail in ref. 15.
 
-1.<a name="ref1">L. Paulatto, F. Mauri, and M. Lazzeri, Phys. Rev. B 87, 214303 (2013).</a>
-2. G. Fugallo, M. Lazzeri, L. Paulatto, and F. Mauri, Phys. Rev. B 88, 045430 (2013).
-3. A. Cepellotti, G. Fugallo, L. Paulatto, M. Lazzeri, F. Mauri, N. Marzari, Nature communications 6 (2015)
-4. G. Fugallo, A. Cepellotti, L. Paulatto, M. Lazzeri, N. Marzari, F. Mauri, Nano letters 14 (11), 6109-6114 (2014)
-5. Lorenzo Paulatto, Ion Errea, Matteo Calandra, and Francesco Mauri, Phys. Rev. B 91, 054304 (2015)
-6. M. Calandra, M. Lazzeri, F. Mauri, Physica C 456, 38–44 (2007)
-7. Michele Lazzeri and Stefano de Gironcoli, Phys. Rev. Lett. 81, 2096 (1998)
-8. N. Bonini, M. Lazzeri, N. Marzari, and F. Mauri, Phys. Rev. Lett. 99, 176802 (2007)
-9. J. Garg, N. Bonini, B. Kozinsky et al., Phys. Rev. Lett. 106, 045901 (2011)
-10. Joseph Callaway, Phys. Rev. 113, 1046
-11. M. Omini, A. Sparavigna, Il Nuovo Cimento, 19, 1537 (1997)
-12. M. Omini and A. Sparavigna, Phys. Rev. B 53, 9064 (1996)
-13. M. Omini, A. Sparavigna, Physica B: Condensed Matter 212, 101-112, (1995)
-14. M. Omini and A. Sparavigna, Phys. Rev. B 61, 6677 (2000)
-15. L. Paulatto, D Fournier, M Marangolo, M Eddrief, P Atkinson, M Calandra. Phys. Rev. B 101 (20), 205419 (2020)
-16. R. Bianco, I. Errea, L. Paulatto, M. Calandra, and F. Mauri. Phys. Rev. B 96, 014111 (2017)
+1. <a name="ref1">L. Paulatto, F. Mauri, and M. Lazzeri, Phys. Rev. B 87, 214303 (2013).</a>
+2. <a name="ref2">G. Fugallo, M. Lazzeri, L. Paulatto, and F. Mauri, Phys. Rev. B 88, 045430 (2013).</a>
+3. <a name="ref3">A. Cepellotti, G. Fugallo, L. Paulatto, M. Lazzeri, F. Mauri, N. Marzari, Nature communications 6 (2015)</a>
+4. <a name="ref4">G. Fugallo, A. Cepellotti, L. Paulatto, M. Lazzeri, N. Marzari, F. Mauri, Nano letters 14 (11), 6109-6114 (2014)</a>
+5. <a name="ref5">Lorenzo Paulatto, Ion Errea, Matteo Calandra, and Francesco Mauri, Phys. Rev. B 91, 054304 (2015)</a>
+6. <a name="ref6">M. Calandra, M. Lazzeri, F. Mauri, Physica C 456, 38–44 (2007)</a>
+7. <a name="ref7">Michele Lazzeri and Stefano de Gironcoli, Phys. Rev. Lett. 81, 2096 (1998)</a>
+8. <a name="ref8">N. Bonini, M. Lazzeri, N. Marzari, and F. Mauri, Phys. Rev. Lett. 99, 176802 (2007)</a>
+9. <a name="ref9">J. Garg, N. Bonini, B. Kozinsky et al., Phys. Rev. Lett. 106, 045901 (2011)</a>
+10. <a name="ref10">Joseph Callaway, Phys. Rev. 113, 1046</a>
+11. <a name="ref11">M. Omini, A. Sparavigna, Il Nuovo Cimento, 19, 1537 (1997)</a>
+12. <a name="ref12">M. Omini and A. Sparavigna, Phys. Rev. B 53, 9064 (1996)</a>
+13. <a name="ref13">M. Omini, A. Sparavigna, Physica B: Condensed Matter 212, 101-112, (1995)</a>
+14. <a name="ref14">M. Omini and A. Sparavigna, Phys. Rev. B 61, 6677 (2000)</a>
+15. <a name="ref15">L. Paulatto, D Fournier, M Marangolo, M Eddrief, P Atkinson, M Calandra. Phys. Rev. B 101 (20), 205419 (2020)</a>
+16. <a name="ref16">R. Bianco, I. Errea, L. Paulatto, M. Calandra, and F. Mauri. Phys. Rev. B 96, 014111 (2017)</a>
 
 # Change Log
 See the changelog file in Doc.
