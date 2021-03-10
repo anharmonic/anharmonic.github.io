@@ -14,7 +14,7 @@ A suite of codes to manipulate 2-body and 3-body force constants to study vibrat
 - A simple and efficient implementation of quasi-harmonic approximation, including hydrostatic pressure
 - Fourier interpolation of harmonic and anharmonic force constants
 
-These codes are loosely coupled with Quantum-ESPRESSO, can natively use force constants from the ph and d3q codes, but can also import them from real-space thirorder and phonon3py codes.
+These codes are loosely coupled with [Quantum-ESPRESSO](https://www.quantum-espresso.org). They can natively use force constants from the ph and d3q codes, but can also import them from real-space thirorder and phonon3py codes.
 
 [Get started!](https://anharmonic.github.io/started/)
 
