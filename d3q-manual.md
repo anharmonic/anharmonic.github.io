@@ -57,7 +57,7 @@ We would greatly appreciate if when using the d3q code you cite the following pa
       * [Running D3Q](d3q-manual.md#running-d3q)
          * [Note on pools parallelisation](d3q-manual.md#note-on-pools-parallelisation)
 
-<!-- Added by: paulatto, at: Wed Mar 10 09:47:44 CET 2021 -->
+<!-- Added by: paulatto, at: Wed Mar 10 09:51:52 CET 2021 -->
 
 <!--te-->
 

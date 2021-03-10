@@ -126,6 +126,7 @@ We would greatly appreciate if when using the thermal2 suite of codes you cite t
          * [QPOINTS](thermal2-manual.md#qpoints)
             * [cartesian (DEFAULT)](thermal2-manual.md#cartesian-default)
             * [crystal](thermal2-manual.md#crystal)
+            * [grid](thermal2-manual.md#grid)
             * [bz](thermal2-manual.md#bz)
             * [xsf or bxsf](thermal2-manual.md#xsf-or-bxsf)
             * [plane](thermal2-manual.md#plane)
@@ -148,7 +149,7 @@ We would greatly appreciate if when using the thermal2 suite of codes you cite t
    * [Bibliography](thermal2-manual.md#bibliography)
    * [Change Log](thermal2-manual.md#change-log)
 
-<!-- Added by: paulatto, at: Wed Mar 10 09:47:44 CET 2021 -->
+<!-- Added by: paulatto, at: Wed Mar 10 09:51:51 CET 2021 -->
 
 <!--te-->
 
@@ -593,6 +594,7 @@ The points will be specified on Cartesian axis in units of 2π/alat, where alat 
 #### crystal
 The points are going to be specified on the basis of the reciprocal lattice vectors.
 
+___
 In the default, “cartesian” and “crystal” cases, the code will now start reading the q-points, one per line. After the q-point cooordinates, each line can optionally include an integer number, np, which instructs the code to make a straight path from the previous point to this one formed by np+1 points.
 
 The code will also compute the total length of the path along the q-points. This length is printed in the output file (usually, 2nd column) and is useful for plotting. 
@@ -604,7 +606,8 @@ You can use the special value -1 for np, to reset the length of the path at a ce
 If two consecutive points in the list are equivalent minus a G-vector, and if the latter has no np, or np=1, then the two points are added to the list with the same path length. This allows one to jump between equivalent point without having a discontinuity in the plot.
 
 Another special value is the special value np=0 skips the point, but puts in in the list as null "previous point". I.e. the path will continue from the next point, as if the null point was the previous one. This allows to introduce a discontinuity in the path without resetting the length.
-grid
+
+#### grid
 
 Only used by the d3_lw.x code when the calculation type is “grid”. On the next line the code will try to read three integer numbers, NQX, NQY and NQZ, which will define the dimension of the grid.
 
