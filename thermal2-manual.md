@@ -238,7 +238,7 @@ In order to read the system information (cell and position of the atoms) a file 
 
 If the -w option is specified, the intermediate D3 matrices, generated on the NQX × NQY × NQZ grid, will be written to files  with names atmp_Q1…\_Q2…\_Q3… (check the manual of d3q for details on the file names).
 
-See also (import_phonopy.py)[#import_phonopypy].
+See also [import_phonopy.py](#import_phonopypy).
 
 #### d3_sqom.x
 NOTE: this code is experimental and not widely tested, use at your own risk.
