@@ -311,6 +311,7 @@ The type of calculation to perform, currently this can be:
 - "jdos": Compute the joint density of state. You will have to specify the integration grid nk and a configuration in the CONFIGS section (if you specify more, only the first configuration will be used)
 - "rms" : Compute the root mean square displacement of the atoms around their equilibrium positions in the harmonic hamiltonian at a give temperature. It requires nk and one single configuration in CONFIG.
 - "fh": Compute the phonon free energy or, for T=0, the zero-point energy.
+
 ####  prefix (CHARACTER, default: the value of calculation)
 The first part of the output file name, the file will be called “prefix.out”.
 #### outdir (CHARACTER, default: “./”, I.e. the current directory)
