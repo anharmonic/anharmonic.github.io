@@ -6,7 +6,7 @@ permalink: /started/
 
 To quickly get started with anharmonic properties calculation, we recommend you check the examples and the tutorial that you will find in the code distribution.
 
-##Getting the code
+## Getting the code
 You can usually get the d3q+thermal2 codes directly inside quantum-espresso by doing "make d3q", there can be some delay between the release of a new QE version and the version of d3q+thermal2 being available. If you are interested in cutting edge features, you can [get the latest version from github]("https://github.com/anharmonic/d3q  "d3q+thermal2 github repositry"), which usually compiles with the git version of QE. You can also download a [snapshot including QE+d3q+thermal2](https://mycore.core-cloud.net/index.php/s/1RxbPmcxvHunFVF "bundle links")
 
 ## Examples
