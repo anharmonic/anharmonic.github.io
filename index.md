@@ -3,18 +3,20 @@ layout: default
 ---
 <h1 style="color:#6f02ec; font-size:36px; font-weight:bold;">Anharmonic properties of materials</h1>
 
-The anharmonic codes are composed of two main parts:
-## d3q
+The code for anharmonic properties of materials is composed of two parts:
+#### d3q
 To compute fully ab-initio, the anharmonic third-order dynamical matrix and the three-body force constants. This code is very efficient, it uses the _2n+1_ extension of density functional perturbation theory to compute the response of the system to three harmonic perturbations. It does not use expensive supercell and no range cutoff has to be imposed. It is tightly couple with quantum-espresso, it supports norm-conserving pseudopotentials.
-## thermal2
+#### thermal2
 A suite of codes to manipulate 2-body and 3-body force constants to study vibrational properties of materials:
 - Thermal transport from first principles, in the single-mode approximation or exact
 - Phonon intrinsic lifetime and lineshift
 - Infrared reflectivity simulation, vibration spectral weight (including neutron scattering form factor), phonon self-energy
 - A simple and efficient implementation of quasi-harmonic approximation, including hydrostatic pressure
 - Fourier interpolation of harmonic and anharmonic force constants
+
 These codes are loosely coupled with Quantum-ESPRESSO, can natively use force constants from the ph and d3q codes, but can also import them from real-space thirorder and phonon3py codes.
 
+[Get started!](https://anharmonic.github.io/started/)
 
 # Example applications
 ## Intrinsic phonon linewidth
@@ -31,4 +33,6 @@ These codes are loosely coupled with Quantum-ESPRESSO, can natively use force co
 ## Thermal conductivity
 Including finite-size effect, disorder, isotopes
 ![Bi2Se3 thermal conductivity](https://anharmonic.github.io/images/plot-best.png)
+
+[Get started!](https://anharmonic.github.io/started/)
 
