@@ -1051,21 +1051,21 @@ A list of essential bibliographic references follows. When using this code you a
 In particular ref. 1 describes the calculation of 3rd order dynamical matrices using DFPT, and the calculation of ph-ph linewidth; ref. 2 describes the iterative solution of the BTE. In ref. 9 the formula used to compute the phonon-phonon scattering is derived. See also refs. 10-14 for previous methods, and for the inclusion of isotopic and border scattering. Ref. 3 and 4 include important applications and analysis of the BTE exact solution. Reference 5 describes the calculation of phonon spectral functions and the combination of 3rd and 4th order. References 6-8 contain the foundation of the theory used. The geometric terms used to include finite-size effects are described in detail in ref. 15.
 
 1. <a name="ref1" href="https://journals.aps.org/prb/abstract/10.1103/PhysRevB.87.214303">L. Paulatto, F. Mauri, and M. Lazzeri, Phys. Rev. B 87, 214303 (2013).</a>
-2. <a name="ref2">G. Fugallo, M. Lazzeri, L. Paulatto, and F. Mauri, Phys. Rev. B 88, 045430 (2013).</a>
-3. <a name="ref3">A. Cepellotti, G. Fugallo, L. Paulatto, M. Lazzeri, F. Mauri, N. Marzari, Nature communications 6 (2015)</a>
-4. <a name="ref4">G. Fugallo, A. Cepellotti, L. Paulatto, M. Lazzeri, N. Marzari, F. Mauri, Nano letters 14 (11), 6109-6114 (2014)</a>
-5. <a name="ref5">Lorenzo Paulatto, Ion Errea, Matteo Calandra, and Francesco Mauri, Phys. Rev. B 91, 054304 (2015)</a>
-6. <a name="ref6">M. Calandra, M. Lazzeri, F. Mauri, Physica C 456, 38–44 (2007)</a>
-7. <a name="ref7">Michele Lazzeri and Stefano de Gironcoli, Phys. Rev. Lett. 81, 2096 (1998)</a>
-8. <a name="ref8">N. Bonini, M. Lazzeri, N. Marzari, and F. Mauri, Phys. Rev. Lett. 99, 176802 (2007)</a>
-9. <a name="ref9">J. Garg, N. Bonini, B. Kozinsky et al., Phys. Rev. Lett. 106, 045901 (2011)</a>
-10. <a name="ref10">Joseph Callaway, Phys. Rev. 113, 1046</a>
-11. <a name="ref11">M. Omini, A. Sparavigna, Il Nuovo Cimento, 19, 1537 (1997)</a>
-12. <a name="ref12">M. Omini and A. Sparavigna, Phys. Rev. B 53, 9064 (1996)</a>
-13. <a name="ref13">M. Omini, A. Sparavigna, Physica B: Condensed Matter 212, 101-112, (1995)</a>
-14. <a name="ref14">M. Omini and A. Sparavigna, Phys. Rev. B 61, 6677 (2000)</a>
-15. <a name="ref15">L. Paulatto, D Fournier, M Marangolo, M Eddrief, P Atkinson, M Calandra. Phys. Rev. B 101 (20), 205419 (2020)</a>
-16. <a name="ref16">R. Bianco, I. Errea, L. Paulatto, M. Calandra, and F. Mauri. Phys. Rev. B 96, 014111 (2017)</a>
+2. <a name="ref2" href="https://journals.aps.org/prb/abstract/10.1103/PhysRevB.88.045430">G. Fugallo, M. Lazzeri, L. Paulatto, and F. Mauri, Phys. Rev. B 88, 045430 (2013).</a>
+3. <a name="ref3" href="https://www.nature.com/articles/ncomms7400">A. Cepellotti, G. Fugallo, L. Paulatto, M. Lazzeri, F. Mauri, N. Marzari, Nature communications 6, 6400 (2015)</a>
+4. <a name="ref4" href="https://pubs.acs.org/doi/abs/10.1021/nl502059f">G. Fugallo, A. Cepellotti, L. Paulatto, M. Lazzeri, N. Marzari, F. Mauri, Nano letters 14 (11), 6109-6114 (2014)</a>
+5. <a name="ref5" href="https://journals.aps.org/prb/abstract/10.1103/PhysRevB.91.054304">Lorenzo Paulatto, Ion Errea, Matteo Calandra, and Francesco Mauri, Phys. Rev. B 91, 054304 (2015)</a>
+6. <a name="ref6" href="https://www.sciencedirect.com/science/article/pii/S0921453407000135">M. Calandra, M. Lazzeri, F. Mauri, Physica C 456, 38–44 (2007)</a>
+7. <a name="ref7" href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.81.2096">Michele Lazzeri and Stefano de Gironcoli, Phys. Rev. Lett. 81, 2096 (1998)</a>
+8. <a name="ref8" href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.99.176802">N. Bonini, M. Lazzeri, N. Marzari, and F. Mauri, Phys. Rev. Lett. 99, 176802 (2007)</a>
+9. <a name="ref9" href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.106.045901">J. Garg, N. Bonini, B. Kozinsky et al., Phys. Rev. Lett. 106, 045901 (2011)</a>
+10. <a name="ref10" href="https://journals.aps.org/pr/abstract/10.1103/PhysRev.113.1046">Joseph Callaway, Phys. Rev. 113, 1046</a>
+11. <a name="ref11" href="https://www.sif.it/riviste/sif/ncd/econtents/1997/019/10/article/5">M. Omini, A. Sparavigna, Il Nuovo Cimento, 19, 1537 (1997)</a>
+12. <a name="ref12" href="https://journals.aps.org/prb/abstract/10.1103/PhysRevB.53.9064">M. Omini and A. Sparavigna, Phys. Rev. B 53, 9064 (1996)</a>
+13. <a name="ref13" href="https://www.sciencedirect.com/science/article/abs/pii/0921452695000163">M. Omini, A. Sparavigna, Physica B: Condensed Matter 212, 101-112, (1995)</a>
+14. <a name="ref14" href="https://journals.aps.org/prb/abstract/10.1103/PhysRevB.61.6677">M. Omini and A. Sparavigna, Phys. Rev. B 61, 6677 (2000)</a>
+15. <a name="ref15" href="https://journals.aps.org/prb/abstract/10.1103/PhysRevB.88.045430">L. Paulatto, D Fournier, M Marangolo, M Eddrief, P Atkinson, M Calandra. Phys. Rev. B 101 (20), 205419 (2020)</a>
+16. <a name="ref16" href="https://journals.aps.org/prb/abstract/10.1103/PhysRevB.96.014111">R. Bianco, I. Errea, L. Paulatto, M. Calandra, and F. Mauri. Phys. Rev. B 96, 014111 (2017)</a>
 
 # Change Log
 See the changelog file in Doc.
