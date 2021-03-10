@@ -15,7 +15,6 @@ A suite of codes to manipulate 2-body and 3-body force constants to study vibrat
 - Fourier interpolation of harmonic and anharmonic force constants
 These codes are loosely coupled with Quantum-ESPRESSO, can natively use force constants from the ph and d3q codes, but can also import them from real-space thirorder and phonon3py codes.
 
-You can usually get the d3q+thermal2 codes directly inside quantum-espresso by doing "make d3q", there can be some delay between the release of a new QE version and the version of d3q+thermal2 being available. If you are interested in cutting edge features, you can [get the latest version from github]("https://github.com/anharmonic/d3q  "d3q+thermal2 github repositry"), which usually compiles with the git version of QE. You can also download a [snapshot including QE+d3q+thermal2](https://mycore.core-cloud.net/index.php/s/1RxbPmcxvHunFVF "bundle links")
 
 # Example applications
 ## Intrinsic phonon linewidth
