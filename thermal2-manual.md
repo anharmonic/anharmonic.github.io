@@ -575,7 +575,7 @@ When doing a SMA calculation the tk.x code will produce two output files:
 - 2 the value of sigma
 - 3 the temperature
 - 4→6 the diagonal elements of the thermal conductivity Kxx, Kyy and Kzz
-- 7→12 The off-diagonal elements of K, in this order:  Kxy, Kyz, Kyz , Kyx, Kzx, Kzy.
+- 7→12 The off-diagonal elements of K, in this order:  Kxy, Kxz, Kyz , Kyx, Kzx, Kzy.
 
 If the option store_lw is used, several more, potentially very large, files will be created. They contain all the quantities required to recompute the SMA thermal conductivity:
 - 1 q.$prefix.$grid_size.out: the list of q-vectors (3 columns, in cartesian coordinates of 2π/alat) and their respective weight (1 columns)
