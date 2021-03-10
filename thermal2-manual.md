@@ -8,8 +8,6 @@ permalink: /thermal2/
 # Foreword
 The thermal2 suite of codes has been written starting in 2014 by Lorenzo Paulatto<sup>1</sup>. It descends from an initial set of unreleased codes written by Giorgia Fugallo<sup>1,2</sup> and Andrea Cepellotti<sup>3</sup>, both have also participated in the development. The code contains some subroutines from the [Quantum-ESPRESSO](https://www.quantum-espresso.org) distribution. Other people who have given a positive contribution to code development include Mauri<sup>1,4</sup>, Raffaelo Bianco<sup>1,16</sup>, Ion Errea<sup>1,5</sup> and Nicola Marzari<sup>3</sup>.
 
-Test^super^ more<span style="vertical-align: baseline; position: relative;top: -0.5em;>text in superscript</span>
-
 ## Copyright
 All the files are provided under the [GPL license, v2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html) or newer and, when possible, under the [CeCILL license](https://cecill.info/licences/Licence_CeCILL_V2.1-fr.html). A single file nist_isotopes_db.f90 contains public domain data from the National Institute of Standards and Technology.
 
