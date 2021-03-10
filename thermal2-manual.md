@@ -40,6 +40,8 @@ We would greatly appreciate if when using the thermal2 suite of codes you cite t
             * [d3_recenter.x](thermal2-manual.md#d3_recenterx)
             * [d3_import_shengbte.x](thermal2-manual.md#d3_import_shengbtex)
             * [d3_sqom.x](thermal2-manual.md#d3_sqomx)
+         * [Experimental codes:](thermal2-manual.md#experimental-codes)
+            * [d3_db.x](thermal2-manual.md#d3_dbx)
          * [Tools](thermal2-manual.md#tools)
             * [funcoft.sh](thermal2-manual.md#funcoftsh)
             * [recompute-sma.m](thermal2-manual.md#recompute-smam)
@@ -149,7 +151,7 @@ We would greatly appreciate if when using the thermal2 suite of codes you cite t
    * [Bibliography](thermal2-manual.md#bibliography)
    * [Change Log](thermal2-manual.md#change-log)
 
-<!-- Added by: paulatto, at: Wed Mar 10 09:51:51 CET 2021 -->
+<!-- Added by: paulatto, at: Wed Mar 10 10:00:16 CET 2021 -->
 
 <!--te-->
 
@@ -239,6 +241,10 @@ See also import_phonopy.py.
 NOTE: this code is experimental and not widely tested, use at your own risk.
 
 This codes reads a spectral weight file from d3_lw.x and computes the convolution with a Lorentzian function that has an energy-dependent FWHM. This procedures simulates the broadening introduced by Raman spectroscopy experiments. This code can also sum and average the spectral function coming from several different files, to simulate the uncertainty of the neutron wavevectors. It reads its input from a file called input.SQOM. Please see teh example input.SQOM in Examples for details.
+
+### Experimental codes:
+#### d3_db.x
+Uses the ansatz of ref. 16 to apply the anharmonic correction to the dynamical matrix (instead that on the phonon mode). Can be used to obtain 3rd-order corrected matrices that can be interpolated. In takes mostly the same input variables as d3_lw.x in [the “lw full” case](#calculation-character-default-lw) (but in namelist &dbinput) and will print out dynamical matrix files for all the requested q-points.
 
 ### Tools
 In the tools/ directory, a selection of tools for pre- and post-processing of data.
@@ -1051,7 +1057,8 @@ In particular ref. 1 describes the calculation of 3rd order dynamical matrices u
 12. M. Omini and A. Sparavigna, Phys. Rev. B 53, 9064 (1996)
 13. M. Omini, A. Sparavigna, Physica B: Condensed Matter 212, 101-112, (1995)
 14. M. Omini and A. Sparavigna, Phys. Rev. B 61, 6677 (2000)
-15. L Paulatto, D Fournier, M Marangolo, M Eddrief, P Atkinson, M Calandra. Phys. Rev. B 101 (20), 205419 (2020)
+15. L. Paulatto, D Fournier, M Marangolo, M Eddrief, P Atkinson, M Calandra. Phys. Rev. B 101 (20), 205419 (2020)
+16. R. Bianco, I. Errea, L. Paulatto, M. Calandra, and F. Mauri. Phys. Rev. B 96, 014111 (2017)
 
 # Change Log
 See the changelog file in Doc.
