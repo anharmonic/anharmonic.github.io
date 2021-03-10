@@ -19,7 +19,7 @@ Calculation of D3 matrices (NOTE: very far from convergence!!) and phonon linewi
 Calculation of D3 matrices, force constants, linewidth and thermal conductivity (both in single-mode approximation and exact).
 
 #### MgO
-Calculation of D3 matrices and three-body force constants.
+Calculation of D3 matrices and three-body force constants, spectral function at Γ at analysis of the final states contributing to the spectral weight at Γ at a specific energy.
 
 ______
 More examples about the other codes and different use cases:
