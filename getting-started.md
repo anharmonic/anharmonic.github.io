@@ -7,8 +7,7 @@ permalink: /started/
 To quickly get started with anharmonic properties calculation, we recommend you check the examples and the tutorial that you will find in the code distribution.
 
 ## Examples
-Tthree examples about the d3 calculations:
-dispersion of  the D3 matrices. 
+Three examples showcasing how to compute anharmonic properties for different materials:
 
 #### Graphene 
 Calculation of D3 matrices (NOTE: very far from convergence!!) and phonon linewidth.
@@ -18,6 +17,9 @@ Calculation of D3 matrices, force constants, linewidth and thermal conductivity 
 
 #### MgO
 Calculation of D3 matrices and three-body force constants.
+
+______
+More examples about the other codes and different use cases:
 
 #### QHA
 Ab-initio thermal expansion curve of Silicon.
