@@ -58,9 +58,9 @@ vertical-align: 15%;
   section {
   }
 
-  #banner { display: contents !important;}
+  #banner { display: unset !important;}
   header ul {
-    display:contents !important;
+    display: unset !important;
   }
 }
 
