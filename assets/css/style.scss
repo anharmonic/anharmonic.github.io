@@ -57,7 +57,8 @@ span.bannertext {
   //#banner { display: table !important;}
   #banner {
     top: 80px;
-    display: inline;
+    display: table;
+    position: relative;
     .fork {
       float: left;
       display: inline-block;
