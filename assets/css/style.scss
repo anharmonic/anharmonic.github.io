@@ -36,15 +36,12 @@ vertical-align: 15%;
     }
   }
 
-  .bannertext {
-    span{
+  span[bannertext] {
       float:right;
       line-height:52px;
       font-size:90%;
         color:#ffe788;
       text-transform:uppercase;
-      text-shadow:rgba(#fff, 0.2) 0 1px 0;
-     }
    }
 }
 
