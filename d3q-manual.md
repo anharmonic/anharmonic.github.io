@@ -32,8 +32,9 @@ We would greatly appreciate if when using the d3q code you cite the following pa
       * [Example pw.x and ph.x input files](d3q-manual.md#example-pwx-and-phx-input-files)
          * [Input of pw.x](d3q-manual.md#input-of-pwx)
          * [Input of ph.x](d3q-manual.md#input-of-phx)
-      * [D3Q Input File](d3q-manual.md#d3q-input-file)
-         * [QPOINTS or GRID specifications](d3q-manual.md#qpoints-or-grid-specifications)
+   * [D3Q Input File](d3q-manual.md#d3q-input-file)
+      * [QPOINTS or GRID specifications](d3q-manual.md#qpoints-or-grid-specifications)
+      * [&amp;inputd3q namelist](d3q-manual.md#inputd3q-namelist)
             * [prefix (CHARACTER, no default)](d3q-manual.md#prefix-character-no-default)
             * [outdir (CHARACTER, default $ESPRESSO_TMPDIR)](d3q-manual.md#outdir-character-default-espresso_tmpdir)
             * [d3dir (CHARACTER, default outdir, or $ESPRESSO_D3DIR)](d3q-manual.md#d3dir-character-default-outdir-or-espresso_d3dir)
@@ -56,13 +57,13 @@ We would greatly appreciate if when using the d3q code you cite the following pa
             * [safe_io (LOGICAL, default: .false.)](d3q-manual.md#safe_io-logical-default-false)
          * [GRID and QPOINTS](d3q-manual.md#grid-and-qpoints)
          * [&amp;d3_debug namelist](d3q-manual.md#d3_debug-namelist)
-      * [Running D3Q](d3q-manual.md#running-d3q)
+   * [Running D3Q](d3q-manual.md#running-d3q)
          * [Note on pools parallelisation](d3q-manual.md#note-on-pools-parallelisation)
-      * [Output format](d3q-manual.md#output-format)
-      * [Data flow](d3q-manual.md#data-flow)
-      * [Bibliography](d3q-manual.md#bibliography)
+   * [Output format](d3q-manual.md#output-format)
+   * [Data flow](d3q-manual.md#data-flow)
+   * [Bibliography](d3q-manual.md#bibliography)
 
-<!-- Added by: paulatto, at: Thu 11 Mar 09:10:20 CET 2021 -->
+<!-- Added by: paulatto, at: Thu 11 Mar 10:35:32 CET 2021 -->
 
 <!--te-->
 
@@ -156,7 +157,7 @@ phonon_disp_of_silicon
     drho_star%dir  = './FILDRHO'
  /
 ```
-## D3Q Input File
+# D3Q Input File
 The d3q.x code reads its input from a file, and a few environment variables. If a parameter is specified both in the input file and in a variable, it is the value in the file that is used. The input file has the following structure:
 ```
 title_line
@@ -165,11 +166,12 @@ title_line
 /
 ```
 
-### QPOINTS or GRID specifications
+## QPOINTS or GRID specifications
 [debug instructions]
 The title line can be any title you wish to use for your calculation, it will be printed in output but it has no effect on the results.
 After the title line, you have to specify the &inputd3q namelist, which contain all the parameters of the calculation. After the namelist, and depending on the value of the parameters therein, you will have to specify either a series of q-points or the dimension of the regular grid that you want to compute.
-&inputd3q namelist
+
+## &inputd3q namelist
 The namelist start with the "&inputd3q" keyword and ends with a "/" in an otherwise empty line. It can contain the following variables:
 mode (CHARACTER, default: "single")
 This variable specify the mode in which d3q will operate, it can take the following values:
@@ -286,14 +288,14 @@ All variable in this namelist default to .true.; except for dbg_write_d3_part an
 
 These variables are useful for code debugging, but we do not recommend using them for any other reason, especially without knowledge of the code.
 
-## Running D3Q
+# Running D3Q
 Once you have prepared you d3q.x calculation, running pw.x and ph.x and your input file is ready, it is time to start d3q.x. This code can take advantage of MPI parallelism in order to speedup calculation in the same way as pw.x and ph.x do. On the other hand, it only supports the plane-waves and k-points pools levels of parallelism. The more advanced task groups, band groups are not supported. Contrary to phonon it is also not possible to use image parallelism to run more triplets at the same time.
 It is not strictly necessary to run d3q.x with the same number of CPUs or pools than pw.x, however this is the most commonly tested case and there is a small chance that some unexpected bug may appear if you do otherwise. The fildrho files produced by phonon do not depends on the number of CPUs or pools,  it is perfectly safe to reuse them with different number of CPUs.
 
 ### Note on pools parallelisation
 Update: as of QE v6.x, d3q and pw can run with a different number of pools and pw can be restarted with more pools than k-points.
 
-## Output format
+# Output format
 
 The d3q.x code will write file containing the D3 matrix for every triplet it computes and for every triplet that can be obtained from it using symmetry operations. The name of the file depends on the coordinates of the q-points in the triplet, but it always start with the value of the fild3dyn input variable.
 
@@ -310,10 +312,10 @@ anh_Q1.0_-1o2_0_Q2.-1o2_0_0_Q3.1o2_1o2_0
 ```
 Each file contains the D3 matrix (more strictly, the D3 tensor) in an XML format that is heavily commented and should be self-documented. At the beginning of each file, there is a description of the system (cell, coordinates, masses, etc) then the tensor is saved in Cartesian coordinates, in units of Ry/bohr3. The tensor is divided in blocks, each block correspond to three atoms, and is composed of 27=3x3x3 complex numbers corresponding to the x,y and z directions.
 
-## Data flow
+# Data flow
 Note: All the d3_ codes used to manipulate the force constants are documented in manual-thermal2
 ![data flow](images/dataflow.svg)
 
-## Bibliography
+# Bibliography
 See the [bibliography section of the thermal2 manual](thermal2-manual.md#bibliography).
 
