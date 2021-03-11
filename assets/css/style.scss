@@ -57,9 +57,9 @@ span.bannertext {
   section {
   }
 
-  #banner { display: unset !important;}
+  #banner { display: table !important;}
   header ul {
-    display: unset !important;
+    display: table !important;
   }
 }
 
