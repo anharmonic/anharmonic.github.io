@@ -32,7 +32,7 @@ More examples about the other codes and different use cases:
 Ab-initio thermal expansion curve of Silicon.
 
 #### Import_FD
-Example on importing three-body force constants produced with the thirorder.py code from ShngBTE.
+Example on importing three-body force constants produced with the thirorder.py code from ShengBTE.
 
 
 ####  mat3R.NULL

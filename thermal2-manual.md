@@ -286,10 +286,10 @@ apply_asr.sh [-i FILDYN.in] [-o FILDYN.out] [-a ASR_TYPE]
 A simple bash script that applies the sum rule to a set of dynamical matrix files (FILDYN.in*, default: dyn) produced by phonon and saves them with a different name (FILDYN.out*, default: asr_dyn). Useful to apply the sum rule ‘crystal’ (default for ASR_TYPE) which is not supported by the thermal2 codes yet. The final fildyn files can be used normally with ###d3_q2r.x or q2r.x.
 
 #### import_phonopy.py
-In tools you can also file a python script import_phonopy.py to import the FORCE_CONSTANTS files of 2-body force constants produced by phonopy (and VASP?). This script is in a very rudimentary stage, it will produce a file called "fc" with the force constants in the standard QE format. You will have to convert it to the thermal2 format with the fc2mat2R.sh script, also found in tools.
+In tools you can also file a python script import_phonopy_qe.py and import_phonopy_vasp.py to import the FORCE_CONSTANTS files of 2-body force constants produced by phonopy (with QE and VASP respectively). This script is in a very rudimentary stage, it will produce a file called "fc" with the force constants in the standard QE format. You will have to convert it to the thermal2 format with the fc2mat2R.sh script, also found in tools. A similar tool to convert 3-body force constants from phono3py could be obtained generalizing this one, but lack of documentatio makes it difficult to test.
 
 #### fc2mat2R.sh
-Convert a force constants file from the standard q2r format to the optimized format produced by d3_q2r and used bu thermal2. Do not use this script if you still have the original dynamical matrix files, use them instead as it is more accurate.
+Convert a force constants file from the standard q2r format to the optimized format produced by d3_q2r and used by thermal2. Do not use this script if you can use the original dynamical matrix files from phonon, use them instead as it is more accurate.
 
 #### apply_asr.sh
 Apply the acoustic sum rule to a set of dynamical matrices using q2r and matdyn. Thermal2 doesn ot implement the more sofisticate sum-rule methods, but you can apply them directly to the dynamical matrices using this little script.
