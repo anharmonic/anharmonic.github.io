@@ -49,9 +49,9 @@ vertical-align: 15%;
   section {
   }
 
-  #banner { display: none;}
+  #banner { display: inline !important;}
   header ul {
-    display:block;
+    display:block !important;
   }
 }
 
