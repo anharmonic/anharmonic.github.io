@@ -54,7 +54,20 @@ span.bannertext {
   section {
   }
 
-  #banner { display: table !important;}
+  //#banner { display: table !important;}
+  #banner {
+    top: 80px;
+    display: inline;
+    .fork {
+      float: left;
+      display: inline-block;
+      margin-left: 0px;
+    position:fixed;
+    left:20px;
+
+      }
+  }
+
 }
 
 
