@@ -23,6 +23,7 @@ Calculation of D3 matrices and three-body force constants, spectral function at 
 
 ______
 Please note that in order to be executed on personal computers, these example do not use fully converged cutoff, k- nor q-point grids. The numerical parameters to produce published data are always reported in the pubblications.
+
 ______
 
 More examples about the other codes and different use cases:
