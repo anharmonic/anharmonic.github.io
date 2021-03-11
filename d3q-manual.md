@@ -14,8 +14,8 @@ All the files are provided under the [GPL license, v2](https://www.gnu.org/licen
 We would greatly appreciate if when using the d3q code you cite the following papers where the underlying theory is described in detail:
 - *All applications*: L. Paulatto, F. Mauri, and M. Lazzeri,  Phys. Rev. B 87, 214303 (2013)
 - *Exact BTE solution*: G. Fugallo, M. Lazzeri, L. Paulatto, and F. Mauri, Phys. Rev. B 88, 045430 (2013)
-- *Spectral functions*: L. Paulatto, D. Fournier, M. Marangolo, M. Eddrief, P. Atkinson, M. Calandra. Phys. Rev. B 101 (20), 205419 (2020)
-- *Finite size effects*: L. Paulatto, I. Errea, M. Calandra, and F. Mauri, Phys. Rev. B 91, 054304 (2015)
+- *Spectral functions*: L. Paulatto, I. Errea, M. Calandra, and F. Mauri, Phys. Rev. B 91, 054304 (2015)
+- *Finite size effects*: L. Paulatto, D. Fournier, M. Marangolo, M. Eddrief, P. Atkinson, M. Calandra. Phys. Rev. B 101 (20), 205419 (2020)
 
 # Table of contents
 <!--ts-->
@@ -60,8 +60,9 @@ We would greatly appreciate if when using the d3q code you cite the following pa
          * [Note on pools parallelisation](d3q-manual.md#note-on-pools-parallelisation)
       * [Output format](d3q-manual.md#output-format)
       * [Data flow](d3q-manual.md#data-flow)
+      * [Bibliography](d3q-manual.md#bibliography)
 
-<!-- Added by: paulatto, at: Wed Mar 10 10:59:00 CET 2021 -->
+<!-- Added by: paulatto, at: Thu 11 Mar 09:10:20 CET 2021 -->
 
 <!--te-->
 

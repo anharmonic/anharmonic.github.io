@@ -7,13 +7,13 @@ permalink: /started/
 To quickly get started with anharmonic properties calculation, we recommend you check the examples and the tutorial that you will find in the code distribution.
 
 ## Getting the code
-You can usually get the d3q+thermal2 codes directly inside quantum-espresso by doing "make d3q", there can be some delay between the release of a new QE version and the version of d3q+thermal2 being available. If you are interested in cutting edge features, you can [get the latest version from github]("https://github.com/anharmonic/d3q  "d3q+thermal2 github repositry"), which usually compiles with the git version of QE. You can also download a [snapshot including QE+d3q+thermal2](https://mycore.core-cloud.net/index.php/s/1RxbPmcxvHunFVF "bundle links")
+You can usually get the d3q+thermal2 codes directly inside [Quantum-ESPRESSO](https://www.quantum-espresso.org) by doing "make d3q", there can be some delay between the release of a new QE version and the version of d3q+thermal2 being available. If you are interested in cutting edge features, you can [get the latest version from github]("https://github.com/anharmonic/d3q  "d3q+thermal2 github repositry"), which usually compiles with the git version of QE. You can also download a [snapshot including QE+d3q+thermal2](https://mycore.core-cloud.net/index.php/s/1RxbPmcxvHunFVF "bundle links").
 
 ## Examples
-Three examples showcasing how to compute anharmonic properties for different materials:
+In the code distribution you will find three examples showcasing how to compute anharmonic properties for different materials. 
 
 #### Graphene 
-Calculation of D3 matrices (NOTE: very far from convergence!!) and phonon linewidth.
+Calculation of D3 matrices and phonon linewidth.
 
 #### Silicon
 Calculation of D3 matrices, force constants, linewidth and thermal conductivity (both in single-mode approximation and exact).
@@ -22,6 +22,9 @@ Calculation of D3 matrices, force constants, linewidth and thermal conductivity 
 Calculation of D3 matrices and three-body force constants, spectral function at Γ at analysis of the final states contributing to the spectral weight at Γ at a specific energy.
 
 ______
+Please note that in order to be executed on personal computers, these example do not use fully converged cutoff, k- nor q-point grids. The numerical parameters to produce published data are always reported in the pubblications.
+______
+
 More examples about the other codes and different use cases:
 
 #### QHA

@@ -15,8 +15,8 @@ All the files are provided under the [GPL license, v2](https://www.gnu.org/licen
 We would greatly appreciate if when using the thermal2 suite of codes you cite the following papers where the underlying theory is described in detail (see also the [the bibliography](#Bibliography)):
 - *All applications*: L. Paulatto, F. Mauri, and M. Lazzeri,  Phys. Rev. B 87, 214303 (2013)
 - *Exact BTE solution*: G. Fugallo, M. Lazzeri, L. Paulatto, and F. Mauri, Phys. Rev. B 88, 045430 (2013)
-- *Spectral functions*: L. Paulatto, D. Fournier, M. Marangolo, M. Eddrief, P. Atkinson, M. Calandra. Phys. Rev. B 101 (20), 205419 (2020)
-- *Finite size effects*: L. Paulatto, I. Errea, M. Calandra, and F. Mauri, Phys. Rev. B 91, 054304 (2015)
+- *Spectral functions*: L. Paulatto, I. Errea, M. Calandra, and F. Mauri, Phys. Rev. B 91, 054304 (2015)
+- *Finite size effects*: L. Paulatto, D. Fournier, M. Marangolo, M. Eddrief, P. Atkinson, M. Calandra. Phys. Rev. B 101 (20), 205419 (2020)
 
 # Table of contents
 <!--ts-->
@@ -151,7 +151,7 @@ We would greatly appreciate if when using the thermal2 suite of codes you cite t
    * [Bibliography](thermal2-manual.md#bibliography)
    * [Change Log](thermal2-manual.md#change-log)
 
-<!-- Added by: paulatto, at: Wed Mar 10 10:59:00 CET 2021 -->
+<!-- Added by: paulatto, at: Thu 11 Mar 09:10:19 CET 2021 -->
 
 <!--te-->
 
@@ -964,7 +964,8 @@ QPOINTS
 ![final state](images/final.png)
 
 ### Color-map plot of the LW in the BZ (2D systems)
-In bidimensional materials it can be interesting to plot the linewidth of a certain band over the entire Brillouin zone. In a 3D materials, it is more tricky to get a nice picture, the possibility to automatically compute a 2D slice of a 3D BZ may be added in the future, if there is request.
+In bidimensional materials it can be interesting to plot the linewidth of a certain band over the entire Brillouin zone. In a 3D materials, it is more tricky to get a nice picture,
+you can use the [option “plane”](#qpoints) to plot a section of the unit cell.
 ```
 &lwinput 
  calculation = 'lw full' 
