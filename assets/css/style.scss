@@ -35,15 +35,16 @@ vertical-align: 15%;
         color:#ffe788;
     }
   }
-
-  span[bannertext] {
-      float:right;
-      line-height:52px;
-      font-size:90%;
-        color:#ffe788;
-      text-transform:uppercase;
-   }
 }
+
+span.bannertext {
+    float:right;
+    line-height:52px;
+    font-size:90%;
+      color:#ffe788;
+    text-transform:uppercase;
+ }
+
 
 @media screen and (max-width: 480px) {
   body {
