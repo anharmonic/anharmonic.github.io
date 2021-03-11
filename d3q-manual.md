@@ -35,6 +35,7 @@ We would greatly appreciate if when using the d3q code you cite the following pa
    * [D3Q Input File](d3q-manual.md#d3q-input-file)
       * [QPOINTS or GRID specifications](d3q-manual.md#qpoints-or-grid-specifications)
       * [&amp;inputd3q namelist](d3q-manual.md#inputd3q-namelist)
+            * [mode (CHARACTER, default: "single")](d3q-manual.md#mode-character-default-single)
             * [prefix (CHARACTER, no default)](d3q-manual.md#prefix-character-no-default)
             * [outdir (CHARACTER, default $ESPRESSO_TMPDIR)](d3q-manual.md#outdir-character-default-espresso_tmpdir)
             * [d3dir (CHARACTER, default outdir, or $ESPRESSO_D3DIR)](d3q-manual.md#d3dir-character-default-outdir-or-espresso_d3dir)
@@ -63,7 +64,7 @@ We would greatly appreciate if when using the d3q code you cite the following pa
    * [Data flow](d3q-manual.md#data-flow)
    * [Bibliography](d3q-manual.md#bibliography)
 
-<!-- Added by: paulatto, at: Thu 11 Mar 10:35:32 CET 2021 -->
+<!-- Added by: paulatto, at: Thu 11 Mar 10:37:32 CET 2021 -->
 
 <!--te-->
 
@@ -173,7 +174,8 @@ After the title line, you have to specify the &inputd3q namelist, which contain 
 
 ## &inputd3q namelist
 The namelist start with the "&inputd3q" keyword and ends with a "/" in an otherwise empty line. It can contain the following variables:
-mode (CHARACTER, default: "single")
+
+#### mode (CHARACTER, default: "single")
 This variable specify the mode in which d3q will operate, it can take the following values:
 - "single": compute the 3rd order dynamical matrix for a single triplet (q1, q2, q3) of q-points. You will have to specify q1 and q2 points, on two separate lines, after the namelist (units 2π/alat); q3 is just -(q1+q2). 
 - "gamma-only": compute the D3 matrix of (0, 0, 0)
