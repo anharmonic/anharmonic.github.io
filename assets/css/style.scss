@@ -37,4 +37,24 @@ vertical-align: 15%;
   }
 }
 
+@media print, screen and (max-width: 480px) {
+  body {
+  }
+
+  header{
+
+    h1 {
+    }
+  }
+  section {
+  }
+
+  #banner { display: none;}
+  header ul {
+    display:block;
+  }
+}
+
+
+
 
