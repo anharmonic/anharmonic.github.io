@@ -37,7 +37,7 @@ Including finite-size effect, disorder, isotopes
 [Get started!](https://anharmonic.github.io/started/)
 
 # Selection of Published works
-If you have published a work using the d3q or thermal2 software and would like to have it listed here, please <a href="mailto:lorenzo.paulatto sorbonne-universite.fr">contact me</a>.
+If you have published a paper using the d3q or thermal2 software and would like to have it listed here, please <a href="mailto:lorenzo.paulatto@sorbonne-universite.fr">contact me</a>.
 
 ### 2021
 - Limits of the quasiharmonic approximation in MgO: Volume dependence of optical modes investigated by infrared reflectivity and ab initio calculations
