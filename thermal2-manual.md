@@ -354,7 +354,7 @@ The r2q.x code will produce an output file for every configuration. The output f
 - 6→5+3 nat The phonon frequencies in cm-1.
 
 ## d3_qha.x
-This code reads the 2nd order FCs for a series of volumes and computes the phonon free energy for a given list of temperature, optionally adding a pV (pressure × volume) hydrostatic term. It then fits the total free energy with an equation of state to find the equilibrium volume at each temperature, and find the temperature/volume curve and the volumetric thermal expansion conefficient.
+This code reads the 2nd order FCs for a series of volumes and computes the phonon free energy for a given list of temperature, optionally adding a pV (pressure × volume) hydrostatic term. It then fits the total free energy with an equation of state to find the equilibrium volume at each temperature, and find the temperature/volume curve and the volumetric thermal expansion coefficient.
 
 ### Namelist &qhainput
 #### calculation (CHARACTER, default: “gibbs”)
