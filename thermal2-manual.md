@@ -172,6 +172,7 @@ This code can compute the phonon frequency at a q-point or along a path, it can 
 2. interpolated dynamical matrices at any q-point
 3. mean square displacement of atoms at a give temperature
 4. phonon internal enegry and zero-point energy
+
 See also [d3_q2r.x](#d3_r2qx).
 
 #### Quasi harmonic approximation (d3_qha.x)
@@ -184,6 +185,7 @@ This code computes phonon anharmonic properties:
 2. the entire bubble-diagram self energy (comprising both the third order linewidth and the lineshift) and
 3. the phonon spectral weight for a range of energies.
 4. the final state decomposition of an energy, interpreted as two-phonons scattering
+
 See also [d3_lw.x input format](#d3_lwx).
 
 It always includes the intrinsic anharmonic contribution from phonon-phonon interaction and can optionally include Casimir border scattering and isotope scattering.
