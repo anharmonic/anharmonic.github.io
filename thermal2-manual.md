@@ -172,25 +172,25 @@ This code can compute the phonon frequency at a q-point or along a path, it can 
 2. interpolated dynamical matrices at any q-point
 3. mean square displacement of atoms at a give temperature
 4. phonon internal enegry and zero-point energy
-See also [d3_q2r.x](#d3_r2qx)
+See also [d3_q2r.x](#d3_r2qx).
 
 #### Quasi harmonic approximation (d3_qha.x)
 An efficient and very easy to use quasi-harmonic approximation implementation. It includes hydrostatic pressure effect and equation-of-state fitting.
-See also [d3_q2r.x](#d3_qhax)
+See also [d3_qha.x input format](#d3_qhax)
 
-#### Third order linewidth (d3_lw.x)
+#### Third order linewidth (d3_lw.x).
 This code computes phonon anharmonic properties: 
 1. phonon linewidth (i.e. its inverse lifetime, aka HWHM, aka the Imaginary part of the bubble-diagram self energy), 
 2. the entire bubble-diagram self energy (comprising both the third order linewidth and the lineshift) and
 3. the phonon spectral weight for a range of energies.
 4. the final state decomposition of an energy, interpreted as two-phonons scattering
-See also [d3_q2r.x](#d3_lwx)
+See also [d3_lw.x input format](#d3_lwx).
 
 It always includes the intrinsic anharmonic contribution from phonon-phonon interaction and can optionally include Casimir border scattering and isotope scattering.
 
 #### Thermal conductivity (d3_tk.x)
 The tk code computes the thermal conductivity. It can use the Single-Mode Approximation (SMA) or the variational approaches implemented by Fugallo et.al. [2] using a robust conjugate gradient minimization. It can include Casimir and isotope scattering [15].
-See also [d3_q2r.x](#d3_tkx)
+See also [d3_tk.x input format](#d3_tkx).
 
 ### Thermal2 utilities
 #### d3_q2r.x
