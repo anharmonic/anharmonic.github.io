@@ -171,7 +171,7 @@ This code can compute the phonon frequency at a q-point or along a path, it can 
 1. group velocities
 2. interpolated dynamical matrices at any q-point
 3. mean square displacement of atoms at a give temperature
-4. phonon internal enegry and zero-point energy
+4. phonon internal energy and zero-point energy
 
 See also [d3_q2r.x](#d3_r2qx).
 
