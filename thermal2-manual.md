@@ -28,10 +28,10 @@ We would greatly appreciate if when using the thermal2 suite of codes you cite t
       * [Compiling the code](thermal2-manual.md#compiling-the-code)
       * [List of codes](thermal2-manual.md#list-of-codes)
          * [Main codes](thermal2-manual.md#main-codes)
-            * [d3_qha.x](thermal2-manual.md#d3_qhax)
-            * [d3_lw.x](thermal2-manual.md#d3_lwx)
-            * [d3_tk.x](thermal2-manual.md#d3_tkx)
-            * [d3_r2q.x](thermal2-manual.md#d3_r2qx)
+            * [Harmonic phonons (d3_r2q.x)](thermal2-manual.md#harmonic-phonons-d3_r2qx)
+            * [Quasi harmonic approximation (d3_qha.x)](thermal2-manual.md#quasi-harmonic-approximation-d3_qhax)
+            * [Third order linewidth (d3_lw.x)](thermal2-manual.md#third-order-linewidth-d3_lwx)
+            * [Thermal conductivity (d3_tk.x)](thermal2-manual.md#thermal-conductivity-d3_tkx)
          * [Thermal2 utilities](thermal2-manual.md#thermal2-utilities)
             * [d3_q2r.x](thermal2-manual.md#d3_q2rx)
             * [d3_qq2rr.x](thermal2-manual.md#d3_qq2rrx)
@@ -52,7 +52,7 @@ We would greatly appreciate if when using the thermal2 suite of codes you cite t
             * [fc2mat2R.sh](thermal2-manual.md#fc2mat2rsh)
             * [apply_asr.sh](thermal2-manual.md#apply_asrsh)
    * [Codes input and output](thermal2-manual.md#codes-input-and-output)
-      * [d3_r2q.x](thermal2-manual.md#d3_r2qx-1)
+      * [d3_r2q.x](thermal2-manual.md#d3_r2qx)
          * [Namelist &amp;r2qinput](thermal2-manual.md#namelist-r2qinput)
             * [calculation (CHARACTER, default: “freq”)](thermal2-manual.md#calculation-character-default-freq)
             * [prefix (CHARACTER, default: the value of calculation)](thermal2-manual.md#prefix-character-default-the-value-of-calculation)
@@ -65,7 +65,7 @@ We would greatly appreciate if when using the thermal2 suite of codes you cite t
             * [print_velocity (LOGICAL, default: .false.)](thermal2-manual.md#print_velocity-logical-default-false)
             * [ne, de, e0, sigma_e (INTEGER, REAL, REAL, in cm-1 no default)](thermal2-manual.md#ne-de-e0-sigma_e-integer-real-real-in-cm-1-no-default)
          * [Output format](thermal2-manual.md#output-format)
-      * [d3_qha.x](thermal2-manual.md#d3_qhax-1)
+      * [d3_qha.x](thermal2-manual.md#d3_qhax)
          * [Namelist &amp;qhainput](thermal2-manual.md#namelist-qhainput)
             * [calculation (CHARACTER, default: “gibbs”)](thermal2-manual.md#calculation-character-default-gibbs)
             * [prefix (CHARACTER, default: the value of calculation)](thermal2-manual.md#prefix-character-default-the-value-of-calculation-1)
@@ -77,8 +77,9 @@ We would greatly appreciate if when using the thermal2 suite of codes you cite t
             * [press_kbar (REAL, kbar, 0)](thermal2-manual.md#press_kbar-real-kbar-0)
             * [press_Gpa (REAL, Gpa, 0)](thermal2-manual.md#press_gpa-real-gpa-0)
             * [n_volumes (INTEGER, no default)](thermal2-manual.md#n_volumes-integer-no-default)
+         * [List of volumes](thermal2-manual.md#list-of-volumes)
          * [Output format](thermal2-manual.md#output-format-1)
-      * [d3_lw.x](thermal2-manual.md#d3_lwx-1)
+      * [d3_lw.x](thermal2-manual.md#d3_lwx)
          * [Namelist &amp;lwinput](thermal2-manual.md#namelist-lwinput)
             * [calculation (CHARACTER, default: “lw”)](thermal2-manual.md#calculation-character-default-lw)
             * [prefix (CHARACTER, default: the value of calculation)](thermal2-manual.md#prefix-character-default-the-value-of-calculation-2)
@@ -108,7 +109,7 @@ We would greatly appreciate if when using the thermal2 suite of codes you cite t
             * [max_seconds (no default, in seconds)](thermal2-manual.md#max_seconds-no-default-in-seconds)
             * [max_time (format hh.mmss)](thermal2-manual.md#max_time-format-hhmmss)
          * [Output format](thermal2-manual.md#output-format-2)
-      * [d3_tk.x](thermal2-manual.md#d3_tkx-1)
+      * [d3_tk.x](thermal2-manual.md#d3_tkx)
          * [Namelist &amp;tkinput](thermal2-manual.md#namelist-tkinput)
             * [calculation (CHARACTER, default: “sma”)](thermal2-manual.md#calculation-character-default-sma)
             * [nk_in (3x INTEGER, default: same value as nk)](thermal2-manual.md#nk_in-3x-integer-default-same-value-as-nk)
@@ -138,20 +139,20 @@ We would greatly appreciate if when using the thermal2 suite of codes you cite t
          * [ISOTOPES](thermal2-manual.md#isotopes)
             * [Examples](thermal2-manual.md#examples-2)
    * [Input Examples](thermal2-manual.md#input-examples)
-      * [d3_lw.x](thermal2-manual.md#d3_lwx-2)
+      * [d3_lw.x](thermal2-manual.md#d3_lwx-1)
          * [Computing the linewidth of a single point](thermal2-manual.md#computing-the-linewidth-of-a-single-point)
          * [Testing convergence with smearing and grid](thermal2-manual.md#testing-convergence-with-smearing-and-grid)
          * [Compute the linewidth along a path in the BZ](thermal2-manual.md#compute-the-linewidth-along-a-path-in-the-bz)
          * [Compute the spectral function along a path](thermal2-manual.md#compute-the-spectral-function-along-a-path)
          * [Compute the final state decomposition](thermal2-manual.md#compute-the-final-state-decomposition)
          * [Color-map plot of the LW in the BZ (2D systems)](thermal2-manual.md#color-map-plot-of-the-lw-in-the-bz-2d-systems)
-      * [d3_tk.x](thermal2-manual.md#d3_tkx-2)
+      * [d3_tk.x](thermal2-manual.md#d3_tkx-1)
          * [Compute the SMA solution of the BTE](thermal2-manual.md#compute-the-sma-solution-of-the-bte)
          * [Compute the exact solution of the BTE](thermal2-manual.md#compute-the-exact-solution-of-the-bte)
    * [Bibliography](thermal2-manual.md#bibliography)
    * [Change Log](thermal2-manual.md#change-log)
 
-<!-- Added by: paulatto, at: Fri Mar 12 11:00:55 CET 2021 -->
+<!-- Added by: paulatto, at: Wed Mar 24 09:15:21 CET 2021 -->
 
 <!--te-->
 
@@ -164,25 +165,32 @@ The thermal2 suite of codes contains a number of small specialized codes that on
 
 ### Main codes
 Each of these codes will be reviewed  in detail in a separate section.
-#### d3_qha.x
-An efficient and very easy to use quasi-harmonic approximation implementation. It includes hydrostatic pressure effect and equation-of-state fitting.
-#### d3_lw.x
-This code computes phonon anharmonic properties: 
-1. phonon linewidth (i.e. its inverse lifetime, aka HWHM, aka the Imaginary part of the bubble-diagram self energy), 
-2. the entire bubble-diagram self energy (comprising both the third order linewidth and the lineshift) and
-3. the phonon spectral weight for a range of energies.
-4. the final state decomposition of an energy, interpreted as two-phonons scattering
 
-It always includes the intrinsic anharmonic contribution from phonon-phonon interaction and can optionally include Casimir border scattering and isotope scattering.
-
-#### d3_tk.x
-The tk code computes the thermal conductivity. It can use the Single-Mode Approximation (SMA) or the variational approaches implemented by Fugallo et.al. [2] using a robust conjugate gradient minimization. It can include Casimir and isotope scattering [15].
-#### d3_r2q.x
+#### Harmonic phonons (d3_r2q.x)
 This code can compute the phonon frequency at a q-point or along a path, it can optionally print out the dynamical matrix. It is analogous to the matdyn.x code of the Quantum-ESPRESSO (QE) Phonon suite, but it uses the highly optimized subroutines developed for d3_lw.x and d3_tk.x. It should be used to check the phonon dispersion before doing more serious calculations. It can also compute some useful harmonic phonon quantities:
 1. group velocities
 2. interpolated dynamical matrices at any q-point
 3. mean square displacement of atoms at a give temperature
 4. phonon internal enegry and zero-point energy
+See also [d3_q2r.x](#d3_r2qx)
+
+#### Quasi harmonic approximation (d3_qha.x)
+An efficient and very easy to use quasi-harmonic approximation implementation. It includes hydrostatic pressure effect and equation-of-state fitting.
+See also [d3_q2r.x](#d3_qhax)
+
+#### Third order linewidth (d3_lw.x)
+This code computes phonon anharmonic properties: 
+1. phonon linewidth (i.e. its inverse lifetime, aka HWHM, aka the Imaginary part of the bubble-diagram self energy), 
+2. the entire bubble-diagram self energy (comprising both the third order linewidth and the lineshift) and
+3. the phonon spectral weight for a range of energies.
+4. the final state decomposition of an energy, interpreted as two-phonons scattering
+See also [d3_q2r.x](#d3_lwx)
+
+It always includes the intrinsic anharmonic contribution from phonon-phonon interaction and can optionally include Casimir border scattering and isotope scattering.
+
+#### Thermal conductivity (d3_tk.x)
+The tk code computes the thermal conductivity. It can use the Single-Mode Approximation (SMA) or the variational approaches implemented by Fugallo et.al. [2] using a robust conjugate gradient minimization. It can include Casimir and isotope scattering [15].
+See also [d3_q2r.x](#d3_tkx)
 
 ### Thermal2 utilities
 #### d3_q2r.x
@@ -368,7 +376,7 @@ Optionally add an hydrostatic pressure, which will contribute a term pV to the t
 #### n_volumes (INTEGER, no default)
 The number of volumes that have been computed ab-initio. The code expect to find a list of n_volumes force constant files and total electronic  energies after the namelist.
 
-###List of volumes
+### List of volumes
 After the namelist, the code reads n_volumes lines, each line contains the name of a force-constant file (produced by d3_q2r.x) and the total electronic energy corresponding to it. For examples:
 ```
 &qhainput
