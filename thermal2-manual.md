@@ -674,7 +674,7 @@ QPOINTS
 ```
 Make a line K→ Γ and then M→ Γ (in a hexagonal lattice), the path will include a total of 82 points:
 ```
-QPOINTS 
+QPOINTS crystal
  4
 0.0 0.33333 0.33333
 0.0 0.0 0.0   20
