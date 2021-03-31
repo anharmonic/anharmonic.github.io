@@ -676,10 +676,10 @@ Make a line K→ Γ and then M→ Γ (in a hexagonal lattice), the path will inc
 ```
 QPOINTS crystal
  4
-0.0 0.33333 0.33333
-0.0 0.0 0.0   20
-0.0 0.0 0.5   0
-0.0 0.0 0.0   20
+0.33333 0.33333 0.0
+0.0     0.0     0.0   20
+0.0     0.5     0.0   0
+0.0     0.0     0.0   20
 ```
 Make a 10 × 10 × 10 points grid
 ```
