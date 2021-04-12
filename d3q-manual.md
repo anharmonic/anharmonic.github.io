@@ -216,8 +216,8 @@ With amass you change the mass of atomic species. You can change it again later 
 fildrho must be the same as drho_star%ext in ph.x. When this variable is used, the d3q.x code will automatically search the file it needs inside the fildrho_dir directory. When computing a grid of triplets calculation this is the only possible way to supply the fildrho files.
 
 Alternatively, when computing single triplets, you can use fild1rho, fild2rho and fild3rho to specify the rho variation at q point 1, 2 and 3. In special cases, i.e. q2=-q3 and q2=q3, you only need to specify fild1rho and fild2rho. In some other case, i.e. q1=-q2  and q1=q2, you only need fild1rho and fild3rho. In the Gamma-only case  only fild1rho file is used.
-#### first, last (INTEGER, default: 1, 0)
-If you only want to compute a subset of the q-point you can use these two variables. The d3q.x code will then compute all the triplets between first and last. If you set last  to zero, all the triplet starting from first will be computed.
+#### first, last, only (INTEGER, default: 1, 0)
+If you only want to compute a subset of the q-point you can use these two variables. The d3q.x code will then compute all the triplets between first and last. If you set last  to zero, all the triplet starting from first will be computed. Setting "only=x" is a shortcut for "first=x" and "last=x".
 
 #### offset, step (INTEGER, default: 0, 1)
 Another way to select a subset of the triplets is to use the offset and step variables. In this case the code will compute one triplet every step, starting from 1+offset. Note that offset must be between 0 and step-1.
