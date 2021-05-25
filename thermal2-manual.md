@@ -5,6 +5,7 @@ subtitle: User Manual and Quick Reference
 permalink: /thermal2/
 ---
 <h1 style="color:#6f02ec; font-size:36px; font-weight:bold;">Thermal2 manual</h1>
+
 # Foreword
 The thermal2 suite of codes has been written starting in 2014 by Lorenzo Paulatto<sup>[1](#ref1)</sup>. It descends from an initial set of unreleased codes written by Giorgia Fugallo<sup>[1](#ref1),[2](#ref2)</sup> and Andrea Cepellotti<sup>[3](#ref3)</sup>, both have also participated in the development. The code contains some subroutines from the [Quantum-ESPRESSO](https://www.quantum-espresso.org) distribution. Other people who have given a positive contribution to code development include Mauri<sup>[1](#ref1),[4](#ref4)</sup>, Raffaelo Bianco<sup>[1](#ref1),[16](#ref16)</sup>, Ion Errea<sup>[1](#ref1),[5](#ref5)</sup> and Nicola Marzari<sup>[3](#ref3)</sup>.
 
@@ -20,143 +21,145 @@ We would greatly appreciate if when using the thermal2 suite of codes you cite t
 
 # Table of contents
 <!--ts-->
-   * [Thermal2 manual](thermal2-manual.md#thermal2-manual)
-      * [Copyright](thermal2-manual.md#copyright)
-      * [Citing](thermal2-manual.md#citing)
-   * [Table of contents](thermal2-manual.md#table-of-contents)
-   * [Quick Reference Manual](thermal2-manual.md#quick-reference-manual)
-      * [Compiling the code](thermal2-manual.md#compiling-the-code)
-      * [List of codes](thermal2-manual.md#list-of-codes)
-         * [Main codes](thermal2-manual.md#main-codes)
-            * [Harmonic phonons (d3_r2q.x)](thermal2-manual.md#harmonic-phonons-d3_r2qx)
-            * [Quasi harmonic approximation (d3_qha.x)](thermal2-manual.md#quasi-harmonic-approximation-d3_qhax)
-            * [Third order linewidth (d3_lw.x)](thermal2-manual.md#third-order-linewidth-d3_lwx)
-            * [Thermal conductivity (d3_tk.x)](thermal2-manual.md#thermal-conductivity-d3_tkx)
-         * [Thermal2 utilities](thermal2-manual.md#thermal2-utilities)
-            * [d3_q2r.x](thermal2-manual.md#d3_q2rx)
-            * [d3_qq2rr.x](thermal2-manual.md#d3_qq2rrx)
-            * [d3_sparse.x](thermal2-manual.md#d3_sparsex)
-            * [d3_asr3.x](thermal2-manual.md#d3_asr3x)
-            * [d3_recenter.x](thermal2-manual.md#d3_recenterx)
-            * [d3_import_shengbte.x](thermal2-manual.md#d3_import_shengbtex)
-            * [d3_sqom.x](thermal2-manual.md#d3_sqomx)
-         * [Experimental codes:](thermal2-manual.md#experimental-codes)
-            * [d3_db.x](thermal2-manual.md#d3_dbx)
-         * [Tools](thermal2-manual.md#tools)
-            * [funcoft.sh](thermal2-manual.md#funcoftsh)
-            * [recompute-sma.m](thermal2-manual.md#recompute-smam)
-            * [diffd3.x](thermal2-manual.md#diffd3x)
-            * [d3_sc2c.x](thermal2-manual.md#d3_sc2cx)
-            * [xml2giorgia.x](thermal2-manual.md#xml2giorgiax)
-            * [import_phonopy.py](thermal2-manual.md#import_phonopypy)
-            * [fc2mat2R.sh](thermal2-manual.md#fc2mat2rsh)
-            * [apply_asr.sh](thermal2-manual.md#apply_asrsh)
-   * [Codes input and output](thermal2-manual.md#codes-input-and-output)
-      * [d3_r2q.x](thermal2-manual.md#d3_r2qx)
-         * [Namelist &amp;r2qinput](thermal2-manual.md#namelist-r2qinput)
-            * [calculation (CHARACTER, default: “freq”)](thermal2-manual.md#calculation-character-default-freq)
-            * [prefix (CHARACTER, default: the value of calculation)](thermal2-manual.md#prefix-character-default-the-value-of-calculation)
-            * [outdir (CHARACTER, default: “./”, I.e. the current directory)](thermal2-manual.md#outdir-character-default--ie-the-current-directory)
-            * [file_mat2 (CHARACTER, no default)](thermal2-manual.md#file_mat2-character-no-default)
-            * [asr2 (CHARACTER, default: “no”)](thermal2-manual.md#asr2-character-default-no)
-            * [nq (INTEGER, no default)](thermal2-manual.md#nq-integer-no-default)
-            * [print_dynmat (LOGICAL, default: .false.)](thermal2-manual.md#print_dynmat-logical-default-false)
-            * [sort_freq (CHARACTER, default: "default")](thermal2-manual.md#sort_freq-character-default-default)
-            * [print_velocity (LOGICAL, default: .false.)](thermal2-manual.md#print_velocity-logical-default-false)
-            * [ne, de, e0, sigma_e (INTEGER, REAL, REAL, in cm-1 no default)](thermal2-manual.md#ne-de-e0-sigma_e-integer-real-real-in-cm-1-no-default)
-         * [Output format](thermal2-manual.md#output-format)
-      * [d3_qha.x](thermal2-manual.md#d3_qhax)
-         * [Namelist &amp;qhainput](thermal2-manual.md#namelist-qhainput)
-            * [calculation (CHARACTER, default: “gibbs”)](thermal2-manual.md#calculation-character-default-gibbs)
-            * [prefix (CHARACTER, default: the value of calculation)](thermal2-manual.md#prefix-character-default-the-value-of-calculation-1)
-            * [outdir (CHARACTER, default: “./”, i.e. the current directory)](thermal2-manual.md#outdir-character-default--ie-the-current-directory-1)
-            * [nT, dT, T0 (INTEGER, REAL, REAL, in K)](thermal2-manual.md#nt-dt-t0-integer-real-real-in-k)
-            * [asr2 (CHARACTER, default: “no”)](thermal2-manual.md#asr2-character-default-no-1)
-            * [nk (3x INTEGER, no default)](thermal2-manual.md#nk-3x-integer-no-default)
-            * [grid_type (CHARACTER, default: “simple”)](thermal2-manual.md#grid_type-character-default-simple)
-            * [press_kbar (REAL, kbar, 0)](thermal2-manual.md#press_kbar-real-kbar-0)
-            * [press_Gpa (REAL, Gpa, 0)](thermal2-manual.md#press_gpa-real-gpa-0)
-            * [n_volumes (INTEGER, no default)](thermal2-manual.md#n_volumes-integer-no-default)
-         * [List of volumes](thermal2-manual.md#list-of-volumes)
-         * [Output format](thermal2-manual.md#output-format-1)
-      * [d3_lw.x](thermal2-manual.md#d3_lwx)
-         * [Namelist &amp;lwinput](thermal2-manual.md#namelist-lwinput)
-            * [calculation (CHARACTER, default: “lw”)](thermal2-manual.md#calculation-character-default-lw)
-            * [prefix (CHARACTER, default: the value of calculation)](thermal2-manual.md#prefix-character-default-the-value-of-calculation-2)
-            * [outdir (CHARACTER, default: “./”, i.e. the current directory)](thermal2-manual.md#outdir-character-default--ie-the-current-directory-2)
-            * [file_mat2 (CHARACTER, no default)](thermal2-manual.md#file_mat2-character-no-default-1)
-            * [file_mat3 (CHARACTER, no default)](thermal2-manual.md#file_mat3-character-no-default)
-            * [asr2 (CHARACTER, default: “no”)](thermal2-manual.md#asr2-character-default-no-2)
-            * [nq (INTEGER, no default)](thermal2-manual.md#nq-integer-no-default-1)
-            * [nconf (INTEGER, no default)](thermal2-manual.md#nconf-integer-no-default)
-            * [nk (3x INTEGER, no default)](thermal2-manual.md#nk-3x-integer-no-default-1)
-            * [grid_type (CHARACTER, default: “simple”)](thermal2-manual.md#grid_type-character-default-simple-1)
-            * [xk0 (3x REAL, default: 0,0,0)](thermal2-manual.md#xk0-3x-real-default-000)
-            * [ne, de, e0, sigma_e (INTEGER, REAL, REAL, in cm-1 no default)](thermal2-manual.md#ne-de-e0-sigma_e-integer-real-real-in-cm-1-no-default-1)
-            * [e_initial (in cm-1, no default)](thermal2-manual.md#e_initial-in-cm-1-no-default)
-            * [q_initial (3x REAL, in units of 2π/alat)](thermal2-manual.md#q_initial-3x-real-in-units-of-2πalat)
-            * [q_summed (LOGICAL, default: false)](thermal2-manual.md#q_summed-logical-default-false)
-            * [q_resolved (LOGICAL, default: false)](thermal2-manual.md#q_resolved-logical-default-false)
-            * [sigmaq (REAL,  default: 0.1 in units of 2π/alat)](thermal2-manual.md#sigmaq-real--default-01-in-units-of-2πalat)
-            * [exp_t_factor (LOGICAL, default: false)](thermal2-manual.md#exp_t_factor-logical-default-false)
-            * [sort_freq (CHARACTER, default: "default")](thermal2-manual.md#sort_freq-character-default-default-1)
-            * [isotopic_disorder (LOGICAL, default: false)](thermal2-manual.md#isotopic_disorder-logical-default-false)
-            * [casimir_scattering (LOGICAL, default: false)](thermal2-manual.md#casimir_scattering-logical-default-false)
-            * [sample_dir (3x REAL, normalized, default: no direction)](thermal2-manual.md#sample_dir-3x-real-normalized-default-no-direction)
-            * [sample_length_au	 (REAL, bohr, no default)](thermal2-manual.md#sample_length_au-real-bohr-no-default)
-            * [sample_length_mu	 (REAL, micrometers, no default)](thermal2-manual.md#sample_length_mu-real-micrometers-no-default)
-            * [sample_length_mm (REAL, millimeters, no default)](thermal2-manual.md#sample_length_mm-real-millimeters-no-default)
-            * [max_seconds (no default, in seconds)](thermal2-manual.md#max_seconds-no-default-in-seconds)
-            * [max_time (format hh.mmss)](thermal2-manual.md#max_time-format-hhmmss)
-         * [Output format](thermal2-manual.md#output-format-2)
-      * [d3_tk.x](thermal2-manual.md#d3_tkx)
-         * [Namelist &amp;tkinput](thermal2-manual.md#namelist-tkinput)
-            * [calculation (CHARACTER, default: “sma”)](thermal2-manual.md#calculation-character-default-sma)
-            * [nk_in (3x INTEGER, default: same value as nk)](thermal2-manual.md#nk_in-3x-integer-default-same-value-as-nk)
-            * [grid_type_in (CHARACTER, default: same value as grid_type)](thermal2-manual.md#grid_type_in-character-default-same-value-as-grid_type)
-            * [xk0_in (3x REAL, default: same value as xk0)](thermal2-manual.md#xk0_in-3x-real-default-same-value-as-xk0)
-            * [thr_tk (REAL, default: 1.d-4 W/mK)](thermal2-manual.md#thr_tk-real-default-1d-4-wmk)
-            * [niter_max (INTEGER, default: 1000)](thermal2-manual.md#niter_max-integer-default-1000)
-            * [store_lw (LOGICAL, default: .false.)](thermal2-manual.md#store_lw-logical-default-false)
-            * [intrinsic_scattering (LOGICAL, default: .true.)](thermal2-manual.md#intrinsic_scattering-logical-default-true)
-            * [restart (LOGICAL, default: .false.)](thermal2-manual.md#restart-logical-default-false)
-            * [mfp_cutoff (LOGICAL, default: false)](thermal2-manual.md#mfp_cutoff-logical-default-false)
-            * [volume_factor (REAL, default: 1)](thermal2-manual.md#volume_factor-real-default-1)
-         * [Output format](thermal2-manual.md#output-format-3)
-            * [SMA calculation](thermal2-manual.md#sma-calculation)
-            * [CGP calculation](thermal2-manual.md#cgp-calculation)
-      * [Common input cards](thermal2-manual.md#common-input-cards)
-         * [QPOINTS](thermal2-manual.md#qpoints)
-            * [cartesian (DEFAULT)](thermal2-manual.md#cartesian-default)
-            * [crystal](thermal2-manual.md#crystal)
-            * [grid](thermal2-manual.md#grid)
-            * [bz](thermal2-manual.md#bz)
-            * [xsf or bxsf](thermal2-manual.md#xsf-or-bxsf)
-            * [plane](thermal2-manual.md#plane)
-            * [Examples](thermal2-manual.md#examples)
-         * [CONFIGS](thermal2-manual.md#configs)
-            * [Examples](thermal2-manual.md#examples-1)
-         * [ISOTOPES](thermal2-manual.md#isotopes)
-            * [Examples](thermal2-manual.md#examples-2)
-   * [Input Examples](thermal2-manual.md#input-examples)
-      * [d3_lw.x](thermal2-manual.md#d3_lwx-1)
-         * [Computing the linewidth of a single point](thermal2-manual.md#computing-the-linewidth-of-a-single-point)
-         * [Testing convergence with smearing and grid](thermal2-manual.md#testing-convergence-with-smearing-and-grid)
-         * [Compute the linewidth along a path in the BZ](thermal2-manual.md#compute-the-linewidth-along-a-path-in-the-bz)
-         * [Compute the spectral function along a path](thermal2-manual.md#compute-the-spectral-function-along-a-path)
-         * [Compute the final state decomposition](thermal2-manual.md#compute-the-final-state-decomposition)
-         * [Color-map plot of the LW in the BZ (2D systems)](thermal2-manual.md#color-map-plot-of-the-lw-in-the-bz-2d-systems)
-      * [d3_tk.x](thermal2-manual.md#d3_tkx-1)
-         * [Compute the SMA solution of the BTE](thermal2-manual.md#compute-the-sma-solution-of-the-bte)
-         * [Compute the exact solution of the BTE](thermal2-manual.md#compute-the-exact-solution-of-the-bte)
-   * [Bibliography](thermal2-manual.md#bibliography)
-   * [Change Log](thermal2-manual.md#change-log)
+   * [Thermal2 manual](#thermal2-manual)
+   * [Foreword](#foreword)
+      * [Copyright](#copyright)
+      * [Citing](#citing)
+   * [Table of contents](#table-of-contents)
+   * [Quick Reference Manual](#quick-reference-manual)
+      * [Compiling the code](#compiling-the-code)
+      * [List of codes](#list-of-codes)
+         * [Main codes](#main-codes)
+            * [Harmonic phonons (d3_r2q.x)](#harmonic-phonons-d3_r2qx)
+            * [Quasi harmonic approximation (d3_qha.x)](#quasi-harmonic-approximation-d3_qhax)
+            * [Third order linewidth (d3_lw.x).](#third-order-linewidth-d3_lwx)
+            * [Thermal conductivity (d3_tk.x)](#thermal-conductivity-d3_tkx)
+         * [Thermal2 utilities](#thermal2-utilities)
+            * [d3_q2r.x](#d3_q2rx)
+            * [d3_qq2rr.x](#d3_qq2rrx)
+            * [d3_sparse.x](#d3_sparsex)
+            * [d3_asr3.x](#d3_asr3x)
+            * [d3_recenter.x](#d3_recenterx)
+            * [d3_import_shengbte.x](#d3_import_shengbtex)
+            * [d3_sqom.x](#d3_sqomx)
+         * [Experimental codes:](#experimental-codes)
+            * [d3_db.x](#d3_dbx)
+         * [Tools](#tools)
+            * [funcoft.sh](#funcoftsh)
+            * [recompute-sma.m](#recompute-smam)
+            * [diffd3.x](#diffd3x)
+            * [d3_sc2c.x](#d3_sc2cx)
+            * [xml2giorgia.x](#xml2giorgiax)
+            * [import_phonopy.py](#import_phonopypy)
+            * [fc2mat2R.sh](#fc2mat2rsh)
+            * [apply_asr.sh](#apply_asrsh)
+   * [Codes input and output](#codes-input-and-output)
+      * [d3_r2q.x](#d3_r2qx)
+         * [Namelist &amp;r2qinput](#namelist-r2qinput)
+            * [calculation (CHARACTER, default: “freq”)](#calculation-character-default-freq)
+            * [prefix (CHARACTER, default: the value of calculation)](#prefix-character-default-the-value-of-calculation)
+            * [outdir (CHARACTER, default: “./”, I.e. the current directory)](#outdir-character-default--ie-the-current-directory)
+            * [file_mat2 (CHARACTER, no default)](#file_mat2-character-no-default)
+            * [asr2 (CHARACTER, default: “no”)](#asr2-character-default-no)
+            * [nq (INTEGER, no default)](#nq-integer-no-default)
+            * [print_dynmat (LOGICAL, default: .false.)](#print_dynmat-logical-default-false)
+            * [sort_freq (CHARACTER, default: "default")](#sort_freq-character-default-default)
+            * [print_velocity (LOGICAL, default: .false.)](#print_velocity-logical-default-false)
+            * [ne, de, e0, sigma_e (INTEGER, REAL, REAL, in cm-1 no default)](#ne-de-e0-sigma_e-integer-real-real-in-cm-1-no-default)
+         * [Output format](#output-format)
+      * [d3_qha.x](#d3_qhax)
+         * [Namelist &amp;qhainput](#namelist-qhainput)
+            * [calculation (CHARACTER, default: “gibbs”)](#calculation-character-default-gibbs)
+            * [prefix (CHARACTER, default: the value of calculation)](#prefix-character-default-the-value-of-calculation-1)
+            * [outdir (CHARACTER, default: “./”, i.e. the current directory)](#outdir-character-default--ie-the-current-directory-1)
+            * [nT, dT, T0 (INTEGER, REAL, REAL, in K)](#nt-dt-t0-integer-real-real-in-k)
+            * [asr2 (CHARACTER, default: “no”)](#asr2-character-default-no-1)
+            * [nk (3x INTEGER, no default)](#nk-3x-integer-no-default)
+            * [grid_type (CHARACTER, default: “simple”)](#grid_type-character-default-simple)
+            * [press_kbar (REAL, kbar, 0)](#press_kbar-real-kbar-0)
+            * [press_Gpa (REAL, Gpa, 0)](#press_gpa-real-gpa-0)
+            * [n_volumes (INTEGER, no default)](#n_volumes-integer-no-default)
+         * [List of volumes](#list-of-volumes)
+         * [Output format](#output-format-1)
+      * [d3_lw.x](#d3_lwx)
+         * [Namelist &amp;lwinput](#namelist-lwinput)
+            * [calculation (CHARACTER, default: “lw”)](#calculation-character-default-lw)
+            * [prefix (CHARACTER, default: the value of calculation)](#prefix-character-default-the-value-of-calculation-2)
+            * [outdir (CHARACTER, default: “./”, i.e. the current directory)](#outdir-character-default--ie-the-current-directory-2)
+            * [file_mat2 (CHARACTER, no default)](#file_mat2-character-no-default-1)
+            * [file_mat3 (CHARACTER, no default)](#file_mat3-character-no-default)
+            * [asr2 (CHARACTER, default: “no”)](#asr2-character-default-no-2)
+            * [nq (INTEGER, no default)](#nq-integer-no-default-1)
+            * [nconf (INTEGER, no default)](#nconf-integer-no-default)
+            * [nk (3x INTEGER, no default)](#nk-3x-integer-no-default-1)
+            * [grid_type (CHARACTER, default: “simple”)](#grid_type-character-default-simple-1)
+            * [xk0 (3x REAL, default: 0,0,0)](#xk0-3x-real-default-000)
+            * [ne, de, e0, sigma_e (INTEGER, REAL, REAL, in cm-1 no default)](#ne-de-e0-sigma_e-integer-real-real-in-cm-1-no-default-1)
+            * [e_initial (in cm-1, no default)](#e_initial-in-cm-1-no-default)
+            * [q_initial (3x REAL, in units of 2π/alat)](#q_initial-3x-real-in-units-of-2πalat)
+            * [q_summed (LOGICAL, default: false)](#q_summed-logical-default-false)
+            * [q_resolved (LOGICAL, default: false)](#q_resolved-logical-default-false)
+            * [sigmaq (REAL,  default: 0.1 in units of 2π/alat)](#sigmaq-real--default-01-in-units-of-2πalat)
+            * [exp_t_factor (LOGICAL, default: false)](#exp_t_factor-logical-default-false)
+            * [sort_freq (CHARACTER, default: "default")](#sort_freq-character-default-default-1)
+            * [isotopic_disorder (LOGICAL, default: false)](#isotopic_disorder-logical-default-false)
+            * [casimir_scattering (LOGICAL, default: false)](#casimir_scattering-logical-default-false)
+            * [sample_dir (3x REAL, normalized, default: no direction)](#sample_dir-3x-real-normalized-default-no-direction)
+            * [sample_length_au	 (REAL, bohr, no default)](#sample_length_au-real-bohr-no-default)
+            * [sample_length_mu	 (REAL, micrometers, no default)](#sample_length_mu-real-micrometers-no-default)
+            * [sample_length_mm (REAL, millimeters, no default)](#sample_length_mm-real-millimeters-no-default)
+            * [max_seconds (no default, in seconds)](#max_seconds-no-default-in-seconds)
+            * [max_time (format hh.mmss)](#max_time-format-hhmmss)
+         * [Output format](#output-format-2)
+      * [d3_tk.x](#d3_tkx)
+         * [Namelist &amp;tkinput](#namelist-tkinput)
+            * [calculation (CHARACTER, default: “sma”)](#calculation-character-default-sma)
+            * [nk_in (3x INTEGER, default: same value as nk)](#nk_in-3x-integer-default-same-value-as-nk)
+            * [grid_type_in (CHARACTER, default: same value as grid_type)](#grid_type_in-character-default-same-value-as-grid_type)
+            * [xk0_in (3x REAL, default: same value as xk0)](#xk0_in-3x-real-default-same-value-as-xk0)
+            * [thr_tk (REAL, default: 1.d-4 W/mK)](#thr_tk-real-default-1d-4-wmk)
+            * [niter_max (INTEGER, default: 1000)](#niter_max-integer-default-1000)
+            * [store_lw (LOGICAL, default: .false.)](#store_lw-logical-default-false)
+            * [intrinsic_scattering (LOGICAL, default: .true.)](#intrinsic_scattering-logical-default-true)
+            * [restart (LOGICAL, default: .false.)](#restart-logical-default-false)
+            * [mfp_cutoff (LOGICAL, default: false)](#mfp_cutoff-logical-default-false)
+            * [volume_factor (REAL, default: 1)](#volume_factor-real-default-1)
+         * [Output format](#output-format-3)
+            * [SMA calculation](#sma-calculation)
+            * [CGP calculation](#cgp-calculation)
+      * [Common input cards](#common-input-cards)
+         * [QPOINTS](#qpoints)
+            * [cartesian (DEFAULT)](#cartesian-default)
+            * [crystal](#crystal)
+            * [grid](#grid)
+            * [bz](#bz)
+            * [xsf or bxsf](#xsf-or-bxsf)
+            * [plane](#plane)
+            * [Examples](#examples)
+         * [CONFIGS](#configs)
+            * [Examples](#examples-1)
+         * [ISOTOPES](#isotopes)
+            * [Examples](#examples-2)
+   * [Input Examples](#input-examples)
+      * [d3_lw.x](#d3_lwx-1)
+         * [Computing the linewidth of a single point](#computing-the-linewidth-of-a-single-point)
+         * [Testing convergence with smearing and grid](#testing-convergence-with-smearing-and-grid)
+         * [Compute the linewidth along a path in the BZ](#compute-the-linewidth-along-a-path-in-the-bz)
+         * [Compute the spectral function along a path](#compute-the-spectral-function-along-a-path)
+         * [Compute the final state decomposition](#compute-the-final-state-decomposition)
+         * [Color-map plot of the LW in the BZ (2D systems)](#color-map-plot-of-the-lw-in-the-bz-2d-systems)
+      * [d3_tk.x](#d3_tkx-1)
+         * [Compute the SMA solution of the BTE](#compute-the-sma-solution-of-the-bte)
+         * [Compute the exact solution of the BTE](#compute-the-exact-solution-of-the-bte)
+   * [Bibliography](#bibliography)
+   * [Change Log](#change-log)
 
-<!-- Added by: paulatto, at: Wed Mar 24 09:15:21 CET 2021 -->
+<!-- Added by: paulatto, at: ven. 07 mai 2021 18:15:11 CEST -->
 
 <!--te-->
 
 # Quick Reference Manual
+
 ## Compiling the code
 The thermal2 codes come bundled with the D3Q code, used to compute ab-initio the 3rd order dynamical matrices. We refer you to the D3Q manual for more detailed instruction on compiling. A separate stand-alone distribution of the thermal2 codes is being considered and may be available in the future.
 
@@ -195,8 +198,10 @@ The tk code computes the thermal conductivity. It can use the Single-Mode Approx
 See also [d3_tk.x input format](#d3_tkx).
 
 ### Thermal2 utilities
+
 #### d3_q2r.x
 This code is analogous to the q2r.x code of QE, and it uses the same input, but produces a file of Force Constants (FCs) which has already been re-centered in the reciprocal space Wigner-Seitz cell to make Fourier Interpolation faster.
+
 #### d3_qq2rr.x
 Analogous to q2r.x, but operates on the 3rd order matrices. This codes takes as command line arguments the dimension of the q-points grid and optionally the name of the output file. You must feed it feed by standard input the list of anharmonic dynamical matrices in the XML format produced by d3q.x. For example, d3q was run with fild3dyn=”anh” for a NQX × NQY  × NQZ grid, you can compute the 3rd order FCs as:
 ```
@@ -210,6 +215,7 @@ The code will automatically select from the list the files that it needs to fill
 After writing the force constant to file, the code will perform two optional tests (you can skip them pressing CTRL-C). First test: for this test the initial D3 matrices will be recomputed using the force constants with both the real and imaginary parts (which should be zero). Second test: recompute the D3 matrices with only the real part of the force constants. If any discrepancy is detected it will be printed on output. Notice that any discrepancy in the first test indicate a very serious problem with the D3 calculation.  On the other hand, some discrepancy is inevitable in the second test; especially if you your atoms where not in the theoretical equilibrium positions. Also, increasing the cutoff and k-points can improve the consistency of the second test.
 
 If the -w option is specified, when performing the FFT test, if the re-computed D3 matrix differs significantly from the initial one it will be printed to a file. The file will start with prefix 'anh_cmplx' for the first test and 'anh_real' for the second test.
+
 #### d3_sparse.x
 This code converts a file of third order FCs from dense form to sparse form; it can optionally discard elements that are smaller than a custom threshold. It can also measure the speedup gained by using the sparse FCs instead of the dense ones.
 Syntax:
@@ -218,6 +224,7 @@ sparse.x [-i mat3R.input] [-o mat3R.output]
 	    [-t threshold] [-n num_trials]
 ```
 Where ma3R.input (default mat3R) is the name of the dense file of Fcs, mat3R.output will be the output file of sparse FCs (you can use “none” to avoid saving them to file); threshold is in Ry/bohr<sup>3</sup> (all matrix elements smaller than this will be discarded, default: zero, do not discard anything) and num_trials is the number of random trial q-point triplets to compute by Fourier interpolation. If num_trials is provided, the code will print out the elapsed time using the dense and sparse algorithm, the speedup and the eventual discrepancy between the two methods (which should be zero if the threshold is zero)
+
 #### d3_asr3.x
 This code applies the acoustic sum rules (ASR) to the third order FCs. It can only work on dense Fcs, not on the sparse ones. As the sum is applied iteratively, it will automatically stop after 10,000 iterations, or when the residual violation of the ASR is less than 10<sup>-12</sup> or if a file named STOP is found in the running directory. 
 Syntax:
@@ -226,6 +233,7 @@ asr3.x [-i mat3R.input] [-o mat3R.output]
        [-t threshold] [-n iter_max]
 ```       
 These options will read the dense FCs from file mat3R.input, apply the ASR iteratively until threshold is reached (default 10<sup>-12</sup>), or for iter_max, then save it to mat3R.output (default: mat3R.input.asr). If a file named “STOP” is found in the working directory, the code will stop after the next iteration and  immediately save the FCs to mat3R.output
+
 #### d3_recenter.x
 NOTE: this code is useful for debugging, but it is provided “as is”, with no support or guarantee.
 ```
@@ -237,6 +245,7 @@ Reads force constants from mat3R.input, interpolate them on a grid of NQX × NQY
 Uses the properties of Fourier interpolation to transform the 3rd order force constants from a grid to another. If the new grid is different than the initial one, some interpolation will be done, if the grid is the same, you can use the nfar parameter to recalculate the Wigner-Seitz cell centering. This code be useful to compare the results from grids of different sizes, or to put the force constants in a format that is easier to understand for external codes.
 
 If the -w option is specified, the intermediate D3 matrices will, for the NQX × NQY × NQZ grid will be written to files called atmp_Q1…\_Q2…\_Q….
+
 #### d3_import_shengbte.x
 ```
 d3_import_shengbte.x NQX NQY NQZ [-n NFAR] [-w] [-s mat2R]
@@ -256,6 +265,7 @@ NOTE: this code is experimental and not widely tested, use at your own risk.
 This codes reads a spectral weight file from d3_lw.x and computes the convolution with a Lorentzian function that has an energy-dependent FWHM. This procedures simulates the broadening introduced by Raman spectroscopy experiments. This code can also sum and average the spectral function coming from several different files, to simulate the uncertainty of the neutron wavevectors. It reads its input from a file called input.SQOM. Please see teh example input.SQOM in Examples for details.
 
 ### Experimental codes:
+
 #### d3_db.x
 Uses the ansatz of ref. [16](#ref16) to apply the anharmonic correction to the dynamical matrix (instead that on the phonon mode). Can be used to obtain 3rd-order corrected matrices that can be interpolated. In takes mostly the same input variables as d3_lw.x in [the “lw full” case](#calculation-character-default-lw) (but in namelist &dbinput) and will print out dynamical matrix files for all the requested q-points.
 
@@ -280,15 +290,18 @@ The output will contain 5 columns:
 5. shifted frequency (if available in the file)
 
 This script is provided “as is”, using non-standard names for the output files can break it.
+
 #### recompute-sma.m
 A simple octave/mathlab script that allow you to recompute the thermal conductivity in single mode approximation using the output from d3_tk.x (using store_lw=.true.) and d3_r2q.x (using calculation="extr"). This script allow you to quickly combine different intrinsic/extrinsic scattering sources without repeating the entire calculation, to manually change parameter and to extract useful information, like the per-mod contribution to thermal transport. Please note that this is not a brainless script: some editing (i.e. at the very list the unit cell volume) and understanding of the physics is requires.
 
 #### diffd3.x
 Compare two D3 files, write on output the matrix elements and the maximum difference. Take as arguments either two file names (the first and second D3 matrix) or two directory names a file name, which will be opened in both directories.
+
 #### d3_sc2c.x
 Open two D3 files, the first for a unit cell calculation for an arbitrary triplet, the second for a supercell calculation for a triplet of kind (0,q,-q). Then it refold the super-cell D3 matrix to the unit cell and compares the two.
 
 The following scripts are in the tools subdirectory, they can be useful in specific circumstances. They have little documentation, do not hesitate to ask for help if you cannot make them work.
+
 #### xml2giorgia.x
 Reads a list of D3 matrix files in XML format from standard input and write them to a single ASCII file called d3.txt
 apply_asr.sh
@@ -314,7 +327,9 @@ This code reads the 2nd order FCs and computes a number of different quantities 
 It reads its input from a Fortran namelist called &r2qinput which contains the variables listed in the next section.
 
 After the namelist, the code will look for the keyword QPOINTS and will start reading the list of q-points. This part is described in detail in section QPOINTS
+
 ### Namelist &r2qinput 
+
 #### calculation (CHARACTER, default: “freq”)
 The type of calculation to perform, currently this can be:
 - "freq": Compute the phonon frequencies, this keyword that you specify nq and a QPOINTS section.
@@ -324,10 +339,13 @@ The type of calculation to perform, currently this can be:
 
 ####  prefix (CHARACTER, default: the value of calculation)
 The first part of the output file name, the file will be called “prefix.out”.
+
 #### outdir (CHARACTER, default: “./”, I.e. the current directory)
 Location where the output file will be saved.
+
 #### file_mat2 (CHARACTER, no default)
 The file of the 2nd order force constants, produced by thermal2 internal version of q2r.x
+
 #### asr2 (CHARACTER, default: “no”)
 Method used to apply the acoustic sum rule, can be 
 - “no” (do not apply ASR)
@@ -335,17 +353,21 @@ Method used to apply the acoustic sum rule, can be
 
 #### nq (INTEGER, no default)
 Number of q-points to read (see the QPOINTS section below)
+
 #### print_dynmat (LOGICAL, default: .false.)
 If set to .true. A file containing the dynamical matrix, in phonon format, will be saved for each q-point (only works for calculation="freq"). The file name will be “r2q_dyn_NQ” where NQ is the progressive number of the point.
+
 #### sort_freq (CHARACTER, default: "default")
 When plotting the linewidth and frequencies along a path, there are several ways to order the frequencies and associated linewidth and shifted frequencies:
 - "default": keep the default order of increasing frequencies
 - "overlap": sort each point in order to maximize the overlap of each band polarization with the corresponding band at the previous point. This is the best choice for paths, but probably will not work for 2D or 3D grid plots
 
 #### print_velocity (LOGICAL, default: .false.)
-If set to .true. a file containing the phonon group velocities will be saved (only applies when calculation="freq"). The file name will be prefix_vel.out, after the path length and the q-point, the velocities are printed in Cartesian coordinates, Rydberg units (1.09×106 m·s−1).
+If set to .true. a file containing the phonon group velocities will be saved (only applies when calculation="freq"). The file name will be prefix_vel.out, after the path length and the q-point, the velocities are printed in Cartesian coordinates, Rydberg units (1.09×10<sup>6</sup> m·s−1).
+
 #### ne, de, e0, sigma_e (INTEGER, REAL, REAL, in cm-1 no default)
 Used for jdos calculation, see the description in &lwinput section, below.
+
 ### Output format
 The r2q.x code will produce an output file for every configuration. The output files will be named $prefix.out (where $prefix is the value of the input variable prefix). It contains the following columns:
 - 1	The line number i.e. point index
@@ -357,24 +379,33 @@ The r2q.x code will produce an output file for every configuration. The output f
 This code reads the 2nd order FCs for a series of volumes and computes the phonon free energy for a given list of temperature, optionally adding a pV (pressure × volume) hydrostatic term. It then fits the total free energy with an equation of state to find the equilibrium volume at each temperature, and find the temperature/volume curve and the volumetric thermal expansion coefficient.
 
 ### Namelist &qhainput
+
 #### calculation (CHARACTER, default: “gibbs”)
 The type of calculation to perform, at the moment it can only do the default.
 
 #### prefix (CHARACTER, default: the value of calculation)
 The first part of the output file name, the file will be called “prefix….out”. Where the “…” part depends on the kind of calculation (See the [Output format](#output-format-1) section)
+
 #### outdir (CHARACTER, default: “./”, i.e. the current directory)
-Location where the output file will be saved.
+Location where the output file will be saved.a
+
 #### nT, dT, T0 (INTEGER, REAL, REAL, in K)
 These three variables define the list of temperatures to compute: T0, T0+dT, …, T0+(nT-1)dT. Use a sufficiently small value for dT in order to have a reliable thermal expansion coefficient.
+
 #### asr2 (CHARACTER, default: “no”)
 Method used to apply the acoustic sum rule, can be “no” (do not apply ASR), “simple” (apply the compensation term to the on-site force constant). You can use the script tools/apply_asr.sh in order to apply more sophisticated sum rules using matdyn.x from qe.
+
 #### nk (3x INTEGER, no default)
 The size of the grid used to integrate the phonon-phonon interaction processes.
+
 #### grid_type (CHARACTER, default: “simple”)
 Set this to “simple” to use a regular unshifted grid in reciprocal space. See the [description of d3_lw.x input](#grid_type-character-default-simple-1) for more details about this option.
+
 #### press_kbar (REAL, kbar, 0)
+
 #### press_Gpa (REAL, Gpa, 0)
 Optionally add an hydrostatic pressure, which will contribute a term pV to the total energy. The sign convention for pressure is that higher positive pressure means pushing stronger on the sample (i.e. you may want to use a positive pressure value 99% of the times).
+
 #### n_volumes (INTEGER, no default)
 The number of volumes that have been computed ab-initio. The code expect to find a list of n_volumes force constant files and total electronic  energies after the namelist.
 
@@ -390,6 +421,7 @@ mat2R_2   -128.6
 mat2R_3   -127.9
 ```
 It may be necessary to enclose the name of the file in quotes "…" if it contains any special character, such as “/”. The energy are in Ry and are just the “total energy” printed by pw.x at total convergence.
+
 ### Output format
 The code will create, in outdir, a file for each temperature with the equation of state for that temperature, and a final file with the theoretical volume/temperature curve,
 For each temperature, a file called $prefix_T$temperature.dat, in the file header you will find these informations that are obtained by fitting the total Gibbs free energy with an equation of state:
@@ -417,7 +449,9 @@ The final file, called $prefix.dat, contains the following columns:
 
 ## d3_lw.x
 This code can compute the intrinsic phonon-phonon interaction and the interaction of phonons with isotopic disorder and border scattering. It reads its input variables from the &lwinput namelist and from the QPOINTS, CONFIGS and ISOTOPES lists, which are described in detail in their corresponding sections.
+
 ### Namelist &lwinput
+
 #### calculation (CHARACTER, default: “lw”)
 The type of calculation to perform, it can take several different values:
 - “lw imag”: compute the imaginary part of the self-energy, i.e. the phonon linewidth. In this mode the code will enforce conservation of energy with a Diract delta function approximated with a Gaussian function of width delta, read from the CONFIGS section.
@@ -429,20 +463,28 @@ The type of calculation to perform, it can take several different values:
 
 #### prefix (CHARACTER, default: the value of calculation)
 The first part of the output file name, the file will be called “prefix….out”. Where the “…” part depends on the kind of calculation (See the [Output format section](#output-format-2))
+
 #### outdir (CHARACTER, default: “./”, i.e. the current directory)
 Location where the output file will be saved.
+
 #### file_mat2 (CHARACTER, no default)
 The file of the 2nd order force constants, produced by thermal2 internal version of q2r.x
+
 #### file_mat3 (CHARACTER, no default)
 The file of the 3rd order force constants, produced by qq2rr.x or asr3.x or sparse.x
+
 #### asr2 (CHARACTER, default: “no”)
 Method used to apply the acoustic sum rule, can be “no” (do not apply ASR), “simple” (apply the compensation term to the on-site force constant) or “spread” (distribute the compensation on all the FCs proportionally to their amplitude)
+
 #### nq (INTEGER, no default)
 Number of q-points to read (see below)
+
 #### nconf (INTEGER, no default)
 Number of configurations to read in the CONFIGS section, see the detailed description below.
+
 #### nk (3x INTEGER, no default)
 The size of the grid used to integrate the phonon-phonon interaction processes.
+
 #### grid_type (CHARACTER, default: “simple”)
 Set this to “simple” to use a regular unshifted grid in reciprocal space.
 
@@ -453,18 +495,23 @@ Set to “bz” to use a grid centered in the Brillouin zone. This option will d
 
 #### xk0 (3x REAL, default: 0,0,0)
 A shift to apply to the grid of k-points, in units of half the lattice spacing; i.e. set it to (1,1,1) to have the standard Monkhorst-Pack shifted grid, any fractional values is allowed.
+
 #### ne, de, e0, sigma_e (INTEGER, REAL, REAL, in cm-1 no default)
 When doing a Spectral function (d3_lw.x) or Final state (d3_lw.x ) or Joint-DOS (d3_r2q.x) calculation you have to define an energy axis with these variables. The axis will include ne equally spaced points starting from e0 and up to e0+(ne-1)de. The sum over the q-points will be convoluted with a gaussian of width sigma_e (default: 5 de) to obtain a smooth curve.
+
 #### e_initial (in cm-1, no default)
 When doing a Final state decomposition calculation, this is the energy of the initial state considered in the scattering process. If you want to consider a specific phonon mode, just enter its energy by hand, in cm-1.
+
 #### q_initial (3x REAL, in units of 2π/alat)
 As e_initial, specifies the initial q-point.
+
 #### q_summed (LOGICAL, default: false)
 When doing a final state calculation, set to true to project the infinitesimal contribution to the linewidth over the given final q-points, the energy dependence is integrated out. The analysis is performed over the q-points specified in the QPOINTS section, you can use either a path or a grid, depending on the kind of plot you want. The full grid, specified by nk, will still be used to compute the linewidth, but te contribution will be projected to each q-point in the list with a Gaussian smearing given by sigmaq.
 
 Note that even high-symmetry points can, and often do, decay toward lower symmetry points; a high-symmetry path can easily miss the most important final states. We recommend using a relatively coarse grid first, you will be able to spot the most favored points by sorting the output file. I.e. this command:
  sort -gk 5 final_T300_s1.out
 will output as the final lines the most important decay processes. See also sigmaq and q_resolved and the output format.
+
 #### q_resolved (LOGICAL, default: false)
 As q_summed, but the energy dependence is not integrated out. The output file will contain an analysis of the decay process as a function of the final state q-point and energy. Note that this file can be huge, and it is almost impossible to plot for an entire grid. Along a line, you can produce a color plot using this gnuplot command (assuming that the file freq.out contains the frequencies):
 ```
@@ -473,10 +520,13 @@ plot "fs_qresolved_T300_s1.out" u 1:2:6 w image, \
      for [i=6:11] 'freq.out' u 2:i w l lt -1 not
 ```
 See also sigmaq and q_summed and the output format. Note that the “image” plot mode suppose that the x-axis spacing is constant, if it is not, you will have to do a 3D “splot” with “view map” in order to obtain a good plot.
+
 #### sigmaq (REAL,  default: 0.1 in units of 2π/alat)
 Used in conjunction with q_summed or q_resolved to obtain a nice smooth plot over the q-points by convoluting it with a Gaussian function of width sigmaq. Set it to something of the order of the spacing between the q-points.
+
 #### exp_t_factor (LOGICAL, default: false)
 UNTESTED/EXPERIMENTAL! When doing a spectra function calculation, add an elastic peak  of equation (1 + f_bose(e,T)) / e) which should emulate the elastic peak of neutron spectroscopy.
+
 #### sort_freq (CHARACTER, default: "default")
 When plotting the linewidth and frequencies along a path, there are several ways to order the frequencies and associated linewidth and shifted frequencies:
 - "default": keep the default order of increasing frequencies
@@ -485,15 +535,22 @@ When plotting the linewidth and frequencies along a path, there are several ways
 
 #### isotopic_disorder (LOGICAL, default: false)
 Set this to true to include scattering from isotopic disorder. You will also have to specify the isotopic composition of every element in the system in the ISOTOPES section. NOTE: isotopes are only used for linewidth calculation, they are no used for spectral functions and final state decomposition.
+
 #### casimir_scattering (LOGICAL, default: false)
 Set this variable to true to include scattering with boundary, treated with the Casimir formula. See the following variables for detail on how to specify the boundary structure. Casimi scattering is only applied to linewidth calculation, it has no effect on spectra function and final state calculations.
+
 #### sample_dir (3x REAL, normalized, default: no direction)
 The direction in which Casimir scattering is prevalent. Set it to zero to consider omnidirectional scattering, i.e. scattering from grains, or to a specific direction to consider a wire. More complex geometries are not implemented yet, please let us know if you are interested.
+
 #### sample_length_au	 (REAL, bohr, no default)
+
 #### sample_length_mu	 (REAL, micrometers, no default)
+
 #### sample_length_mm (REAL, millimeters, no default)
 The average scattering length in the Casimir model; you can specify only one of the three variables, according to the unit of measure you prefer. Note that the Caimir model also include a structure factor, usually set to 2, which is not included in our implementation; you will have to include it directly in the gain size in input.
+
 #### max_seconds (no default, in seconds)
+
 #### max_time (format hh.mmss)
 The maximum running time after which the code will stop, you can only set one of the two. Notice that only tk.x includes a restart mechanism.
 
@@ -552,6 +609,7 @@ The d3_tk.x code can compute the thermal conductivity coefficient in the SMA or 
 Most of the variable used by d3_tk.x are also used for d3_lw.x. The following variables have the same meaning as in d3_lw.x:
 outdir, prefix, file_mat2, file_mat3, asr2,  nconf, nk, grid_type, xk0, isotopic_disorder, casimir_scattering,  sample_direction, sample_length_*
 The following variables are specific of d3_tk.x.
+
 #### calculation (CHARACTER, default: “sma”)
 Set this variable to “sma” to compute use the single mode approximation or to “cgp” to do an iterative diagonalization of the BTE with the Conjugate Gradient algorithm with preconditioning. Please note that “cgp” algorithm will also output the SMA thermal conductivity at its first iteration, but computed in a slightly different way which is slower but guarantees the phonon-phonon scattering matrix to be well defined and the functional to be minimized to be positive definite.
 
@@ -560,24 +618,33 @@ When doing a “sma” calculation, the linewidth will be computed, for each poi
 
 #### grid_type_in (CHARACTER, default: same value as grid_type)
 Same as grid_type, but applied to the inner grid. Ignored for ‘cgp’ calculations.
+
 #### xk0_in (3x REAL, default: same value as xk0)
 Same as xk0, but applied to the inner grid. Ignored for ‘cgp’ calculations.
+
 #### thr_tk (REAL, default: 1.d-4 W/mK)
 Threshold on the convergence of thermal conductivity the of the CGP minimization when solving the BTE. The default value should be enough to get the thermal conductivity with 4 or 5 significant digits.
+
 #### niter_max (INTEGER, default: 1000)
 Maximum number of iteration of the CGP algorithm. Normally less than 100 iterations are needed.
+
 #### store_lw (LOGICAL, default: .false.)
 Set this to true, when doing a SMA calculation, and the code will write to disk the values of the intrinsic, isotopi and casimir linewidths at the end of the calculation. In the tool/ you can find an octave/matlab script recompute_sma.m to recompute the SMA tk from these files. This can be used to inexpensively test different isotopic and Casimir scattering parameters without repeating the expensive intrinsic linewidth calculation. See also intrinsic_scattering
+
 #### intrinsic_scattering (LOGICAL, default: .true.)
 If this parameter is set to false, during a SMA calculation, the code will skip the calculation of the intrinsic phonon-phonon scattering. At the end, thermal conductivity cannot not be computed, hence be sure to set store_lw=.true., or the calculation will be wasted, in order to store isotopic and Casimir linewidths.
+
 #### restart (LOGICAL, default: .false.)
 Set this to true, when doing a CGP calculation, and the code will write to disk the state of the minimization at each iteration, it will then be able to restart from the last step. Set this to .false. will have two effects: 1) the code will ignore any restart information already present on disk and 2) the code will not write restart information on disk. Restart information can take quite a bit of space for dense grids.
+
 #### mfp_cutoff (LOGICAL, default: false)
 Set this variable to true to include scattering with boundary, by cutting off the contribution of all phonon modes with a mean free path (MFP, inverse full linewidth times group velocity) larger than the sample size. This approach is simpler than using casimir_scattering, but it assumes that all phonons with a MFP longer than the sample will scatter, and all those shorter will not; i.e. that all phonons with a MFP longer than the sample hav an infinite linewidth; this is only true in the ballistic regime, which is not the aim of this software anyway. We recommend using casimir_scattering instead. This option will use the input variable sample_dir and sample_length_# to determine the cutoff length. This option only works for SMA thermal conductivity. 
+
 #### volume_factor (REAL, default: 1)
 A dimensionless parameter to rescale the volume of the crystal unit cell. When studying a 2D material, it is useful to normalize the thermal conductivity with the volume of bulk, excluding the vacuum space left between periodic copies of the 2D slab. I.e. if the bulk material has an inter-layer spacing of H and you have built your 2D slab geometry with a vacuum distance V, you have to set volume_factor=H/V.
 
 ### Output format
+
 #### SMA calculation
 When doing a SMA calculation the tk.x code will produce two output files:
 1. A file named $prefix.$grid_size.out, where $prefix is the input value of prefix and $grid_size is the size of the integration grid (e.g. “20x20x20”). This file will contain one line per configuration, in each line you will:
@@ -608,6 +675,7 @@ When a CGP calculation several files are created: one with the results at the la
 
 
 ## Common input cards 
+
 ### QPOINTS
 The “QPOINTS” card instruct the code to start reading a list of nq q-points, nq has been previously entered in the namelist. On the same line as QPOINTS thre optional keywords can be specified:
 
@@ -795,7 +863,9 @@ H manual 1.02  0.01
 
 # Input Examples
 In the next sections you will find some example input files for the main codes of thermal2. You will find more examples, included a
+
 ## d3_lw.x
+
 ### Computing the linewidth of a single point
 
 This example input would compute the linewidth of q-point (1/3 1/3 0) in crystal (aka fractional) coordinates for 15 different values of temperature.
@@ -833,6 +903,7 @@ CONFIGS
 QPOINTS crystal 
 0.33333333333 0.333333333333 0.0
 ```
+
 ### Testing convergence with smearing and grid
 The following example is useful for testing the convergence of the linewidth calculation as a function of the smearing value. The input should be run several times replacing NK with increasing values. You can then collect the linewidth of a band and plot a curve for every smearing as a function of the grid size.
 ```
@@ -861,6 +932,7 @@ QPOINTS
 
 You can then extract the data with a script like this:
 ```
+
 #!/bin/bash
 for smr in 0.1 0.2 0.5 1.0 2.0 5.0 10.0;do
 	grep "^ *1 " lw_*s${smr}.out|\
@@ -996,7 +1068,7 @@ QPOINTS bz
 
 You can then plot the resulting file with a gnuplot command like this (you will have to tune the pointsize and of course select the correct band to plot):
 ```
-p 'lw_2d.50x50x1@bz_T300_s10.out' u 3:4:12 w points palette pt 7 pointsize 1.7 not
+p 'lw_2d.50x50x1@bz_T300_s10.out' u 3:4:12 w p palette pt 7 pointsize 1.7 not
 ```
 
 This is an example from graphene (done using 128x128 BZ-centered points):
@@ -1005,6 +1077,7 @@ This is an example from graphene (done using 128x128 BZ-centered points):
 
 
 ## d3_tk.x
+
 ### Compute the SMA solution of the BTE
 The following input file computes the thermal conductivity in the Single-Mode Approximation. This example uses a finer grid of 24x24x24 q-points to compute the phonon lifetime on a grid of 12x12x12 points, which is integrated to compute the thermal conductivity. Furthermore, the natural isotopic distribution of Silicon is used.
 ```
