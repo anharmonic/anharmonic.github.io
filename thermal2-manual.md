@@ -154,7 +154,7 @@ We would greatly appreciate if when using the thermal2 suite of codes you cite t
    * [Bibliography](#bibliography)
    * [Change Log](#change-log)
 
-<!-- Added by: paulatto, at: ven. 07 mai 2021 18:15:11 CEST -->
+<!-- Added by: paulatto, at: mar. 25 mai 2021 14:49:11 CEST -->
 
 <!--te-->
 

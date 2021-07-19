@@ -7,6 +7,7 @@ permalink: /d3q/
 
 # Foreword
 The thermal2 suite of codes has been written starting in 2010 by Lorenzo Paulatto<sup>1</sup>. It is based on a previous code developed by Michele Lazzeri and Stefano de Gironcoli<sup>2</sup> which has been distributed with the Quantum-ESPRESSO suite of codes.
+
 ## Copyright
 All the files are provided under the [GPL license, v2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html) or newer and, when possible, under the [CeCILL license](https://cecill.info/licences/Licence_CeCILL_V2.1-fr.html). 
 
@@ -19,52 +20,52 @@ We would greatly appreciate if when using the d3q code you cite the following pa
 
 # Table of contents
 <!--ts-->
-   * [D3Q manual](d3q-manual.md#d3q-manual)
-   * [Foreword](d3q-manual.md#foreword)
-      * [Copyright](d3q-manual.md#copyright)
-      * [Citing](d3q-manual.md#citing)
-   * [Table of contents](d3q-manual.md#table-of-contents)
-   * [Capabilities of the d3q code](d3q-manual.md#capabilities-of-the-d3q-code)
-   * [Compiling the code](d3q-manual.md#compiling-the-code)
-   * [Preparing a D3Q calculation](d3q-manual.md#preparing-a-d3q-calculation)
-      * [Running the pw.x calculation](d3q-manual.md#running-the-pwx-calculation)
-      * [Running the ph.x calculation](d3q-manual.md#running-the-phx-calculation)
-      * [Example pw.x and ph.x input files](d3q-manual.md#example-pwx-and-phx-input-files)
-         * [Input of pw.x](d3q-manual.md#input-of-pwx)
-         * [Input of ph.x](d3q-manual.md#input-of-phx)
-   * [D3Q Input File](d3q-manual.md#d3q-input-file)
-      * [QPOINTS or GRID specifications](d3q-manual.md#qpoints-or-grid-specifications)
-      * [&amp;inputd3q namelist](d3q-manual.md#inputd3q-namelist)
-            * [mode (CHARACTER, default: "single")](d3q-manual.md#mode-character-default-single)
-            * [prefix (CHARACTER, no default)](d3q-manual.md#prefix-character-no-default)
-            * [outdir (CHARACTER, default $ESPRESSO_TMPDIR)](d3q-manual.md#outdir-character-default-espresso_tmpdir)
-            * [d3dir (CHARACTER, default outdir, or $ESPRESSO_D3DIR)](d3q-manual.md#d3dir-character-default-outdir-or-espresso_d3dir)
-            * [fildrho_dir (CHARACTER, default outdir, or $ESPRESSO_FILDRHO_DIR)](d3q-manual.md#fildrho_dir-character-default-outdir-or-espresso_fildrho_dir)
-            * [fild3dyn (CHARACTER, default: "anh")](d3q-manual.md#fild3dyn-character-default-anh)
-            * [ethr_ph (REAL, default: 1.d-8)](d3q-manual.md#ethr_ph-real-default-1d-8)
-            * [amass (REAL, array, default: same as pw.x)](d3q-manual.md#amass-real-array-default-same-as-pwx)
-            * [fildrho (CHARACTER, default: "drho")](d3q-manual.md#fildrho-character-default-drho)
-            * [first, last (INTEGER, default: 1, 0)](d3q-manual.md#first-last-integer-default-1-0)
-            * [offset, step (INTEGER, default: 0, 1)](d3q-manual.md#offset-step-integer-default-0-1)
-            * [restart (LOGICAL, default: .true.)](d3q-manual.md#restart-logical-default-true)
-            * [max_seconds (no default, in seconds)](d3q-manual.md#max_seconds-no-default-in-seconds)
-            * [max_time (format hh.mmss)](d3q-manual.md#max_time-format-hhmmss)
-            * [nk1, nk2, nk3 (3x INTEGER, default: same as pw.x)](d3q-manual.md#nk1-nk2-nk3-3x-integer-default-same-as-pwx)
-            * [k1, k2, k3 (3x INTEGER, default: same as pw.x)](d3q-manual.md#k1-k2-k3-3x-integer-default-same-as-pwx)
-            * [degauss (REAL, default: same as pw.x)](d3q-manual.md#degauss-real-default-same-as-pwx)
-            * [print_star (LOGICAL, default: .true.)](d3q-manual.md#print_star-logical-default-true)
-            * [print_perm (LOGICAL, default: .false.)](d3q-manual.md#print_perm-logical-default-false)
-            * [print_trev (LOGICAL, default: .false.](d3q-manual.md#print_trev-logical-default-false)
-            * [safe_io (LOGICAL, default: .false.)](d3q-manual.md#safe_io-logical-default-false)
-         * [GRID and QPOINTS](d3q-manual.md#grid-and-qpoints)
-         * [&amp;d3_debug namelist](d3q-manual.md#d3_debug-namelist)
-   * [Running D3Q](d3q-manual.md#running-d3q)
-         * [Note on pools parallelisation](d3q-manual.md#note-on-pools-parallelisation)
-   * [Output format](d3q-manual.md#output-format)
-   * [Data flow](d3q-manual.md#data-flow)
-   * [Bibliography](d3q-manual.md#bibliography)
+   * [D3Q manual](#d3q-manual)
+   * [Foreword](#foreword)
+      * [Copyright](#copyright)
+      * [Citing](#citing)
+   * [Table of contents](#table-of-contents)
+   * [Capabilities of the d3q code](#capabilities-of-the-d3q-code)
+   * [Compiling the code](#compiling-the-code)
+   * [Preparing a D3Q calculation](#preparing-a-d3q-calculation)
+      * [Running the pw.x calculation](#running-the-pwx-calculation)
+      * [Running the ph.x calculation](#running-the-phx-calculation)
+      * [Example pw.x and ph.x input files](#example-pwx-and-phx-input-files)
+         * [Input of pw.x](#input-of-pwx)
+         * [Input of ph.x](#input-of-phx)
+   * [D3Q Input File](#d3q-input-file)
+      * [QPOINTS or GRID specifications](#qpoints-or-grid-specifications)
+      * [&amp;inputd3q namelist](#inputd3q-namelist)
+            * [mode (CHARACTER, default: "single")](#mode-character-default-single)
+            * [prefix (CHARACTER, no default)](#prefix-character-no-default)
+            * [outdir (CHARACTER, default $ESPRESSO_TMPDIR)](#outdir-character-default-espresso_tmpdir)
+            * [d3dir (CHARACTER, default outdir, or $ESPRESSO_D3DIR)](#d3dir-character-default-outdir-or-espresso_d3dir)
+            * [fildrho_dir (CHARACTER, default outdir, or $ESPRESSO_FILDRHO_DIR)](#fildrho_dir-character-default-outdir-or-espresso_fildrho_dir)
+            * [fild3dyn (CHARACTER, default: "anh")](#fild3dyn-character-default-anh)
+            * [ethr_ph (REAL, default: 1.d-8)](#ethr_ph-real-default-1d-8)
+            * [amass (REAL, array, default: same as pw.x)](#amass-real-array-default-same-as-pwx)
+            * [fildrho (CHARACTER, default: "drho")](#fildrho-character-default-drho)
+            * [first, last, only (INTEGER, default: 1, 0)](#first-last-only-integer-default-1-0)
+            * [offset, step (INTEGER, default: 0, 1)](#offset-step-integer-default-0-1)
+            * [restart (LOGICAL, default: .true.)](#restart-logical-default-true)
+            * [max_seconds (no default, in seconds)](#max_seconds-no-default-in-seconds)
+            * [max_time (format hh.mmss)](#max_time-format-hhmmss)
+            * [nk1, nk2, nk3 (3x INTEGER, default: same as pw.x)](#nk1-nk2-nk3-3x-integer-default-same-as-pwx)
+            * [k1, k2, k3 (3x INTEGER, default: same as pw.x)](#k1-k2-k3-3x-integer-default-same-as-pwx)
+            * [degauss (REAL, default: same as pw.x)](#degauss-real-default-same-as-pwx)
+            * [print_star (LOGICAL, default: .true.)](#print_star-logical-default-true)
+            * [print_perm (LOGICAL, default: .false.)](#print_perm-logical-default-false)
+            * [print_trev (LOGICAL, default: .false.](#print_trev-logical-default-false)
+            * [safe_io (LOGICAL, default: .false.)](#safe_io-logical-default-false)
+         * [GRID and QPOINTS](#grid-and-qpoints)
+         * [&amp;d3_debug namelist](#d3_debug-namelist)
+   * [Running D3Q](#running-d3q)
+         * [Note on pools parallelisation](#note-on-pools-parallelisation)
+   * [Output format](#output-format)
+   * [Data flow](#data-flow)
+   * [Bibliography](#bibliography)
 
-<!-- Added by: paulatto, at: Wed Mar 24 09:15:21 CET 2021 -->
+<!-- Added by: paulatto, at: mar. 25 mai 2021 14:49:12 CEST -->
 
 <!--te-->
 
@@ -144,6 +145,7 @@ ATOMIC_POSITIONS
 K_POINTS AUTOMATIC
  4 4 4  0 0 0
 ```
+
 ### Input of ph.x
 ```
 phonon_disp_of_silicon
@@ -158,6 +160,7 @@ phonon_disp_of_silicon
     drho_star%dir  = './FILDRHO'
  /
 ```
+
 # D3Q Input File
 The d3q.x code reads its input from a file, and a few environment variables. If a parameter is specified both in the input file and in a variable, it is the value in the file that is used. The input file has the following structure:
 ```
@@ -187,17 +190,22 @@ If you want to use the D3 matrices to do linewidth or thermal transport calculat
 
 #### prefix (CHARACTER, no default)
 Prefix must be the same as in the input of pw.x and ph.x
+
 #### outdir (CHARACTER, default $ESPRESSO_TMPDIR)
 Outdir must be the same as in the input of pw.x and ph.x. Its default value is read from the ESPRESSO_TMPDIR environment variable, the current directory is used if the variable is not set.
+
 #### d3dir (CHARACTER, default outdir, or $ESPRESSO_D3DIR)
 If you wish to write the d3 temporary data to a different place than the pw data, you can use d3dir. Its default value is read from the ESPRESSO_D3DIR environment variable, and will eventually fallback to the value of outdir.
 A further sub-directory will be created which depends on the coordinates of the q-points, it is hence safe to use the same value of d3dir even when running several d3q.x calculations at the same time and with the same prefix, as long as they work on different triplets.
 Data in d3dir is normally deleted after each triplet is computed. If for some reason you need this data, you will have to change d3q.f90 to call d3_reset with parameter cleanup = .false., and recompile the code.
+
 #### fildrho_dir (CHARACTER, default outdir, or $ESPRESSO_FILDRHO_DIR)
 The directory where the files with the variation of the charge density have been stored. For the code to work, this must be the same as the value of drho_star%dir in the input of ph.x.
 Note that only files inside d3dir will be opened read/write,  files inside outdir and fildrho_dir will be opened read-only, which ensure that even in case of a catastrophic crash you should not need to repeat the pw.x and ph.x calculations.
+
 #### fild3dyn (CHARACTER, default: "anh")
 The prefix of the files containing the D3 matrices. Note that the d3q.x code will create a lot of output files (one for each of the explicitly compute triplets, and one for each triplet obtained by symmetry); we recommend that you insert a directory name in this variable to keep your working directory tidy. E.g. you can use fild3dyn="OUTPUT/anh", the "OUTPUT" directory will be created automatically.
+
 #### ethr_ph (REAL, default: 1.d-8)
 The threshold for solving the non-self consistent Sternheimer equation. The default value should work for everyone. Please note that this threshold is not the same as the variable tr2_ph from phonon input. It is related to the threshold of the conjugate-gradient solver of the Sternheimer equation; it is printed in the output of phonon, i.e. the value of "thresh" marked in bold in the following snippet from ph.x:
 ```
@@ -212,10 +220,12 @@ You can check the last iteration of your phonon calculation and use a similar va
 
 #### amass (REAL, array, default: same as pw.x)
 With amass you change the mass of atomic species. You can change it again later if you wish, no part of the DFPT calculation depends on ionic mass. The default value is read from the pw.x restart file.
+
 #### fildrho (CHARACTER, default: "drho")
 fildrho must be the same as drho_star%ext in ph.x. When this variable is used, the d3q.x code will automatically search the file it needs inside the fildrho_dir directory. When computing a grid of triplets calculation this is the only possible way to supply the fildrho files.
 
 Alternatively, when computing single triplets, you can use fild1rho, fild2rho and fild3rho to specify the rho variation at q point 1, 2 and 3. In special cases, i.e. q2=-q3 and q2=q3, you only need to specify fild1rho and fild2rho. In some other case, i.e. q1=-q2  and q1=q2, you only need fild1rho and fild3rho. In the Gamma-only case  only fild1rho file is used.
+
 #### first, last, only (INTEGER, default: 1, 0)
 If you only want to compute a subset of the q-point you can use these two variables. The d3q.x code will then compute all the triplets between first and last. If you set last  to zero, all the triplet starting from first will be computed. Setting "only=x" is a shortcut for "first=x" and "last=x".
 
@@ -228,17 +238,24 @@ When restart is true,  the code will check existing fild3dyn files and skip the 
 Restart of partially-computed q-points is currently implemented but disabled because 1) it is still unreliable 2) it requires that all input/output is safely written to disk, which makes the calculation much slower. You can activate it modifying the code at your own risk!
 
 #### max_seconds (no default, in seconds)
+
 #### max_time (format hh.mmss)
 The maximum running time after which the code will stop, you can only set one of the two. The code will only check this condition after finishing to compute each triplet.
+
 #### nk1, nk2, nk3 (3x INTEGER, default: same as pw.x)
+
 #### k1, k2, k3 (3x INTEGER, default: same as pw.x)
+
 #### degauss (REAL, default: same as pw.x)
 You can change the k-points grid and smearing used in d3q, do it with care  and only if you understand what you are doing, or for testing purpose. nkX is the grid size along direction X, kX can be 1 or 0, it means shift or no shift. degauss is the smearing in Ry.
 
 #### print_star (LOGICAL, default: .true.)
+
 #### print_perm (LOGICAL, default: .false.)
+
 #### print_trev (LOGICAL, default: .false.
 The code saves the D3 matrix of each triplet computed and of the star  of those triplet. It does not compute the permutations (q1,q2,q3) -> (q2,q3,q1); etc…  (although some symmetry operations may be equivalent to permutations) It also does not use time-reversal symmetry to send q->-q. You can control this behavior with these variables. Please note that the subsequent codes in the thermal2 require print_star=.true. in order to work correctly.
+
 #### safe_io (LOGICAL, default: .false.)
 If you set safe_io to true, every file is closed and reopened after each write. This can make the code much slower, but can solve some problems with parallel filesystem not syncing or corrupted file when trying to restart. As long as partial q-point restart is not implemented and tested, this option should left to its default value.
 
@@ -263,7 +280,7 @@ In the "full" case, compute the entire 4x4x1 grid
 ```
  4 4 1
 ```
- 
+
 ### &d3_debug namelist
 The variables inside the d3_debug namelist can be used to disable some parts of the calculation or to print more output.
 WARNING! no sanity check is done on these variables, setting this namelist can result in crash and random results. No bug report will be taken into consideration if the code was run with debug variables! 
