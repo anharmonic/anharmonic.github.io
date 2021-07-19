@@ -13,10 +13,11 @@ All the files are provided under the [GPL license, v2](https://www.gnu.org/licen
 
 ## Citing
 We would greatly appreciate if when using the d3q code you cite the following papers where the underlying theory is described in detail:
-- *All applications*: L. Paulatto, F. Mauri, and M. Lazzeri,  Phys. Rev. B 87, 214303 (2013)
-- *Exact BTE solution*: G. Fugallo, M. Lazzeri, L. Paulatto, and F. Mauri, Phys. Rev. B 88, 045430 (2013)
-- *Spectral functions*: L. Paulatto, I. Errea, M. Calandra, and F. Mauri, Phys. Rev. B 91, 054304 (2015)
-- *Finite size effects*: L. Paulatto, D. Fournier, M. Marangolo, M. Eddrief, P. Atkinson, M. Calandra. Phys. Rev. B 101 (20), 205419 (2020)
+
+* All applications: L. Paulatto, F. Mauri, and M. Lazzeri,  Phys. Rev. B 87, 214303 (2013)
+* Exact BTE solution: G. Fugallo, M. Lazzeri, L. Paulatto, and F. Mauri, Phys. Rev. B 88, 045430 (2013)
+* Spectral functions: L. Paulatto, I. Errea, M. Calandra, and F. Mauri, Phys. Rev. B 91, 054304 (2015)
+* Finite size effects: L. Paulatto, D. Fournier, M. Marangolo, M. Eddrief, P. Atkinson, M. Calandra. Phys. Rev. B 101 (20), 205419 (2020)
 
 # Table of contents
 <!--ts-->
@@ -35,13 +36,13 @@ We would greatly appreciate if when using the d3q code you cite the following pa
          * [Input of ph.x](#input-of-phx)
    * [D3Q Input File](#d3q-input-file)
       * [QPOINTS or GRID specifications](#qpoints-or-grid-specifications)
-      * [&amp;inputd3q namelist](#inputd3q-namelist)
-            * [mode (CHARACTER, default: "single")](#mode-character-default-single)
+         * [&amp;inputd3q namelist](#inputd3q-namelist)
+            * [mode (CHARACTER, default: “single”)](#mode-character-default-single)
             * [prefix (CHARACTER, no default)](#prefix-character-no-default)
             * [outdir (CHARACTER, default $ESPRESSO_TMPDIR)](#outdir-character-default-espresso_tmpdir)
             * [d3dir (CHARACTER, default outdir, or $ESPRESSO_D3DIR)](#d3dir-character-default-outdir-or-espresso_d3dir)
             * [fildrho_dir (CHARACTER, default outdir, or $ESPRESSO_FILDRHO_DIR)](#fildrho_dir-character-default-outdir-or-espresso_fildrho_dir)
-            * [fild3dyn (CHARACTER, default: "anh")](#fild3dyn-character-default-anh)
+            * [fild3dyn (CHARACTER, default: “anh”)](#fild3dyn-character-default-anh)
             * [ethr_ph (REAL, default: 1.d-8)](#ethr_ph-real-default-1d-8)
             * [amass (REAL, array, default: same as pw.x)](#amass-real-array-default-same-as-pwx)
             * [fildrho (CHARACTER, default: "drho")](#fildrho-character-default-drho)
@@ -60,12 +61,12 @@ We would greatly appreciate if when using the d3q code you cite the following pa
          * [GRID and QPOINTS](#grid-and-qpoints)
          * [&amp;d3_debug namelist](#d3_debug-namelist)
    * [Running D3Q](#running-d3q)
-         * [Note on pools parallelisation](#note-on-pools-parallelisation)
+      * [Note on pools parallelisation](#note-on-pools-parallelisation)
    * [Output format](#output-format)
    * [Data flow](#data-flow)
    * [Bibliography](#bibliography)
 
-<!-- Added by: paulatto, at: mar. 25 mai 2021 14:49:12 CEST -->
+<!-- Added by: paulatto, at: lun. 19 juil. 2021 16:05:49 CEST -->
 
 <!--te-->
 
@@ -175,10 +176,10 @@ title_line
 The title line can be any title you wish to use for your calculation, it will be printed in output but it has no effect on the results.
 After the title line, you have to specify the &inputd3q namelist, which contain all the parameters of the calculation. After the namelist, and depending on the value of the parameters therein, you will have to specify either a series of q-points or the dimension of the regular grid that you want to compute.
 
-## &inputd3q namelist
+### &inputd3q namelist
 The namelist start with the "&inputd3q" keyword and ends with a "/" in an otherwise empty line. It can contain the following variables:
 
-#### mode (CHARACTER, default: "single")
+#### mode (CHARACTER, default: “single”)
 This variable specify the mode in which d3q will operate, it can take the following values:
 - "single": compute the 3rd order dynamical matrix for a single triplet (q1, q2, q3) of q-points. You will have to specify q1 and q2 points, on two separate lines, after the namelist (units 2π/alat); q3 is just -(q1+q2). 
 - "gamma-only": compute the D3 matrix of (0, 0, 0)
@@ -203,7 +204,7 @@ Data in d3dir is normally deleted after each triplet is computed. If for some re
 The directory where the files with the variation of the charge density have been stored. For the code to work, this must be the same as the value of drho_star%dir in the input of ph.x.
 Note that only files inside d3dir will be opened read/write,  files inside outdir and fildrho_dir will be opened read-only, which ensure that even in case of a catastrophic crash you should not need to repeat the pw.x and ph.x calculations.
 
-#### fild3dyn (CHARACTER, default: "anh")
+#### fild3dyn (CHARACTER, default: “anh”)
 The prefix of the files containing the D3 matrices. Note that the d3q.x code will create a lot of output files (one for each of the explicitly compute triplets, and one for each triplet obtained by symmetry); we recommend that you insert a directory name in this variable to keep your working directory tidy. E.g. you can use fild3dyn="OUTPUT/anh", the "OUTPUT" directory will be created automatically.
 
 #### ethr_ph (REAL, default: 1.d-8)
@@ -311,7 +312,7 @@ These variables are useful for code debugging, but we do not recommend using the
 Once you have prepared you d3q.x calculation, running pw.x and ph.x and your input file is ready, it is time to start d3q.x. This code can take advantage of MPI parallelism in order to speedup calculation in the same way as pw.x and ph.x do. On the other hand, it only supports the plane-waves and k-points pools levels of parallelism. The more advanced task groups, band groups are not supported. Contrary to phonon it is also not possible to use image parallelism to run more triplets at the same time.
 It is not strictly necessary to run d3q.x with the same number of CPUs or pools than pw.x, however this is the most commonly tested case and there is a small chance that some unexpected bug may appear if you do otherwise. The fildrho files produced by phonon do not depends on the number of CPUs or pools,  it is perfectly safe to reuse them with different number of CPUs.
 
-### Note on pools parallelisation
+## Note on pools parallelisation
 Update: as of QE v6.x, d3q and pw can run with a different number of pools and pw can be restarted with more pools than k-points.
 
 # Output format
