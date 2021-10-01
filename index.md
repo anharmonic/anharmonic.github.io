@@ -40,25 +40,26 @@ Including finite-size effect, disorder, isotopes
 If you have published a paper using the d3q or thermal2 software and would like to have it listed here, please <a href="mailto:lorenzo.paulatto@sorbonne-universite.fr">contact me</a>.
 
 ### 2021
-- Limits of the quasiharmonic approximation in MgO: Volume dependence of optical modes investigated by infrared reflectivity and ab initio calculations
-E Calandrini, L Paulatto,  et.al.
-  Physical Review B 103 (5), 054302 (2021)
+- [https://journals.aps.org/prb/abstract/10.1103/PhysRevB.103.054302](Limits of the quasiharmonic approximation in MgO: Volume dependence of optical modes investigated by infrared reflectivity and ab initio calculations. E Calandrini, L Paulatto,  et.al.  Physical Review B 103 (5), 054302 (2021))
+- [https://www.frontiersin.org/article/10.3389/fmech.2021.712989](Engineering the Thermal Conductivity of Doped SiGe by Mass Variance: A First-Principles Proof of Concept. Konstanze R. Hahn, Claudio Melis, Fabio Bernardini and Luciano Colombo. Front. Mech. Eng. 7, 66. (2021))
+- [https://journals.aps.org/prmaterials/abstract/10.1103/PhysRevMaterials.5.065403](Intrinsic thermoelectric figure of merit of bulk compositional SiGe alloys: A first-principles study
+Konstanze R. Hahn, Claudio Melis, Fabio Bernardini, and Luciano Colombo. Phys. Rev. Materials 5, 065403 (2021))
 
 ### 2020
-- Functional Monochalcogenides: Raman Evidence Linking Properties, Structure, and Metavalent Bonding
+- [https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.125.145301](Functional Monochalcogenides: Raman Evidence Linking Properties, Structure, and Metavalent Bonding
 C Bellin, et.al.
-  Physical Review Letters 125 (14), 145301
-- Thermal conductivity of  from bulk to thin films: Theory and experiment.
+  Physical Review Letters 125 (14), 145301 (2020).)
+- [https://journals.aps.org/prb/abstract/10.1103/PhysRevB.101.205419](Thermal conductivity of  from bulk to thin films: Theory and experiment.
  L Paulatto, D Fournier, M Marangolo, M Eddrief, P Atkinson, M Calandra
-Physical Review B 101 (20), 205419
-- Anharmonic coupling, thermal transport and acoustic wave attenuation in cubic semiconductors and bismuth.
+Physical Review B 101 (20), 205419 (2020))
+- [https://iopscience.iop.org/article/10.1088/1742-6596/1461/1/012165/meta](Anharmonic coupling, thermal transport and acoustic wave attenuation in cubic semiconductors and bismuth.
 M Markov, J Sjakste, N Vast, B Perrin, L Paulatto
-Journal of Physics: Conference Series 1461 (1), 012165
+Journal of Physics: Conference Series 1461 (1), 012165 (2020))
 
 ### 2019
-- Strong anharmonicity and high thermoelectric efficiency in high-temperature SnS from first principles
+- [https://journals.aps.org/prb/abstract/10.1103/PhysRevB.100.214307](Strong anharmonicity and high thermoelectric efficiency in high-temperature SnS from first principles
 U Aseginolaza, R Bianco, L Monacelli, L Paulatto, M Calandra, F Mauri, A Bergara, I Errea
-Physical Review B 100 (21), 214307
+Physical Review B 100 (21), 214307 (2019))
 - Multiphonon anharmonicity of MgO
 P Giura, L Paulatto, et.al.
 Physical Review B 99 (22), 220304

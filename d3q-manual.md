@@ -66,7 +66,7 @@ We would greatly appreciate if when using the d3q code you cite the following pa
    * [Data flow](#data-flow)
    * [Bibliography](#bibliography)
 
-<!-- Added by: paulatto, at: lun. 19 juil. 2021 16:05:49 CEST -->
+<!-- Added by: paulatto, at: lun. 19 juil. 2021 16:06:54 CEST -->
 
 <!--te-->
 
