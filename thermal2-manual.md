@@ -154,7 +154,7 @@ We would greatly appreciate if when using the thermal2 suite of codes you cite t
    * [Bibliography](#bibliography)
    * [Change Log](#change-log)
 
-<!-- Added by: paulatto, at: lun. 19 juil. 2021 16:06:54 CEST -->
+<!-- Added by: paulatto, at: lun. 04 oct. 2021 11:17:26 CEST -->
 
 <!--te-->
 
@@ -416,9 +416,9 @@ After the namelist, the code reads n_volumes lines, each line contains the name 
  ...
  n_volumes = 3
 /
-mat2R_1   -128.1
-mat2R_2   -128.6
-mat2R_3   -127.9
+mat2R_1   -85.72256763
+mat2R_2   -85.72385873
+mat2R_3   -85.73049838
 ```
 It may be necessary to enclose the name of the file in quotes "…" if it contains any special character, such as “/”. The energy are in Ry and are just the “total energy” printed by pw.x at total convergence.
 
