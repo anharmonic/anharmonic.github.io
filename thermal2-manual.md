@@ -79,6 +79,7 @@ We would greatly appreciate if when using the thermal2 suite of codes you cite t
             * [press_kbar (REAL, kbar, 0)](#press_kbar-real-kbar-0)
             * [press_Gpa (REAL, Gpa, 0)](#press_gpa-real-gpa-0)
             * [n_volumes (INTEGER, no default)](#n_volumes-integer-no-default)
+         * [eos (CHARACTER, default: “murn”)](#eos-character-default-murn)
          * [List of volumes](#list-of-volumes)
          * [Output format](#output-format-1)
       * [d3_lw.x](#d3_lwx)
@@ -95,6 +96,7 @@ We would greatly appreciate if when using the thermal2 suite of codes you cite t
             * [grid_type (CHARACTER, default: “simple”)](#grid_type-character-default-simple-1)
             * [xk0 (3x REAL, default: 0,0,0)](#xk0-3x-real-default-000)
             * [ne, de, e0, sigma_e (INTEGER, REAL, REAL, in cm-1 no default)](#ne-de-e0-sigma_e-integer-real-real-in-cm-1-no-default-1)
+            * [nu_initial (1..3×nat, no default)](#nu_initial-13nat-no-default)
             * [e_initial (in cm-1, no default)](#e_initial-in-cm-1-no-default)
             * [q_initial (3x REAL, in units of 2π/alat)](#q_initial-3x-real-in-units-of-2πalat)
             * [q_summed (LOGICAL, default: false)](#q_summed-logical-default-false)
@@ -154,7 +156,7 @@ We would greatly appreciate if when using the thermal2 suite of codes you cite t
    * [Bibliography](#bibliography)
    * [Change Log](#change-log)
 
-<!-- Added by: paulatto, at: lun. 04 oct. 2021 11:17:26 CEST -->
+<!-- Added by: paulatto, at: mer. 24 nov. 2021 15:42:48 CET -->
 
 <!--te-->
 
@@ -409,6 +411,13 @@ Optionally add an hydrostatic pressure, which will contribute a term pV to the t
 #### n_volumes (INTEGER, no default)
 The number of volumes that have been computed ab-initio. The code expect to find a list of n_volumes force constant files and total electronic  energies after the namelist.
 
+### eos (CHARACTER, default: “murn”)
+Kind of equation of state to use:
+1. murn ⇒ Murnaghan
+2. birch1 ⇒ Birch 1st order
+3. birch3 ⇒ Birch 3rd order
+4. keane ⇒ Keane
+
 ### List of volumes
 After the namelist, the code reads n_volumes lines, each line contains the name of a force-constant file (produced by d3_q2r.x) and the total electronic energy corresponding to it. For examples:
 ```
@@ -474,7 +483,7 @@ The file of the 2nd order force constants, produced by thermal2 internal version
 The file of the 3rd order force constants, produced by qq2rr.x or asr3.x or sparse.x
 
 #### asr2 (CHARACTER, default: “no”)
-Method used to apply the acoustic sum rule, can be “no” (do not apply ASR), “simple” (apply the compensation term to the on-site force constant) or “spread” (distribute the compensation on all the FCs proportionally to their amplitude)
+Method used to apply the acoustic sum rule, can be “no” (do not apply ASR), “simple” (apply the compensation term to the on-site force constant).
 
 #### nq (INTEGER, no default)
 Number of q-points to read (see below)
@@ -499,18 +508,21 @@ A shift to apply to the grid of k-points, in units of half the lattice spacing; 
 #### ne, de, e0, sigma_e (INTEGER, REAL, REAL, in cm-1 no default)
 When doing a Spectral function (d3_lw.x) or Final state (d3_lw.x ) or Joint-DOS (d3_r2q.x) calculation you have to define an energy axis with these variables. The axis will include ne equally spaced points starting from e0 and up to e0+(ne-1)de. The sum over the q-points will be convoluted with a gaussian of width sigma_e (default: 5 de) to obtain a smooth curve.
 
+#### nu_initial (1..3×nat, no default)
+When doing a Final state decomposition calculation, this is the band of the initial state considered in the scattering process. If not specified, the final state will be computed for all initial bands at the energ specified by e_initial, but as a consequence it will not be decomposed over the final bands.
+
 #### e_initial (in cm-1, no default)
-When doing a Final state decomposition calculation, this is the energy of the initial state considered in the scattering process. If you want to consider a specific phonon mode, just enter its energy by hand, in cm-1.
+When doing a Final state decomposition calculation, this is the energy of the initial state considered in the scattering process. If not specified, the energy of the phonon corresponding to nu_initial will be used.
 
 #### q_initial (3x REAL, in units of 2π/alat)
 As e_initial, specifies the initial q-point.
 
 #### q_summed (LOGICAL, default: false)
-When doing a final state calculation, set to true to project the infinitesimal contribution to the linewidth over the given final q-points, the energy dependence is integrated out. The analysis is performed over the q-points specified in the QPOINTS section, you can use either a path or a grid, depending on the kind of plot you want. The full grid, specified by nk, will still be used to compute the linewidth, but te contribution will be projected to each q-point in the list with a Gaussian smearing given by sigmaq.
+When doing a final state calculation, set to true to project the infinitesimal contribution to the linewidth over the given final q-points, the energy dependence is integrated out. The analysis is performed over the q-points specified in the QPOINTS section, you can use either a path or a grid, depending on the kind of plot you want, using a xsf or bxsf kind of grid can be used to do a 3D plot with [XCrysDen](http://www.xcrysden.org). The full grid, specified by nk, will still be used to compute the linewidth, but te contribution will be projected to each q-point in the list with a Gaussian smearing given by sigmaq.
 
 Note that even high-symmetry points can, and often do, decay toward lower symmetry points; a high-symmetry path can easily miss the most important final states. We recommend using a relatively coarse grid first, you will be able to spot the most favored points by sorting the output file. I.e. this command:
  sort -gk 5 final_T300_s1.out
-will output as the final lines the most important decay processes. See also sigmaq and q_resolved and the output format.
+will output as the final lines the most important decay processes. See also sigmaq and q_resolved and the output format. See also the [examples](#compute-the-spectral-function-along-a-path).
 
 #### q_resolved (LOGICAL, default: false)
 As q_summed, but the energy dependence is not integrated out. The output file will contain an analysis of the decay process as a function of the final state q-point and energy. Note that this file can be huge, and it is almost impossible to plot for an entire grid. Along a line, you can produce a color plot using this gnuplot command (assuming that the file freq.out contains the frequencies):
@@ -584,10 +596,23 @@ Calculation “spf”:
 Note that the energy axis cycles faster than the path length and there is a whitespace after each q-point which makes plotting with gnuplot “pm3d” style easy with this syntax (column 3 is used twice, both for heigth and colour):
 sp “file” u 1:2:3:3 w pm3d
 
-Calculation “final”:
+Calculation “final”, if nu_initial **is not** specified:
 - 1		The energy axis in cm-1
 - 2		The total final state weight in 1/cm-1
-- 3→2+3 nat	Contribution to the final state from each band in 1/cm-1
+- 3      Cohalescence part of the total final state weight  in 1/cm-1
+- 4      Scattering part of the total final state weight  in 1/cm-1
+- 5→4+3 nat        Contribution to the final state **from** each band in 1/cm-1
+- 5+3nat→4+6 nat   Cohalescence to the final state **from** each band in 1/cm-1
+- 5+6nat→4+9 nat   Scattering to the final state **from** each band in 1/cm-1
+
+Calculation “final”, if nu_initial **is** specified:
+- 1		The energy axis in cm-1
+- 2		The total final state weight in 1/cm-1
+- 3      Cohalescence part of the total final state weight  in 1/cm-1
+- 4      Scattering part of the total final state weight  in 1/cm-1
+- 5→4+3 nat        Contribution to the final state **to** each band in 1/cm-1
+- 5+3nat→4+6 nat   Cohalescence to the final state **to** each band in 1/cm-1
+- 5+6nat→4+9 nat   Scattering to the final state **to** each band in 1/cm-1
 
 Calculation “final”, q_resolved TRUE:
 - 1		The energy axis in cm-1
@@ -710,7 +735,7 @@ If you specify grid or bz, you can add, on the same line, a vector by which the 
 
 #### xsf or bxsf
 
-Only used when doing final state decomposition. Produces a filesuitable for 3D plotting with xcrysden, in the xsf or bxsf format. The first is more flexible, but the second is more suitable for Brillouin-zone plot. The code will try to read three integer numbers, NQX, NQY and NQZ, note that the grid size will actually be NQX+1, for xsf, according to xcrysden conventions.
+Only used when doing final state decomposition. Produces a filesuitable for 3D plotting with XCrysDen, in the xsf or bxsf format. The first is more flexible, but the second is more suitable for Brillouin-zone plot. The code will try to read three integer numbers, NQX, NQY and NQZ, note that the grid size will actually be NQX+1, for xsf, according to XCrysDen conventions.
 
 #### plane
 
@@ -913,7 +938,7 @@ The following example is useful for testing the convergence of the linewidth cal
  file_mat2 = '../FILDYN/mat2R.100Ry.4' 
  file_mat3 = '../FILD3DYN/mat3R_asr_sparse' 
  outdir    = './' 
- asr2 = 'spread'  
+ asr2 = 'simple'  
  nconf = 7
  nk = NK, NK, NK
  nq = 1
@@ -956,7 +981,7 @@ In brief: do not take a value too small for the smearing, something of the order
  file_mat2 = 'mat2R' 
  file_mat3 = 'mat3R.xxx_asr_sparse' 
  outdir    = './' 
- asr2 = 'spread' 
+ asr2 = 'simple' 
  nconf = 15 
  nk = 100,100,10 
  nq = 5 
@@ -995,7 +1020,7 @@ Spectral function calculations are not as well optimized as linewidth ones and c
  file_mat2 = 'mat2R' 
  file_mat3 = 'mat3R.xxx_asr_sparse' 
  outdir    = './' 
- asr2 = 'spread' 
+ asr2 = 'simple' 
  nconf = 1
  nk = 100,100,10 
  nq = 5 
@@ -1020,6 +1045,8 @@ splot 'spf_full_T300_s0.3.out' u 1:2:3 w image
 ```
 
 ### Compute the final state decomposition
+Final state can be decomposed over the energy, giving a kind of DOS of the final state, over the q-points or both. The next example decomposes only over energy.
+
 ```
 &lwinput 
  calculation = 'final' 
@@ -1043,7 +1070,83 @@ CONFIGS
 QPOINTS 
 0.0 0.0 0.0
 ```
-![final state](images/final.png)
+
+Final state over a high-symmetry path in the brillouin zone.
+```
+&lwinput
+  calculation = 'final'
+  prefix="final"
+  file_mat2 = 'mat2R'
+  file_mat3 = 'mat3R.asr.sparse'
+  outdir    = './LW/'  
+  asr2 = 'simple'   
+  nk =  31, 31, 31
+  xk0 = 1,1,1
+  sort_freq = 'overlap'
+  ne = 2000
+  de = 0.5
+
+  e_initial = 682.  ! a
+  q_initial = 0.0000010000,    0.0000000000,    0.0000000000 
+  q_resolved = .true.
+  sigmaq= 0.02
+/
+ CONFIGS
+  12
+ 5.0 300
+     400
+     500
+     600
+     700
+     800
+     900
+     1000
+     1100
+     1200
+     1300
+     1400
+ QPOINTS 
+5
+0.0000000000    0.0000000000    0.0000000000 1 Γ
+1.0000000000    0.0000000000    0.0000000000 20 X
+1.0000000000    1.0000000000    0.0000000000 20 X
+0.0000000000    0.0000000000    0.0000000000 50 Γ
+0.5000000000    0.5000000000    0.5000000000 20 L
+```
+
+![final state over a path in the BZ](images/final.png)
+
+Final state as a 3D density map, plotted with XCrysDen. Note that the 40×40×40 grid used for plotting does not have to be the same as the nk grid used to compute the linewidth. Best result are obtained when it is considerably coarser, as here. Using a finer grid for plotting than for computing will just result in "balls" appearing at the integration points.
+
+```
+&lwinput
+  calculation = 'final'
+  prefix="G394-50K-111"
+  file_mat2 = 'FILDYN/mat2R'
+  file_mat3 = 'FILD3DYN/mat3R.asr.sparse'
+  outdir    = './FS/'
+  asr2 = 'simple'
+  nk = 200,200,200
+  grid_type = 'random'
+  q_initial = 0.05, 0.00, 0.00
+  nu_initial = 3
+
+  ne = 650
+  de = 0.5
+
+  q_resolved = .false.
+  q_summed = .true.
+  sigmaq= 0.05
+
+/
+ CONFIGS 
+ 1
+ 2.0  50
+QPOINTS bxsf
+ 40 40 40
+```
+
+![final state in 3D with XCrysDen](images/LA-0.05-111.png)
 
 ### Color-map plot of the LW in the BZ (2D systems)
 In bidimensional materials it can be interesting to plot the linewidth of a certain band over the entire Brillouin zone. In a 3D materials, it is more tricky to get a nice picture,
@@ -1055,7 +1158,7 @@ you can use the [option “plane”](#qpoints) to plot a section of the unit cel
  file_mat2 = '../../1l.FILDYN/mat2R.4.vac.nozeu' 
  file_mat3 = '../../1l.FILD3DYN/mat3R.xxx_asr_sparse' 
  outdir    = './' 
- asr2 = 'spread'
+ asr2 = 'simple'
  nconf = 1 
  nk = 20,20,1 
  sort_shifted_freq = .false. 
