@@ -204,6 +204,8 @@ See also [d3_tk.x input format](#d3_tkx).
 #### d3_q2r.x
 This code is analogous to the q2r.x code of QE, and it uses the same input, but produces a file of Force Constants (FCs) which has already been re-centered in the reciprocal space Wigner-Seitz cell to make Fourier Interpolation faster.
 
+In addition to the standard q2r variables, you can specify "nfar" which is the distance from the origin, in unit cells, used to construct the first Brilloouin zone. Setting nfar=2 produces "centered" force constants, useful for Fourier interpolation. Setting nfar=0 produces standard "periodic" force constants that can be directly compared with the ones from Quantum ESPRESSO.
+
 #### d3_qq2rr.x
 Analogous to q2r.x, but operates on the 3rd order matrices. This codes takes as command line arguments the dimension of the q-points grid and optionally the name of the output file. You must feed it feed by standard input the list of anharmonic dynamical matrices in the XML format produced by d3q.x. For example, d3q was run with fild3dyn=”anh” for a NQX × NQY  × NQZ grid, you can compute the 3rd order FCs as:
 ```
@@ -1274,5 +1276,5 @@ In particular ref. 1 describes the calculation of 3rd order dynamical matrices u
 16. <a name="ref16" href="https://journals.aps.org/prb/abstract/10.1103/PhysRevB.96.014111">R. Bianco, I. Errea, L. Paulatto, M. Calandra, and F. Mauri. Phys. Rev. B 96, 014111 (2017)</a>
 
 # Change Log
-See the changelog file in Doc.
+See the changelog file in the "Doc" subdirectory.
 
