@@ -66,17 +66,19 @@ We would greatly appreciate if when using the d3q code you cite the following pa
    * [Data flow](#data-flow)
    * [Bibliography](#bibliography)
 
-<!-- Added by: paulatto, at: lun. 19 juil. 2021 16:06:54 CEST -->
+<!-- Added by: paulatto, at: lun. 17 janv. 2022 10:49:49 CET -->
 
 <!--te-->
 
 # Capabilities of the d3q code
 The d3q code computes the third derivative of the Density Functional Theory ground-state energy with respect to three harmonic perturbations, identified by their wavevectors q1, q2 and q3=-q1-q2. The code can use a certain number of methods:
+
 - Norm Conserving pseudopotentials
 - Local Density Approximation (LDA) and Generalized Gradient Approximation (GGA) functionals.
 - Insulators and Metals (i.e. partial occupation of the electronic bands)
 
 On the other hand, the codes *does not* implements the following features:
+
 - Ultrasoft pseudopotentials and PAW datasets
 - Advanced functionals, e.g. meta-GGA, Grimme vdW corrections and non-local vdW functionals
 - Hybrid functionals
@@ -101,6 +103,7 @@ The d3q.x code works in combination with the ph.x code from the Quantum-ESPRESSO
 
 ## Running the pw.x calculation
 There is no specific keyword for the pw.x calculation, just a couple of notes:
+
 - Be sure to use a very tight value for conv_thr, we recommend 1.d-9 or smaller, down to 1.d-12. It is important to start from a ground-state solution which is as close as possible to the variational minimum in order to ensure that the assumptions of the perturbation theory hold
 - Check the convergence of the plane-wave kinetic energy cutoff (ecutwfc) against a phonon calculation, not just the total energy. For example, you can check the convergence of the optical modes at Γ = (0,0,0), which is rather inexpensive, down to 0.1 cm-1. Phonon calculation can converge much slower than the total energy, especially when using GGA functionals.
 
@@ -181,6 +184,7 @@ The namelist start with the "&inputd3q" keyword and ends with a "/" in an otherw
 
 #### mode (CHARACTER, default: “single”)
 This variable specify the mode in which d3q will operate, it can take the following values:
+
 - "single": compute the 3rd order dynamical matrix for a single triplet (q1, q2, q3) of q-points. You will have to specify q1 and q2 points, on two separate lines, after the namelist (units 2π/alat); q3 is just -(q1+q2). 
 - "gamma-only": compute the D3 matrix of (0, 0, 0)
 - "gamma-q": compute the matrix at (0,-q,q), like the old d3.x code; you have to specify the point after the namelist (units of 2π/alat)
@@ -261,22 +265,25 @@ The code saves the D3 matrix of each triplet computed and of the star  of those 
 If you set safe_io to true, every file is closed and reopened after each write. This can make the code much slower, but can solve some problems with parallel filesystem not syncing or corrupted file when trying to restart. As long as partial q-point restart is not implemented and tested, this option should left to its default value.
 
 ### GRID and QPOINTS
-
 After the &inputd3q namelist, the grid dimension or q-points coordinates have to be specified. Here, are some examples taken from a hexagonal system:
+
 Using mode="gamma-q", compute the point M=(1/2, 0, 0):
 ```
  0.5 0.0 0.0
 ```
+
 Using mode="single", compute (M, X, -M-X)
 ```
  0.5 0.0 0.0
  0.333333 0.333333 0.0
 ```
+
 In the "partial" case, compute 4x4x1 a grid centered around Γ:
 ```
  0. 0.0 0.0
  4 4 1
 ```
+
 In the "full" case, compute the entire 4x4x1 grid
 ```
  4 4 1
@@ -284,11 +291,12 @@ In the "full" case, compute the entire 4x4x1 grid
 
 ### &d3_debug namelist
 The variables inside the d3_debug namelist can be used to disable some parts of the calculation or to print more output.
-WARNING! no sanity check is done on these variables, setting this namelist can result in crash and random results. No bug report will be taken into consideration if the code was run with debug variables! 
+WARNING! no sanity check is done on these variables, setting this namelist can result in crash and random results. No bug report will be taken into consideration if the code was run with debug variables!
 All variable in this namelist default to .true.; except for dbg_write_d3_part and dbg_full_bands which default to false.
+
 - dbg_do_dwfc: compute d^q psi
 - dbg_do_dpdvp:  pre-compute &lt;d psi&#124; dV&#124; psi&gt;
-- dbg_do_dpdvdp: compute the &lt;d psi&#124; d V&#124; d psi&gt; term 
+- dbg_do_dpdvdp: compute the &lt;d psi&#124; d V&#124; d psi&gt; term
 - dbg_do_dpdpdv: compute the &lt;d psi&#124;d psi&gt;&lt;psi&#124; dV &#124;psi&gt; term
 - dbg_do_drhod2v: compute the d rho d^2 V term (and related wfc terms)
 - dbg_do_rhod3v: compute the tho d^3 V term (and related)
@@ -332,8 +340,9 @@ anh_Q1.0_-1o2_0_Q2.-1o2_0_0_Q3.1o2_1o2_0
 ```
 Each file contains the D3 matrix (more strictly, the D3 tensor) in an XML format that is heavily commented and should be self-documented. At the beginning of each file, there is a description of the system (cell, coordinates, masses, etc) then the tensor is saved in Cartesian coordinates, in units of Ry/bohr3. The tensor is divided in blocks, each block correspond to three atoms, and is composed of 27=3x3x3 complex numbers corresponding to the x,y and z directions.
 
+
 # Data flow
-Note: All the d3_ codes used to manipulate the force constants are documented in manual-thermal2
+Note: All the d3_ codes are documented in manual-thermal2.
 ![data flow](images/dataflow.svg)
 
 # Bibliography
