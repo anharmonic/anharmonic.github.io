@@ -5,7 +5,7 @@ layout: default
 
 The code for anharmonic properties of materials is composed of two parts:
 #### d3q
-To compute fully ab-initio, the anharmonic third-order dynamical matrix and the three-body force constants. This code is very efficient, it uses the _2n+1_ extension of density functional perturbation theory to compute the response of the system to three harmonic perturbations. It does not use expensive supercell and no range cutoff has to be imposed. It is tightly couple with quantum-espresso, it supports norm-conserving pseudopotentials.
+To compute fully ab-initio, the anharmonic third-order dynamical matrix and the three-body force constants. This code is very efficient, it uses the _2n+1_ extension of density functional perturbation theory to compute the response of the system to three harmonic perturbations. It does not use expensive supercell and no range cutoff has to be imposed. It is tightly coupled with quantum-espresso, it supports norm-conserving pseudopotentials.
 #### thermal2
 A suite of codes to manipulate 2-body and 3-body force constants to study vibrational properties of materials:
 - Thermal transport from first principles, in the single-mode approximation or exact
@@ -39,7 +39,13 @@ Including finite-size effect, disorder, isotopes
 # Selection of Published works
 If you have published a paper using the d3q or thermal2 software and would like to have it listed here, please <a href="mailto:lorenzo.paulatto@sorbonne-universite.fr">contact me</a>.
 
+### 2022
+- [Spectral simulation of heat transfer across polytype interfaces
+N Izitounene, ND Le, B Davier, P Dollfus, L Paulatto, J Saint‐Martin
+Crystal Research and Technology 57 (9), 2200017 (2022)](https://onlinelibrary.wiley.com/doi/full/10.1002/crat.202200017)
+
 ### 2021
+- [First-principles modeling of the infrared spectrum of Fe-and Al-bearing lizardite. E Balan, E Fritsch, G Radtke, L Paulatto, F Juillot, F Baron, S Petit European Journal of Mineralogy 33 (5), 647-657 (2022)](https://ejm.copernicus.org/articles/33/647/2021/)
 - [Limits of the quasiharmonic approximation in MgO: Volume dependence of optical modes investigated by infrared reflectivity and ab initio calculations. E Calandrini, L Paulatto,  et.al.  Physical Review B 103 (5), 054302 (2021)](https://journals.aps.org/prb/abstract/10.1103/PhysRevB.103.054302)
 - [Engineering the Thermal Conductivity of Doped SiGe by Mass Variance: A First-Principles Proof of Concept. Konstanze R. Hahn, Claudio Melis, Fabio Bernardini and Luciano Colombo. Front. Mech. Eng. 7, 66. (2021)](https://www.frontiersin.org/article/10.3389/fmech.2021.712989)
 - [ntrinsic thermoelectric figure of merit of bulk compositional SiGe alloys: A first-principles study
