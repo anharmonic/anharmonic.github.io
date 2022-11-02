@@ -12,7 +12,7 @@ The thermal2 suite of codes has been written starting in 2014 by Lorenzo Paulatt
 The code contains some subroutines from the [Quantum-ESPRESSO](https://www.quantum-espresso.org) distribution. Other people who have given a positive contribution to code development include Francesco Mauri<sup>[1](#ref1),[4](#ref4)</sup>, Raffaelo Bianco<sup>[1](#ref1),[16](#ref16)</sup>, Ion Errea<sup>[1](#ref1),[5](#ref5)</sup> and Nicola Marzari<sup>[3](#ref3)</sup>.
 
 ## Copyright
-All the files are provided under the [GPL license, v2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html) or newer and, when possible, under the [CeCILL license](https://cecill.info/licences/Licence\_CeCILL\_V2.1-fr.html). A single file nist\_isotopes\_db.f90 contains public domain data from the National Institute of Standards and Technology.
+All the files are provided under the [GPL license, v2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html) or newer and, when possible, under the [CeCILL license](https://cecill.info/licences/Licence_CeCILL_V2.1-fr.html). A single file nist_isotopes_db.f90 contains public domain data from the National Institute of Standards and Technology.
 
 ## Citing
 We would greatly appreciate if when using the thermal2 suite of codes you cite the following papers where the underlying theory is described in detail (see also the [the bibliography](#Bibliography)):
@@ -24,7 +24,7 @@ We would greatly appreciate if when using the thermal2 suite of codes you cite t
 * For Wigner conductivity: Simoncelli, Marzari, Mauri, Nature Physics volume 15, 809–813 (2019) and Simoncelli, Marzari, Mauri, Physical Review X 12 041011 (2022).
 
 # Table of contents
-[[\_TOC\_]]
+[[_TOC_]]
 
 # Quick Reference Manual
 
@@ -37,42 +37,46 @@ The thermal2 suite of codes contains a number of small specialized codes that on
 ### Main codes
 Each of these codes will be reviewed  in detail in a separate section.
 
-#### Harmonic phonons (d3\_r2q.x)
-This code can compute the phonon frequency at a q-point or along a path, it can optionally print out the dynamical matrix. It is analogous to the matdyn.x code of the Quantum-ESPRESSO (QE) Phonon suite, but it uses the highly optimized subroutines developed for d3\_lw.x and d3\_tk.x. It should be used to check the phonon dispersion before doing more serious calculations. It can also compute some useful harmonic phonon quantities:
+#### Harmonic phonons (d3_r2q.x)
+This code can compute the phonon frequency at a q-point or along a path, it can optionally print out the dynamical matrix. It is analogous to the matdyn.x code of the Quantum-ESPRESSO (QE) Phonon suite, but it uses the highly optimized subroutines developed for d3_lw.x and d3_tk.x. It should be used to check the phonon dispersion before doing more serious calculations. It can also compute some useful harmonic phonon quantities:
 1. group velocities
 2. interpolated dynamical matrices at any q-point
 3. mean square displacement of atoms at a give temperature
 4. phonon internal energy and zero-point energy
 
-See also [d3\_q2r.x](#d3\_r2qx).
+See also [d3_q2r.x](#d3_r2qx).
 
-#### Quasi harmonic approximation (d3\_qha.x)
+#### Quasi harmonic approximation (d3_qha.x)
 An efficient and very easy to use quasi-harmonic approximation implementation. It includes hydrostatic pressure effect and equation-of-state fitting.
-See also [d3\_qha.x input format](#d3\_qhax)
+See also [d3_qha.x input format](#d3_qhax)
 
-#### Third order linewidth (d3\_lw.x).
+#### Third order linewidth (d3_lw.x).
 This code computes phonon anharmonic properties: 
 1. phonon linewidth (i.e. its inverse lifetime, aka HWHM, aka the Imaginary part of the bubble-diagram self energy), 
 2. the entire bubble-diagram self energy (comprising both the third order linewidth and the lineshift) and
 3. the phonon spectral weight for a range of energies.
 4. the final state decomposition of an energy, interpreted as two-phonons scattering
 
-See also [d3\_lw.x input format](#d3\_lwx).
+See also [d3_lw.x input format](#d3_lwx).
 
 It always includes the intrinsic anharmonic contribution from phonon-phonon interaction and can optionally include Casimir border scattering and isotope scattering.
 
-#### Thermal conductivity (d3\_tk.x)
+#### Thermal conductivity (d3_tk.x)
 The tk code computes the thermal conductivity. It can use the Single-Mode Approximation (SMA) or the variational approaches implemented by Fugallo et.al. [2] using a robust conjugate gradient minimization. It can include Casimir and isotope scattering [15].
-See also [d3\_tk.x input format](#d3\_tkx).
+See also [d3_tk.x input format](#d3_tkx).
+
+#### Temperature-dependent phonons (d3_tdph.x)
+A simple reciprocal space implementation of the temperature-dependent effective potential (TDEP) method. Still experimental, only second order force constants are include! 
+See also [d3_tdph.x input format](#d3_tdphx).
 
 ### Thermal2 utilities
 
-#### d3\_q2r.x
+#### d3_q2r.x
 This code is analogous to the q2r.x code of QE, and it uses the same input, but produces a file of Force Constants (FCs) which has already been re-centered in the reciprocal space Wigner-Seitz cell to make Fourier Interpolation faster.
 
 In addition to the standard q2r variables, you can specify "nfar" which is the distance from the origin, in unit cells, used to construct the first Brilloouin zone. Setting nfar=2 produces "centered" force constants, useful for Fourier interpolation. Setting nfar=0 produces standard "periodic" force constants that can be directly compared with the ones from Quantum ESPRESSO.
 
-#### d3\_qq2rr.x
+#### d3_qq2rr.x
 Analogous to q2r.x, but operates on the 3rd order matrices. This codes takes as command line arguments the dimension of the q-points grid and optionally the name of the output file. You must feed it feed by standard input the list of anharmonic dynamical matrices in the XML format produced by d3q.x. For example, d3q was run with fild3dyn="anh" for a NQX × NQY  × NQZ grid, you can compute the 3rd order FCs as:
 ```
 ls anh* | qq2rr.x NQX NQY NQZ [-o mat3R] [-f NFAR] [-w]
@@ -84,60 +88,60 @@ The code will automatically select from the list the files that it needs to fill
 
 After writing the force constant to file, the code will perform two optional tests (you can skip them pressing CTRL-C). First test: for this test the initial D3 matrices will be recomputed using the force constants with both the real and imaginary parts (which should be zero). Second test: recompute the D3 matrices with only the real part of the force constants. If any discrepancy is detected it will be printed on output. Notice that any discrepancy in the first test indicate a very serious problem with the D3 calculation.  On the other hand, some discrepancy is inevitable in the second test; especially if you your atoms where not in the theoretical equilibrium positions. Also, increasing the cutoff and k-points can improve the consistency of the second test.
 
-If the -w option is specified, when performing the FFT test, if the re-computed D3 matrix differs significantly from the initial one it will be printed to a file. The file will start with prefix 'anh\_cmplx' for the first test and 'anh\_real' for the second test.
+If the -w option is specified, when performing the FFT test, if the re-computed D3 matrix differs significantly from the initial one it will be printed to a file. The file will start with prefix 'anh_cmplx' for the first test and 'anh_real' for the second test.
 
-#### d3\_sparse.x
+#### d3_sparse.x
 This code converts a file of third order FCs from dense form to sparse form; it can optionally discard elements that are smaller than a custom threshold. It can also measure the speedup gained by using the sparse FCs instead of the dense ones.
 Syntax:
 ```
 sparse.x [-i mat3R.input] [-o mat3R.output] 
-	    [-t threshold] [-n num\_trials]
+	    [-t threshold] [-n num_trials]
 ```
-Where ma3R.input (default mat3R) is the name of the dense file of Fcs, mat3R.output will be the output file of sparse FCs (you can use "none" to avoid saving them to file); threshold is in Ry/bohr<sup>3</sup> (all matrix elements smaller than this will be discarded, default: zero, do not discard anything) and num\_trials is the number of random trial q-point triplets to compute by Fourier interpolation. If num\_trials is provided, the code will print out the elapsed time using the dense and sparse algorithm, the speedup and the eventual discrepancy between the two methods (which should be zero if the threshold is zero)
+Where ma3R.input (default mat3R) is the name of the dense file of Fcs, mat3R.output will be the output file of sparse FCs (you can use "none" to avoid saving them to file); threshold is in Ry/bohr<sup>3</sup> (all matrix elements smaller than this will be discarded, default: zero, do not discard anything) and num_trials is the number of random trial q-point triplets to compute by Fourier interpolation. If num_trials is provided, the code will print out the elapsed time using the dense and sparse algorithm, the speedup and the eventual discrepancy between the two methods (which should be zero if the threshold is zero)
 
-#### d3\_asr3.x
+#### d3_asr3.x
 This code applies the acoustic sum rules (ASR) to the third order FCs. It can only work on dense Fcs, not on the sparse ones. As the sum is applied iteratively, it will automatically stop after 10,000 iterations, or when the residual violation of the ASR is less than 10<sup>-12</sup> or if a file named STOP is found in the running directory. 
 Syntax:
 ```
 asr3.x [-i mat3R.input] [-o mat3R.output]
-       [-t threshold] [-n iter\_max]
+       [-t threshold] [-n iter_max]
 ```       
-These options will read the dense FCs from file mat3R.input, apply the ASR iteratively until threshold is reached (default 10<sup>-12</sup>), or for iter\_max, then save it to mat3R.output (default: mat3R.input.asr). If a file named "STOP" is found in the working directory, the code will stop after the next iteration and  immediately save the FCs to mat3R.output
+These options will read the dense FCs from file mat3R.input, apply the ASR iteratively until threshold is reached (default 10<sup>-12</sup>), or for iter_max, then save it to mat3R.output (default: mat3R.input.asr). If a file named "STOP" is found in the working directory, the code will stop after the next iteration and  immediately save the FCs to mat3R.output
 
-#### d3\_recenter.x
+#### d3_recenter.x
 NOTE: this code is useful for debugging, but it is provided "as is", with no support or guarantee.
 ```
-d3\_recenter.x NQX NQY NQZ [-n NFAR]
+d3_recenter.x NQX NQY NQZ [-n NFAR]
            [-i mat3R.input] [-o mat3R.output] [-w]
 ```
 Reads force constants from mat3R.input, interpolate them on a grid of NQX × NQY × NQZ points, recenter them on a Wigner-Seitz cell constructed up to NFAR unit cells and save the result in mat3R.input.recenter.
 
 Uses the properties of Fourier interpolation to transform the 3rd order force constants from a grid to another. If the new grid is different than the initial one, some interpolation will be done, if the grid is the same, you can use the nfar parameter to recalculate the Wigner-Seitz cell centering. This code be useful to compare the results from grids of different sizes, or to put the force constants in a format that is easier to understand for external codes.
 
-If the -w option is specified, the intermediate D3 matrices will, for the NQX × NQY × NQZ grid will be written to files called atmp\_Q1…\\_Q2…\\_Q….
+If the -w option is specified, the intermediate D3 matrices will, for the NQX × NQY × NQZ grid will be written to files called atmp_Q1…\_Q2…\_Q….
 
-#### d3\_import\_shengbte.x
+#### d3_import_shengbte.x
 ```
-d3\_import\_shengbte.x NQX NQY NQZ [-n NFAR] [-w] [-s mat2R]
-           [-i FORCE\_CONSTANT\_THIRD] [-o mat3R.shengbte] 
+d3_import_shengbte.x NQX NQY NQZ [-n NFAR] [-w] [-s mat2R]
+           [-i FORCE_CONSTANT_THIRD] [-o mat3R.shengbte] 
 ```
 Reads the 3-body force constants produced by Mingo & Carrete code thirdorder.py6 and import them to the thermal2 format. The size of the supercell used for the FCs calculation must be specified as NQX × NQY × NQZ. In order to prepare the FCs for Fourier interpolation, they are taken to reciprocal space and then back to real space, and re-centered including up to NFAR neighbouring cell to ensure locality.
 
-In order to read the system information (cell and position of the atoms) a file containing the force constants header in the thermal2 format must be provided with the -s option (default: mat2R). Note that a 2nd order FCs file, produced with d3\_q2r.x or even with normal q2r.x, for the same system, is sufficient.
+In order to read the system information (cell and position of the atoms) a file containing the force constants header in the thermal2 format must be provided with the -s option (default: mat2R). Note that a 2nd order FCs file, produced with d3_q2r.x or even with normal q2r.x, for the same system, is sufficient.
 
-If the -w option is specified, the intermediate D3 matrices, generated on the NQX × NQY × NQZ grid, will be written to files  with names atmp\_Q1…\\_Q2…\\_Q3… (check the manual of d3q for details on the file names).
+If the -w option is specified, the intermediate D3 matrices, generated on the NQX × NQY × NQZ grid, will be written to files  with names atmp_Q1…\_Q2…\_Q3… (check the manual of d3q for details on the file names).
 
-See also [import\_phonopy.py](#import\_phonopypy).
+See also [import_phonopy.py](#import_phonopypy).
 
-#### d3\_sqom.x
+#### d3_sqom.x
 NOTE: this code is experimental and not widely tested, use at your own risk.
 
-This codes reads a spectral weight file from d3\_lw.x and computes the convolution with a Lorentzian function that has an energy-dependent FWHM. This procedures simulates the broadening introduced by Raman spectroscopy experiments. This code can also sum and average the spectral function coming from several different files, to simulate the uncertainty of the neutron wavevectors. It reads its input from a file called input.SQOM. Please see teh example input.SQOM in Examples for details.
+This codes reads a spectral weight file from d3_lw.x and computes the convolution with a Lorentzian function that has an energy-dependent FWHM. This procedures simulates the broadening introduced by Raman spectroscopy experiments. This code can also sum and average the spectral function coming from several different files, to simulate the uncertainty of the neutron wavevectors. It reads its input from a file called input.SQOM. Please see teh example input.SQOM in Examples for details.
 
 ### Experimental codes:
 
-#### d3\_db.x
-Uses the ansatz of ref. [16](#ref16) to apply the anharmonic correction to the dynamical matrix (instead that on the phonon mode). Can be used to obtain 3rd-order corrected matrices that can be interpolated. In takes mostly the same input variables as d3\_lw.x in [the "lw full" case](#calculation-character-default-lw) (but in namelist &dbinput) and will print out dynamical matrix files for all the requested q-points.
+#### d3_db.x
+Uses the ansatz of ref. [16](#ref16) to apply the anharmonic correction to the dynamical matrix (instead that on the phonon mode). Can be used to obtain 3rd-order corrected matrices that can be interpolated. In takes mostly the same input variables as d3_lw.x in [the "lw full" case](#calculation-character-default-lw) (but in namelist &dbinput) and will print out dynamical matrix files for all the requested q-points.
 
 ### Tools
 In the tools/ directory, a selection of tools for pre- and post-processing of data.
@@ -145,7 +149,7 @@ In the tools/ directory, a selection of tools for pre- and post-processing of da
 #### funcoft.sh
 This is a short bash script to get a plottable file of the linewidth of a specific phonon mode as a function of temperature.
 
-It reads a list of linewidth files produced by d3\_lw.x and extracts the frequency, linewidth (and if possible shifted frequency) from all files for a specific phonon q-point and band and prints a list ordered by temperature and smearing. Syntax:
+It reads a list of linewidth files produced by d3_lw.x and extracts the frequency, linewidth (and if possible shifted frequency) from all files for a specific phonon q-point and band and prints a list ordered by temperature and smearing. Syntax:
 ```
   funcoft.sh point mode file [file2 [file3...]]
 ```
@@ -164,31 +168,32 @@ The output will contain 5 columns:
 This script is provided "as is", using non-standard names for the output files can break it.
 
 #### recompute-sma.m
-A simple octave/mathlab script that allow you to recompute the thermal conductivity in single mode approximation using the output from d3\_tk.x (using store\_lw=.true.) and d3\_r2q.x (using calculation="extr"). This script allow you to quickly combine different intrinsic/extrinsic scattering sources without repeating the entire calculation, to manually change parameter and to extract useful information, like the per-mod contribution to thermal transport. Please note that this is not a brainless script: some editing (i.e. at the very list the unit cell volume) and understanding of the physics is requires.
+A simple octave/mathlab script that allow you to recompute the thermal conductivity in single mode approximation using the output from d3_tk.x (using store_lw=.true.) and d3_r2q.x (using calculation="extr"). This script allow you to quickly combine different intrinsic/extrinsic scattering sources without repeating the entire calculation, to manually change parameter and to extract useful information, like the per-mod contribution to thermal transport. Please note that this is not a brainless script: some editing (i.e. at the very list the unit cell volume) and understanding of the physics is requires.
 
 #### diffd3.x
 Compare two D3 files, write on output the matrix elements and the maximum difference. Take as arguments either two file names (the first and second D3 matrix) or two directory names a file name, which will be opened in both directories.
 
-#### d3\_sc2c.x
+#### d3_sc2c.x
 Open two D3 files, the first for a unit cell calculation for an arbitrary triplet, the second for a supercell calculation for a triplet of kind (0,q,-q). Then it refold the super-cell D3 matrix to the unit cell and compares the two.
 
 The following scripts are in the tools subdirectory, they can be useful in specific circumstances. They have little documentation, do not hesitate to ask for help if you cannot make them work.
 
 #### xml2giorgia.x
 Reads a list of D3 matrix files in XML format from standard input and write them to a single ASCII file called d3.txt
-apply\_asr.sh
-```
-apply\_asr.sh [-i FILDYN.in] [-o FILDYN.out] [-a ASR\_TYPE]
-```
-A simple bash script that applies the sum rule to a set of dynamical matrix files (FILDYN.in*, default: dyn) produced by phonon and saves them with a different name (FILDYN.out*, default: asr\_dyn). Useful to apply the sum rule ‘crystal’ (default for ASR\_TYPE) which is not supported by the thermal2 codes yet. The final fildyn files can be used normally with d3\_q2r.x or q2r.x.
 
-#### import\_phonopy.py
-In tools you can also file a python script import\_phonopy\_qe.py and import\_phonopy\_vasp.py to import the FORCE\_CONSTANTS files of 2-body force constants produced by phonopy (with QE and VASP respectively). This script is in a very rudimentary stage, it will produce a file called "fc" with the force constants in the standard QE format. You will have to convert it to the thermal2 format with the fc2mat2R.sh script, also found in tools. A similar tool to convert 3-body force constants from phono3py could be obtained generalizing this one, but lack of documentatio makes it difficult to test.
+#### apply_asr.sh
+```
+apply_asr.sh [-i FILDYN.in] [-o FILDYN.out] [-a ASR_TYPE]
+```
+A simple bash script that applies the sum rule to a set of dynamical matrix files (FILDYN.in*, default: dyn) produced by phonon and saves them with a different name (FILDYN.out*, default: asr_dyn). Useful to apply the sum rule ‘crystal’ (default for ASR_TYPE) which is not supported by the thermal2 codes yet. The final fildyn files can be used normally with d3_q2r.x or q2r.x.
+
+#### import_phonopy.py
+In tools you can also file a python script import_phonopy_qe.py and import_phonopy_vasp.py to import the FORCE_CONSTANTS files of 2-body force constants produced by phonopy (with QE and VASP respectively). This script is in a very rudimentary stage, it will produce a file called "fc" with the force constants in the standard QE format. You will have to convert it to the thermal2 format with the fc2mat2R.sh script, also found in tools. A similar tool to convert 3-body force constants from phono3py could be obtained generalizing this one, but lack of documentatio makes it difficult to test.
 
 #### fc2mat2R.sh
-Convert a force constants file from the standard q2r format to the optimized format produced by d3\_q2r and used by thermal2. Do not use this script if you can use the original dynamical matrix files from phonon, use them instead as it is more accurate.
+Convert a force constants file from the standard q2r format to the optimized format produced by d3_q2r and used by thermal2. Do not use this script if you can use the original dynamical matrix files from phonon, use them instead as it is more accurate.
 
-#### apply\_asr.sh
+#### apply_asr.sh
 Apply the acoustic sum rule to a set of dynamical matrices using q2r and matdyn. Thermal2 does not implement the more sofisticate sum-rule methods, but you can apply them directly to the dynamical matrices using this little script.
 
 # Codes input and output
@@ -198,7 +203,7 @@ The three main codes read their configuration from input files. All the variable
 ```
 You may have to put quotes around the value if it contains special characters or spaces. Note that this mechanism is still a bit experimental, and there is currently no way to specify the data blocks (QPOINTS, CONFIGS, etc.) from command line.
 
-## d3\_r2q.x code
+## d3_r2q.x code
 This code reads the 2nd order FCs and computes a number of different quantities that only depend on the harmonic 2nd order force constants, it is currently evolving and should be quite easy to modify and extend according to your needs.
 It reads its input from a Fortran namelist called &r2qinput which contains the variables listed in the next section.
 
@@ -220,7 +225,7 @@ The first part of the output file name, the file will be called "prefix.out".
 #### outdir (CHARACTER, default: "./", I.e. the current directory)
 Location where the output file will be saved.
 
-#### file\_mat2 (CHARACTER, no default)
+#### file_mat2 (CHARACTER, no default)
 The file of the 2nd order force constants, produced by thermal2 internal version of q2r.x
 
 #### asr2 (CHARACTER, default: "no")
@@ -232,19 +237,19 @@ Method used to apply the acoustic sum rule, can be
 #### nq (INTEGER, no default)
 Number of q-points to read (see the QPOINTS section below)
 
-#### print\_dynmat (LOGICAL, default: .false.)
-If set to .true. A file containing the dynamical matrix, in phonon format, will be saved for each q-point (only works for calculation="freq"). The file name will be "r2q\_dyn\_NQ" where NQ is the progressive number of the point.
+#### print_dynmat (LOGICAL, default: .false.)
+If set to .true. A file containing the dynamical matrix, in phonon format, will be saved for each q-point (only works for calculation="freq"). The file name will be "r2q_dyn_NQ" where NQ is the progressive number of the point.
 
-#### sort\_freq (CHARACTER, default: "default")
+#### sort_freq (CHARACTER, default: "default")
 When plotting the linewidth and frequencies along a path, there are several ways to order the frequencies and associated linewidth and shifted frequencies:
 
 * "default": keep the default order of increasing frequencies
 * "overlap": sort each point in order to maximize the overlap of each band polarization with the corresponding band at the previous point. This is the best choice for paths, but probably will not work for 2D or 3D grid plots
 
-#### print\_velocity (LOGICAL, default: .false.)
-If set to .true. a file containing the phonon group velocities will be saved (only applies when calculation="freq"). The file name will be prefix\_vel.out, after the path length and the q-point, the velocities are printed in Cartesian coordinates, Rydberg units (1.09×10<sup>6</sup> m·s−1).
+#### print_velocity (LOGICAL, default: .false.)
+If set to .true. a file containing the phonon group velocities will be saved (only applies when calculation="freq"). The file name will be prefix_vel.out, after the path length and the q-point, the velocities are printed in Cartesian coordinates, Rydberg units (1.09×10<sup>6</sup> m·s−1).
 
-#### ne, de, e0, sigma\_e (INTEGER, REAL, REAL, in cm-1 no default)
+#### ne, de, e0, sigma_e (INTEGER, REAL, REAL, in cm-1 no default)
 Used for jdos calculation, see the description in &lwinput section, below.
 
 ### Output format
@@ -255,7 +260,7 @@ The r2q.x code will produce an output file for every configuration. The output f
 * 3→5	The coordinates of the q-point in units of 2π/alat
 * 6→5+3 nat The phonon frequencies in cm-1.
 
-## d3\_qha.x code
+## d3_qha.x code
 This code reads the 2nd order FCs for a series of volumes and computes the phonon free energy for a given list of temperature, optionally adding a pV (pressure × volume) hydrostatic term. It then fits the total free energy with an equation of state to find the equilibrium volume at each temperature, and find the temperature/volume curve and the volumetric thermal expansion coefficient.
 
 ### Namelist &qhainput
@@ -273,21 +278,21 @@ Location where the output file will be saved.a
 These three variables define the list of temperatures to compute: T0, T0+dT, …, T0+(nT-1)dT. Use a sufficiently small value for dT in order to have a reliable thermal expansion coefficient.
 
 #### asr2 (CHARACTER, default: "no")
-Method used to apply the acoustic sum rule, can be "no" (do not apply ASR), "simple" (apply the compensation term to the on-site force constant). You can use the script tools/apply\_asr.sh in order to apply more sophisticated sum rules using matdyn.x from qe.
+Method used to apply the acoustic sum rule, can be "no" (do not apply ASR), "simple" (apply the compensation term to the on-site force constant). You can use the script tools/apply_asr.sh in order to apply more sophisticated sum rules using matdyn.x from qe.
 
 #### nk (3x INTEGER, no default)
 The size of the grid used to integrate the phonon-phonon interaction processes.
 
-#### grid\_type (CHARACTER, default: "simple")
-Set this to "simple" to use a regular unshifted grid in reciprocal space. See the [description of d3\_lw.x input](#grid\_type-character-default-simple-1) for more details about this option.
+#### grid_type (CHARACTER, default: "simple")
+Set this to "simple" to use a regular unshifted grid in reciprocal space. See the [description of d3_lw.x input](#grid_type-character-default-simple-1) for more details about this option.
 
-#### press\_kbar (REAL, kbar, 0)
+#### press_kbar (REAL, kbar, 0)
 
-#### press\_Gpa (REAL, Gpa, 0)
+#### press_Gpa (REAL, Gpa, 0)
 Optionally add an hydrostatic pressure, which will contribute a term pV to the total energy. The sign convention for pressure is that higher positive pressure means pushing stronger on the sample (i.e. you may want to use a positive pressure value 99% of the times).
 
-#### n\_volumes (INTEGER, no default)
-The number of volumes that have been computed ab-initio. The code expect to find a list of n\_volumes force constant files and total electronic  energies after the namelist.
+#### n_volumes (INTEGER, no default)
+The number of volumes that have been computed ab-initio. The code expect to find a list of n_volumes force constant files and total electronic  energies after the namelist.
 
 ### eos (CHARACTER, default: "murn")
 Kind of equation of state to use:
@@ -300,21 +305,21 @@ Kind of equation of state to use:
 Note that in principle the EOS are empiriclly suitable for V-P (volume-pressure) curves, not for V-T. In practice they work remarkably well in all the cases we have tested.
 
 ### List of volumes
-After the namelist, the code reads n\_volumes lines, each line contains the name of a force-constant file (produced by d3\_q2r.x) and the total electronic energy corresponding to it. For examples:
+After the namelist, the code reads n_volumes lines, each line contains the name of a force-constant file (produced by d3_q2r.x) and the total electronic energy corresponding to it. For examples:
 ```
 &qhainput
  ...
- n\_volumes = 3
+ n_volumes = 3
 /
-mat2R\_1   -85.72256763
-mat2R\_2   -85.72385873
-mat2R\_3   -85.73049838
+mat2R_1   -85.72256763
+mat2R_2   -85.72385873
+mat2R_3   -85.73049838
 ```
 It may be necessary to enclose the name of the file in quotes "…" if it contains any special character, such as "/". The energy are in Ry and are just the "total energy" printed by pw.x at total convergence.
 
 ### Output format
 The code will create, in outdir, a file for each temperature with the equation of state for that temperature, and a final file with the theoretical volume/temperature curve,
-For each temperature, a file called $prefix\_T$temperature.dat, in the file header you will find these informations that are obtained by fitting the total Gibbs free energy with an equation of state:
+For each temperature, a file called $prefix_T$temperature.dat, in the file header you will find these informations that are obtained by fitting the total Gibbs free energy with an equation of state:
 
 * v0: the equilibrium volume at this temperature
 * g0: the theoretical minimu of the free energy at v0
@@ -338,7 +343,7 @@ The final file, called $prefix.dat, contains the following columns:
 5. Bulk modulus, its first and second derivatives
 
 
-## d3\_lw.x code
+## d3_lw.x code
 This code can compute the intrinsic phonon-phonon interaction and the interaction of phonons with isotopic disorder and border scattering. It reads its input variables from the &lwinput namelist and from the QPOINTS, CONFIGS and ISOTOPES lists, which are described in detail in their corresponding sections.
 
 ### Namelist &lwinput
@@ -348,10 +353,10 @@ The type of calculation to perform, it can take several different values:
 
 * "lw imag": compute the imaginary part of the self-energy, i.e. the phonon linewidth. In this mode the code will enforce conservation of energy with a Diract delta function approximated with a Gaussian function of width delta, read from the CONFIGS section.
 * "lw full": compute the entire self energy, the real part is the lineshift and the imaginary part is the linewidth. In this case the value of delta from the CONFIGS will be used as a regularization for the self-energy.
-* "spf full": compute the spectra function, also known as σ(ω), for a list of energies, provided by the input variables ne, de, e0 and sigma\_e (see below) and for all q-points. 
+* "spf full": compute the spectra function, also known as σ(ω), for a list of energies, provided by the input variables ne, de, e0 and sigma_e (see below) and for all q-points. 
 * "spf imag": as "spf full", but only the imaginary part of the self-energy will be used, i.e. the spectra function will be centered around the non-shifted phonon energy. This is often in better agreement with experiments than "spf full", unless you also include somehow the 4-phonons self-energy contribution, because the real part of the 3-phonon term and the 4-phonon terms tend to cancel each other out.
 * "spf simple": simulate the spectral function as a superposition of Lorentzian functions centered around the phonon frequencies and appropriate width, see also ne, de and n0. This is equivalent to "spf full" when the anharmonicity is very weak.
-* "final": decompose the contribution to the linewidth to a specific energy and q-point (specified with the e\_initial and q\_initial keywords) over the energy of the final states in the scattering process or over the final q, or both (see q\_summed and q\_resolved). In the first case you must specify the range of final energies to consider with the ne, de and e0 keywords; in the second case the possible final q-points will be read from the QPOINTS section.
+* "final": decompose the contribution to the linewidth to a specific energy and q-point (specified with the e_initial and q_initial keywords) over the energy of the final states in the scattering process or over the final q, or both (see q_summed and q_resolved). In the first case you must specify the range of final energies to consider with the ne, de and e0 keywords; in the second case the possible final q-points will be read from the QPOINTS section.
 
 #### prefix (CHARACTER, default: the value of calculation)
 The first part of the output file name, the file will be called "prefix….out". Where the "…" part depends on the kind of calculation (See the [Output format section](#output-format-2))
@@ -359,10 +364,10 @@ The first part of the output file name, the file will be called "prefix….out".
 #### outdir (CHARACTER, default: "./", i.e. the current directory)
 Location where the output file will be saved.
 
-#### file\_mat2 (CHARACTER, no default)
+#### file_mat2 (CHARACTER, no default)
 The file of the 2nd order force constants, produced by thermal2 internal version of q2r.x
 
-#### file\_mat3 (CHARACTER, no default)
+#### file_mat3 (CHARACTER, no default)
 The file of the 3rd order force constants, produced by qq2rr.x or asr3.x or sparse.x
 
 #### asr2 (CHARACTER, default: "no")
@@ -377,7 +382,7 @@ Number of configurations to read in the CONFIGS section, see the detailed descri
 #### nk (3x INTEGER, no default)
 The size of the grid used to integrate the phonon-phonon interaction processes.
 
-#### grid\_type (CHARACTER, default: "simple")
+#### grid_type (CHARACTER, default: "simple")
 Set this to "simple" to use a regular unshifted grid in reciprocal space.
 
 Use "random" to use a grid shifted by a random vector; the random shift is not applied to the directions where there is only one k-point, i.e. if you have a N×M×1 grid, there will be no shift along z. Using a random shifted grid, can easily reduce the number of points required for convergence by half in each direction, for a speed-up of 8 for linewidth calculations and 64 times for tk calculations; however, it will break symmetry, and give (slightly) different thermal conductivity for different directions, even in highly symmetric crystals. See also [xk0](#xk0-3x-real-default-000) to manually apply a grid shift. 
@@ -388,71 +393,71 @@ Set to "bz" to use a grid centered in the Brillouin zone. This option will dupli
 #### xk0 (3x REAL, default: 0,0,0)
 A shift to apply to the grid of k-points, in units of half the lattice spacing; i.e. set it to (1,1,1) to have the standard Monkhorst-Pack shifted grid, any fractional values is allowed.
 
-#### ne, de, e0, sigma\_e (INTEGER, REAL, REAL, in cm-1 no default)
-When doing a Spectral function (d3\_lw.x) or Final state (d3\_lw.x ) or Joint-DOS (d3\_r2q.x) calculation you have to define an energy axis with these variables. The axis will include ne equally spaced points starting from e0 and up to e0+(ne-1)de. The sum over the q-points will be convoluted with a gaussian of width sigma\_e (default: 5 de) to obtain a smooth curve.
+#### ne, de, e0, sigma_e (INTEGER, REAL, REAL, in cm-1 no default)
+When doing a Spectral function (d3_lw.x) or Final state (d3_lw.x ) or Joint-DOS (d3_r2q.x) calculation you have to define an energy axis with these variables. The axis will include ne equally spaced points starting from e0 and up to e0+(ne-1)de. The sum over the q-points will be convoluted with a gaussian of width sigma_e (default: 5 de) to obtain a smooth curve.
 
-#### nu\_initial (1..3×nat, no default)
-When doing a Final state decomposition calculation, this is the band of the initial state considered in the scattering process. If not specified, the final state will be computed for all initial bands at the energ specified by e\_initial, but as a consequence it will not be decomposed over the final bands.
+#### nu_initial (1..3×nat, no default)
+When doing a Final state decomposition calculation, this is the band of the initial state considered in the scattering process. If not specified, the final state will be computed for all initial bands at the energ specified by e_initial, but as a consequence it will not be decomposed over the final bands.
 
-#### e\_initial (in cm-1, no default)
-When doing a Final state decomposition calculation, this is the energy of the initial state considered in the scattering process. If not specified, the energy of the phonon corresponding to nu\_initial will be used.
+#### e_initial (in cm-1, no default)
+When doing a Final state decomposition calculation, this is the energy of the initial state considered in the scattering process. If not specified, the energy of the phonon corresponding to nu_initial will be used.
 
-#### q\_initial (3x REAL, in units of 2π/alat)
-As e\_initial, specifies the initial q-point.
+#### q_initial (3x REAL, in units of 2π/alat)
+As e_initial, specifies the initial q-point.
 
-#### q\_summed (LOGICAL, default: false)
+#### q_summed (LOGICAL, default: false)
 When doing a final state calculation, set to true to project the infinitesimal contribution to the linewidth over the given final q-points, the energy dependence is integrated out. The analysis is performed over the q-points specified in the QPOINTS section, you can use either a path or a grid, depending on the kind of plot you want, using a xsf or bxsf kind of grid can be used to do a 3D plot with [XCrysDen](http://www.xcrysden.org). The full grid, specified by nk, will still be used to compute the linewidth, but te contribution will be projected to each q-point in the list with a Gaussian smearing given by sigmaq.
 
 Note that even high-symmetry points can, and often do, decay toward lower symmetry points; a high-symmetry path can easily miss the most important final states. We recommend using a relatively coarse grid first, you will be able to spot the most favored points by sorting the output file. I.e. this command:
- sort -gk 5 final\_T300\_s1.out
-will output as the final lines the most important decay processes. See also sigmaq and q\_resolved and the output format. See also the [examples](#compute-the-spectral-function-along-a-path).
+ sort -gk 5 final_T300_s1.out
+will output as the final lines the most important decay processes. See also sigmaq and q_resolved and the output format. See also the [examples](#compute-the-spectral-function-along-a-path).
 
-#### q\_resolved (LOGICAL, default: false)
-As q\_summed, but the energy dependence is not integrated out. The output file will contain an analysis of the decay process as a function of the final state q-point and energy. Note that this file can be huge, and it is almost impossible to plot for an entire grid. Along a line, you can produce a color plot using this gnuplot command (assuming that the file freq.out contains the frequencies):
+#### q_resolved (LOGICAL, default: false)
+As q_summed, but the energy dependence is not integrated out. The output file will contain an analysis of the decay process as a function of the final state q-point and energy. Note that this file can be huge, and it is almost impossible to plot for an entire grid. Along a line, you can produce a color plot using this gnuplot command (assuming that the file freq.out contains the frequencies):
 ```
 set palette defined (0  "white", 1  "red") 
-plot "fs\_qresolved\_T300\_s1.out" u 1:2:6 w image, \
+plot "fs_qresolved_T300_s1.out" u 1:2:6 w image, \
      for [i=6:11] 'freq.out' u 2:i w l lt -1 not
 ```
-See also sigmaq and q\_summed and the output format. Note that the "image" plot mode suppose that the x-axis spacing is constant, if it is not, you will have to do a 3D "splot" with "view map" in order to obtain a good plot.
+See also sigmaq and q_summed and the output format. Note that the "image" plot mode suppose that the x-axis spacing is constant, if it is not, you will have to do a 3D "splot" with "view map" in order to obtain a good plot.
 
 #### sigmaq (REAL,  default: 0.1 in units of 2π/alat)
-Used in conjunction with q\_summed or q\_resolved to obtain a nice smooth plot over the q-points by convoluting it with a Gaussian function of width sigmaq. Set it to something of the order of the spacing between the q-points.
+Used in conjunction with q_summed or q_resolved to obtain a nice smooth plot over the q-points by convoluting it with a Gaussian function of width sigmaq. Set it to something of the order of the spacing between the q-points.
 
-#### exp\_t\_factor (LOGICAL, default: false)
-UNTESTED/EXPERIMENTAL! When doing a spectra function calculation, add an elastic peak  of equation (1 + f\_bose(e,T)) / e) which should emulate the elastic peak of neutron spectroscopy.
+#### exp_t_factor (LOGICAL, default: false)
+UNTESTED/EXPERIMENTAL! When doing a spectra function calculation, add an elastic peak  of equation (1 + f_bose(e,T)) / e) which should emulate the elastic peak of neutron spectroscopy.
 
-#### sort\_freq (CHARACTER, default: "default")
+#### sort_freq (CHARACTER, default: "default")
 When plotting the linewidth and frequencies along a path, there are several ways to order the frequencies and associated linewidth and shifted frequencies:
 
 * "default": keep the default order of increasing frequencies
 * "overlap": sort each point in order to maximize the overlap of each band polarization with the corresponding band at the previous point. This is the best choice for paths, but probably will not work for 2D or 3D grid plots
 * "shifted": sort in order of shifted frequencies, i.e. frequency+lineshift. It is only meaningful when doing a "lw full" calculation, it can help to have good quality plots when "overlap" fails.
 
-#### isotopic\_disorder (LOGICAL, default: false)
+#### isotopic_disorder (LOGICAL, default: false)
 Set this to true to include scattering from isotopic disorder. You will also have to specify the isotopic composition of every element in the system in the ISOTOPES section. NOTE: isotopes are only used for linewidth calculation, they are no used for spectral functions and final state decomposition.
 
-#### casimir\_scattering (LOGICAL, default: false)
+#### casimir_scattering (LOGICAL, default: false)
 Set this variable to true to include scattering with boundary, treated with the Casimir formula. See the following variables for detail on how to specify the boundary structure. Casimi scattering is only applied to linewidth calculation, it has no effect on spectra function and final state calculations.
 
-#### sample\_dir (3x REAL, normalized, default: no direction)
+#### sample_dir (3x REAL, normalized, default: no direction)
 The direction in which Casimir scattering is prevalent. Set it to zero to consider omnidirectional scattering, i.e. scattering from grains, or to a specific direction to consider a wire. More complex geometries are not implemented yet, please let us know if you are interested.
 
-#### sample\_length\_au	 (REAL, bohr, no default)
+#### sample_length_au	 (REAL, bohr, no default)
 
-#### sample\_length\_mu	 (REAL, micrometers, no default)
+#### sample_length_mu	 (REAL, micrometers, no default)
 
-#### sample\_length\_mm (REAL, millimeters, no default)
+#### sample_length_mm (REAL, millimeters, no default)
 The average scattering length in the Casimir model; you can specify only one of the three variables, according to the unit of measure you prefer. Note that the Caimir model also include a structure factor, usually set to 2, which is not included in our implementation; you will have to include it directly in the gain size in input.
 
-#### max\_seconds (no default, in seconds)
+#### max_seconds (no default, in seconds)
 
-#### max\_time (format hh.mmss)
+#### max_time (format hh.mmss)
 The maximum running time after which the code will stop, you can only set one of the two. Notice that only tk.x includes a restart mechanism.
 
 ### Output format
 The lw.x code will produce an output file for every configuration. The output files will be named
-\$prefix\_T\$XX\_s\$YY.out
+\$prefix_T\$XX_s\$YY.out
 Where $XX is the temperature in Kelvin and $YY the delta in cm-1. Each output file will contain a relatively large number of columns, depending on the calculation. 
 
 NOTE: In all of the following cases case when specifying QPOINTS as "grid" or "bz", the length of the path will actually be replaced by the weight of the point used to do an integral in reciprocal space.
@@ -471,7 +476,7 @@ Calculation "lw full":
 * 1→5+6 nat.	Same content as "lw imag"
 * 6+6 nat→5+8 nat.
 
-The shifted phonon frequencies (i.e. frequency+shift) in cm-1. If the sort\_shifted\_q keyword was set to true, the shifted frequencies are sorted in increasing order and the corresponding linewidth are sorted accordingly. The unperturbed frequencies are left unchanged.
+The shifted phonon frequencies (i.e. frequency+shift) in cm-1. If the sort_shifted_q keyword was set to true, the shifted frequencies are sorted in increasing order and the corresponding linewidth are sorted accordingly. The unperturbed frequencies are left unchanged.
 
 Calculation "spf":
 
@@ -483,7 +488,7 @@ Calculation "spf":
 Note that the energy axis cycles faster than the path length and there is a whitespace after each q-point which makes plotting with gnuplot "pm3d" style easy with this syntax (column 3 is used twice, both for heigth and colour):
 sp "file" u 1:2:3:3 w pm3d
 
-Calculation "final", if nu\_initial **is not** specified:
+Calculation "final", if nu_initial **is not** specified:
 
 * 1		The energy axis in cm-1
 * 2		The total final state weight in 1/cm-1
@@ -493,7 +498,7 @@ Calculation "final", if nu\_initial **is not** specified:
 * 5+3nat→4+6 nat   Cohalescence to the final state **from** each band in 1/cm-1
 * 5+6nat→4+9 nat   Scattering to the final state **from** each band in 1/cm-1
 
-Calculation "final", if nu\_initial **is** specified:
+Calculation "final", if nu_initial **is** specified:
 
 * 1		The energy axis in cm-1
 * 2		The total final state weight in 1/cm-1
@@ -503,7 +508,7 @@ Calculation "final", if nu\_initial **is** specified:
 * 5+3nat→4+6 nat   Cohalescence to the final state **to** each band in 1/cm-1
 * 5+6nat→4+9 nat   Scattering to the final state **to** each band in 1/cm-1
 
-Calculation "final", q\_resolved TRUE:
+Calculation "final", q_resolved TRUE:
 
 * 1		The energy axis in cm-1
 * 2		The length of the q-point path (when doing a path, units 2π/alat) or the weight of the q-point (when doing a grid calculation)
@@ -511,87 +516,87 @@ Calculation "final", q\_resolved TRUE:
 * 6		The infinitesimal contribution to the linewidth, as a function of energy and q  (1/cm-1)
 * 7→6+3 nat	The infinitesimal contribution to the linewidth, decomposed by band (1/cm-1)
 
-Calculation "final", q\_summed TRUE:
+Calculation "final", q_summed TRUE:
 
 * 1		The length of the q-point path (when doing a path, units 2π/alat) or the weight of the q-point (when doing a grid calculation)
 * 2→4		The coordinates of the q-point in (2π/alat).
 * 5		The infinitesimal contribution to the linewidth from this q-point  (1/cm-1)
 * 6→5+3 nat	The infinitesimal contribution to the linewidth,  decomposed by band (1/cm-1)
 
-## d3\_tk.x code
-The d3\_tk.x code can compute the thermal conductivity coefficient in the SMA or by exact diagonalization of the BTE. Most of its input variables are the same as d3\_lw.x, we refer to the previous section for their description
+## d3_tk.x code
+The d3_tk.x code can compute the thermal conductivity coefficient in the SMA or by exact diagonalization of the BTE. Most of its input variables are the same as d3_lw.x, we refer to the previous section for their description
 
 ### Namelist &tkinput
-Most of the variable used by d3\_tk.x are also used for d3\_lw.x. The following variables have the same meaning as in d3\_lw.x:
-outdir, prefix, file\_mat2, file\_mat3, asr2,  nconf, nk, grid\_type, xk0, isotopic\_disorder, casimir\_scattering,  sample\_direction, sample\_length\_*
-The following variables are specific of d3\_tk.x.
+Most of the variable used by d3_tk.x are also used for d3_lw.x. The following variables have the same meaning as in d3_lw.x:
+outdir, prefix, file_mat2, file_mat3, asr2,  nconf, nk, grid_type, xk0, isotopic_disorder, casimir_scattering,  sample_direction, sample_length_*
+The following variables are specific of d3_tk.x.
 
 #### calculation (CHARACTER, default: "sma")
 Set this variable to "sma" to compute use the single mode approximation or to "cgp" to do an iterative diagonalization of the BTE with the Conjugate Gradient algorithm with preconditioning. Please note that "cgp" algorithm will also output the SMA thermal conductivity at its first iteration, but computed in a slightly different way which is slower but guarantees the phonon-phonon scattering matrix to be well defined and the functional to be minimized to be positive definite.
 
-#### nk\_in (3x INTEGER, default: same value as nk)
-When doing a "sma" calculation, the linewidth will be computed, for each point in the nk grid, integrating over the nk\_in grid. Thermal conductivity will then be integrated over the nk grid. In principle, there is no reason for the two grids to be identical, as one quantity could be harder to converge than the other. When doing a CGP calculation, the inner and outer grids must be identical, nk\_in will be ignored and nk used instead.
+#### nk_in (3x INTEGER, default: same value as nk)
+When doing a "sma" calculation, the linewidth will be computed, for each point in the nk grid, integrating over the nk_in grid. Thermal conductivity will then be integrated over the nk grid. In principle, there is no reason for the two grids to be identical, as one quantity could be harder to converge than the other. When doing a CGP calculation, the inner and outer grids must be identical, nk_in will be ignored and nk used instead.
 
-#### grid\_type\_in (CHARACTER, default: same value as grid\_type)
-Same as grid\_type, but applied to the inner grid. Ignored for ‘cgp’ calculations.
+#### grid_type_in (CHARACTER, default: same value as grid_type)
+Same as grid_type, but applied to the inner grid. Ignored for ‘cgp’ calculations.
 
-#### xk0\_in (3x REAL, default: same value as xk0)
+#### xk0_in (3x REAL, default: same value as xk0)
 Same as xk0, but applied to the inner grid. Ignored for ‘cgp’ calculations.
 
-#### thr\_tk (REAL, default: 1.d-4 W/mK)
+#### thr_tk (REAL, default: 1.d-4 W/mK)
 Threshold on the convergence of thermal conductivity the of the CGP minimization when solving the BTE. The default value should be enough to get the thermal conductivity with 4 or 5 significant digits.
 
-#### niter\_max (INTEGER, default: 1000)
+#### niter_max (INTEGER, default: 1000)
 Maximum number of iteration of the CGP algorithm. Normally less than 100 iterations are needed.
 
-#### store\_lw (LOGICAL, default: .false.)
-Set this to true, when doing a SMA calculation, and the code will write to disk the values of the intrinsic, isotopi and casimir linewidths at the end of the calculation. In the tool/ you can find an octave/matlab script recompute\_sma.m to recompute the SMA tk from these files. This can be used to inexpensively test different isotopic and Casimir scattering parameters without repeating the expensive intrinsic linewidth calculation. See also intrinsic\_scattering
+#### store_lw (LOGICAL, default: .false.)
+Set this to true, when doing a SMA calculation, and the code will write to disk the values of the intrinsic, isotopi and casimir linewidths at the end of the calculation. In the tool/ you can find an octave/matlab script recompute_sma.m to recompute the SMA tk from these files. This can be used to inexpensively test different isotopic and Casimir scattering parameters without repeating the expensive intrinsic linewidth calculation. See also intrinsic_scattering
 
-#### intrinsic\_scattering (LOGICAL, default: .true.)
-If this parameter is set to false, during a SMA calculation, the code will skip the calculation of the intrinsic phonon-phonon scattering. At the end, thermal conductivity cannot not be computed, hence be sure to set store\_lw=.true., or the calculation will be wasted, in order to store isotopic and Casimir linewidths.
+#### intrinsic_scattering (LOGICAL, default: .true.)
+If this parameter is set to false, during a SMA calculation, the code will skip the calculation of the intrinsic phonon-phonon scattering. At the end, thermal conductivity cannot not be computed, hence be sure to set store_lw=.true., or the calculation will be wasted, in order to store isotopic and Casimir linewidths.
 
 #### restart (LOGICAL, default: .false.)
 Set this to true, when doing a CGP calculation, and the code will write to disk the state of the minimization at each iteration, it will then be able to restart from the last step. Set this to .false. will have two effects: 1) the code will ignore any restart information already present on disk and 2) the code will not write restart information on disk. Restart information can take quite a bit of space for dense grids.
 
-#### mfp\_cutoff (LOGICAL, default: false)
-Set this variable to true to include scattering with boundary, by cutting off the contribution of all phonon modes with a mean free path (MFP, inverse full linewidth times group velocity) larger than the sample size. This approach is simpler than using casimir\_scattering, but it assumes that all phonons with a MFP longer than the sample will scatter, and all those shorter will not; i.e. that all phonons with a MFP longer than the sample hav an infinite linewidth; this is only true in the ballistic regime, which is not the aim of this software anyway. We recommend using casimir\_scattering instead. This option will use the input variable sample\_dir and sample\_length\_# to determine the cutoff length. This option only works for SMA thermal conductivity. 
+#### mfp_cutoff (LOGICAL, default: false)
+Set this variable to true to include scattering with boundary, by cutting off the contribution of all phonon modes with a mean free path (MFP, inverse full linewidth times group velocity) larger than the sample size. This approach is simpler than using casimir_scattering, but it assumes that all phonons with a MFP longer than the sample will scatter, and all those shorter will not; i.e. that all phonons with a MFP longer than the sample hav an infinite linewidth; this is only true in the ballistic regime, which is not the aim of this software anyway. We recommend using casimir_scattering instead. This option will use the input variable sample_dir and sample_length_# to determine the cutoff length. This option only works for SMA thermal conductivity. 
 
-#### volume\_factor (REAL, default: 1)
-A dimensionless parameter to rescale the volume of the crystal unit cell. When studying a 2D material, it is useful to normalize the thermal conductivity with the volume of bulk, excluding the vacuum space left between periodic copies of the 2D slab. I.e. if the bulk material has an inter-layer spacing of H and you have built your 2D slab geometry with a vacuum distance V, you have to set volume\_factor=H/V.
+#### volume_factor (REAL, default: 1)
+A dimensionless parameter to rescale the volume of the crystal unit cell. When studying a 2D material, it is useful to normalize the thermal conductivity with the volume of bulk, excluding the vacuum space left between periodic copies of the 2D slab. I.e. if the bulk material has an inter-layer spacing of H and you have built your 2D slab geometry with a vacuum distance V, you have to set volume_factor=H/V.
 
 ### Output format
 
 #### SMA calculation
 When doing a SMA calculation the tk.x code will produce two output files:
 
-1. A file named $prefix.$grid\_size.out, where $prefix is the input value of prefix and $grid\_size is the size of the integration grid (e.g. "20x20x20"). This file will contain one line per configuration, in each line you will:
+1. A file named $prefix.$grid_size.out, where $prefix is the input value of prefix and $grid_size is the size of the integration grid (e.g. "20x20x20"). This file will contain one line per configuration, in each line you will:
 * 1 the configuration number,
 * 2 the value of sigma
 * 3 the temperature
 * 4→6 the diagonal elements of the thermal conductivity Kxx, Kyy and Kzz
 * 7→12 The off-diagonal elements of K, in this order:  Kxy, Kxz, Kyz , Kyx, Kzx, Kzy.
 
-If the option store\_lw is used, several more, potentially very large, files will be created. They contain all the quantities required to recompute the SMA thermal conductivity:
+If the option store_lw is used, several more, potentially very large, files will be created. They contain all the quantities required to recompute the SMA thermal conductivity:
 
-* 1 q.$prefix.$grid\_size.out: the list of q-vectors (3 columns, in cartesian coordinates of 2π/alat) and their respective weight (1 columns)
-* 2 freq.$prefix.$grid\_size.out: the phonon frequencies (in cm-1, 3x number of atoms columns)
-* 3 lw.$prefix.$grid\_size.out: the phonon FWHM (in cm-1, 3x number of atoms columns)
-* 4 vel.$prefix.$grid\_size.out: the phonon groups velocity, x,y and z for each band (in Rydberg units, 9x number of atoms columns)
+* 1 q.$prefix.$grid_size.out: the list of q-vectors (3 columns, in cartesian coordinates of 2π/alat) and their respective weight (1 columns)
+* 2 freq.$prefix.$grid_size.out: the phonon frequencies (in cm-1, 3x number of atoms columns)
+* 3 lw.$prefix.$grid_size.out: the phonon FWHM (in cm-1, 3x number of atoms columns)
+* 4 vel.$prefix.$grid_size.out: the phonon groups velocity, x,y and z for each band (in Rydberg units, 9x number of atoms columns)
 
-In the "tools" directory you can find a mathlab/octave script [recompute\_sma.m](#recompute-smam) to inexpensively recompute the thermal conductivity starting from these files.
+In the "tools" directory you can find a mathlab/octave script [recompute_sma.m](#recompute-smam) to inexpensively recompute the thermal conductivity starting from these files.
 
 #### CGP calculation
 When a CGP calculation several files are created: one with the results at the last iterations for all the configurations and one file for each configurations with the results at each iteration. The thermal conductivity K is always in W/(m·K).
 
-1. A file named $prefix.$grid\_size.out, where $prefix is the input value of prefix and $grid\_size is the size of the integration grid (e.g. "20x20x20"). This file will contain the results from the last completed iteration of the code, one line per configuration, with these columns:
+1. A file named $prefix.$grid_size.out, where $prefix is the input value of prefix and $grid_size is the size of the integration grid (e.g. "20x20x20"). This file will contain the results from the last completed iteration of the code, one line per configuration, with these columns:
 * 1 the configuration number,
 * 2 the value of sigma 
 * 3 the temperature 
 * 4-6 the diagonal elements of the thermal conductivity Kxx, Kyy and Kzz 
 * 7-12 the off-diagonal elements of K, in this order:  Kxy, Kyz, Kyz , Kyx, Kzx, Kzy.
-2. A file for every input configuration, named $prefix.$grid\_size\_s$XX\_T$YY.out, where $XX is the smearing in cm-1 and $YY is the temperature in Kelvin. A line is appended to each file at each iteration. The columns are the same as the previous file, except that column 1 contains the iteration number.
+2. A file for every input configuration, named $prefix.$grid_size_s$XX_T$YY.out, where $XX is the smearing in cm-1 and $YY is the temperature in Kelvin. A line is appended to each file at each iteration. The columns are the same as the previous file, except that column 1 contains the iteration number.
 
-## d3\_tdph.x code
+## d3_tdph.x code
 This code reads a set of initial dynamical matrices for a given system and optimizes the harmonic force constants over a series of images that can be the output of a molecular dynamics calculation performed with Quantum ESPRESSO, or of a Langevin Dynamics calculation from the PIOUD code. The code will expect that the simulation supercell is the same for the force constants and the dynamics simulations. 
 
 ### Namelist &tdphinput
@@ -605,7 +610,7 @@ Output files from PIOUD containing the ab-initio forces, ions coordinates and to
 #### fmd (CHARACTER, default "md.out")
 Output file from QE
 
-#### file\_mat2 (CHARACTER, default "mat2R")
+#### file_mat2 (CHARACTER, default "mat2R")
 File of the force constants. Must be in "periodic" form (i.e. generated using -f 0 with d3_q2r.x)
 
 #### nfirst, nskip, nread (INTEGER, default 1, 100, 50000)
@@ -621,7 +626,7 @@ A constant to remove from the total energy, i.e. the ground state energy. Useful
 When building the basis of symmetric dynamical matrices, ouse one of these initial guesses: 
 
 * "simple" orthogonal matrices hermitean matrices with a single diagonal or two non-diagonal non-zero elements
-* "mu" from the eignevectors of the original dynamical matrices, from file\_mat2, discard the acoustic modes at q=0.
+* "mu" from the eignevectors of the original dynamical matrices, from file_mat2, discard the acoustic modes at q=0.
 * "random" start from random matricex (rarely works because of accidental degeneracies)
 
 ### minimization  (CHARACTER, default "ph")
@@ -664,10 +669,10 @@ In the default, "cartesian" and "crystal" cases, the code will now start reading
 
 The code will also compute the total length of the path along the q-points. This length is printed in the output file (usually, 2nd column) and is useful for plotting. 
 
-You can use the special value -1 for np, to reset the length of the path at a certain point. The d3\_lw.x code will also perform a special action depending on the context:
+You can use the special value -1 for np, to reset the length of the path at a certain point. The d3_lw.x code will also perform a special action depending on the context:
 
 * When doing a linewidth calculation: print an empty line (useful for gnuplot 3D plots).
-* When doing a spectral function calculation: continue writing to a new output file, which will have "\_pN" appended to its name; N is a number increasing at each path reset.
+* When doing a spectral function calculation: continue writing to a new output file, which will have "_pN" appended to its name; N is a number increasing at each path reset.
 
 If two consecutive points in the list are equivalent minus a G-vector, and if the latter has no np, or np=1, then the two points are added to the list with the same path length. This allows one to jump between equivalent point without having a discontinuity in the plot.
 
@@ -675,7 +680,7 @@ Another special value is the special value np=0 skips the point, but puts in in 
 
 #### grid
 
-Only used by the d3\_lw.x code when the calculation type is "grid". On the next line the code will try to read three integer numbers, NQX, NQY and NQZ, which will define the dimension of the grid.
+Only used by the d3_lw.x code when the calculation type is "grid". On the next line the code will try to read three integer numbers, NQX, NQY and NQZ, which will define the dimension of the grid.
 
 #### bz
 
@@ -786,10 +791,10 @@ CONFIGS matrix
 3.
 4.
 ```
-Undocumented: using a negative or zero value for the smearing. This features can change at any time in the future, possibly to become a proper input variables. A negative value of the smearing can activate a few "hidden" features of the d3\_lw.x code. In particular, when doing a "lw full" or "final state" calculation, setting the smearing to zero will use the static formula for the linewidth, where the energy denominators are just ω1+ω2 and  ω1-ω2, the latter becomes a derivative (of the Bose-Einstein distribution) when the modes 2 and 3 are degenerate. A negative value of sigma, will also use the static limit but with a regularization of the denominator. The static limit is not currently implemented for the spectral function, and it does not make sense for the "lw imag" calculation.
+Undocumented: using a negative or zero value for the smearing. This features can change at any time in the future, possibly to become a proper input variables. A negative value of the smearing can activate a few "hidden" features of the d3_lw.x code. In particular, when doing a "lw full" or "final state" calculation, setting the smearing to zero will use the static formula for the linewidth, where the energy denominators are just ω1+ω2 and  ω1-ω2, the latter becomes a derivative (of the Bose-Einstein distribution) when the modes 2 and 3 are degenerate. A negative value of sigma, will also use the static limit but with a regularization of the denominator. The static limit is not currently implemented for the spectral function, and it does not make sense for the "lw imag" calculation.
 
 ### ISOTOPES
-After this card the code will read the information about the isotopic composition of all elements present in the calculation. This list will only be read if "isotopic\_disorder" is set to true in the namelist. Note that specifying the isotopes is not necessary, if this card is omitted the natural isotopic concentration will be used.
+After this card the code will read the information about the isotopic composition of all elements present in the calculation. This list will only be read if "isotopic_disorder" is set to true in the namelist. Note that specifying the isotopes is not necessary, if this card is omitted the natural isotopic concentration will be used.
 
 Each element, identified by its name, must appear in the same order as in the file of the force constants. The isotopic composition can be specified in several different ways.
 
@@ -807,7 +812,7 @@ If you wish to use the natural isotope concentration for an element you can use 
 ```
 Xx natural
 ```
-Where Xx is the name of the element and "natural" is a keyword. The natural isotope concentration is stored in the file nist\_isotopes\_db.f90 of the thermal2 distribution. It is obtained from the NIST online database, available on the NIST website7.
+Where Xx is the name of the element and "natural" is a keyword. The natural isotope concentration is stored in the file nist_isotopes_db.f90 of the thermal2 distribution. It is obtained from the NIST online database, available on the NIST website7.
 
 If you wish to set the isotope concentration by hand you can use the following syntax
 ```
@@ -839,7 +844,7 @@ H manual 1.02  0.01
 # Input Examples
 In the next sections you will find some example input files for the main codes of thermal2. You will find more examples, included a
 
-## d3\_lw.x examples
+## d3_lw.x examples
 
 ### Computing the linewidth of a single point
 
@@ -847,17 +852,17 @@ This example input would compute the linewidth of q-point (1/3 1/3 0) in crystal
 ```
 &lwinput 
  calculation = 'lw real' 
- prefix="lw\_rnozp" 
+ prefix="lw_rnozp" 
 
- ! file\_mat2 = '../1l.FILDYN/mat2R.120ry.4.nozeu' 
- file\_mat2 = '../FILDYN/mat2R.8\_nozeu' 
- file\_mat3 = '../FILD3DYN/mat3R.xxx\_asr15\_sparse' 
+ ! file_mat2 = '../1l.FILDYN/mat2R.120ry.4.nozeu' 
+ file_mat2 = '../FILDYN/mat2R.8_nozeu' 
+ file_mat3 = '../FILD3DYN/mat3R.xxx_asr15_sparse' 
  outdir    = './' 
  asr2 = 'simple' 
  nconf = 15
  nk = 200,200,1 
  nq = 1
- sort\_freq = "overlap"
+ sort_freq = "overlap"
 / 
 CONFIGS 
 2.0     0 
@@ -884,9 +889,9 @@ The following example is useful for testing the convergence of the linewidth cal
 ```
 &lwinput 
  calculation = 'lw imag' 
- prefix = 'lw\_NK' 
- file\_mat2 = '../FILDYN/mat2R.100Ry.4' 
- file\_mat3 = '../FILD3DYN/mat3R\_asr\_sparse' 
+ prefix = 'lw_NK' 
+ file_mat2 = '../FILDYN/mat2R.100Ry.4' 
+ file_mat3 = '../FILD3DYN/mat3R_asr_sparse' 
  outdir    = './' 
  asr2 = 'simple'  
  nconf = 7
@@ -910,9 +915,9 @@ You can then extract the data with a script like this:
 
 #!/bin/bash
 for smr in 0.1 0.2 0.5 1.0 2.0 5.0 10.0;do
-	grep "^ *1 " lw\_*s${smr}.out|\
+	grep "^ *1 " lw_*s${smr}.out|\
 	awk '{print $1,$(NF-2),$(NF-1),$NF}'|\
-	sed -re 's/lw\_|\_T|\_s|.out|:/  /g' |\
+	sed -re 's/lw_|_T|_s|.out|:/  /g' |\
 	sort -k 1n > s${smr}.dat;
 done 
 ```
@@ -928,14 +933,14 @@ In brief: do not take a value too small for the smearing, something of the order
 ```
 &lwinput 
  calculation = 'lw full'
- file\_mat2 = 'mat2R' 
- file\_mat3 = 'mat3R.xxx\_asr\_sparse' 
+ file_mat2 = 'mat2R' 
+ file_mat3 = 'mat3R.xxx_asr_sparse' 
  outdir    = './' 
  asr2 = 'simple' 
  nconf = 15 
  nk = 100,100,10 
  nq = 5 
- sort\_shifted\_freq = .true. 
+ sort_shifted_freq = .true. 
 / 
 CONFIGS 
 5.0     0 
@@ -967,8 +972,8 @@ Spectral function calculations are not as well optimized as linewidth ones and c
 ```
 &lwinput 
  calculation = 'spf'
- file\_mat2 = 'mat2R' 
- file\_mat3 = 'mat3R.xxx\_asr\_sparse' 
+ file_mat2 = 'mat2R' 
+ file_mat3 = 'mat3R.xxx_asr_sparse' 
  outdir    = './' 
  asr2 = 'simple' 
  nconf = 1
@@ -991,7 +996,7 @@ You can obtain a color plot like those of ref. [5](#ref5) with this gnuplot scr
 
 ```
 set log cb 
-splot 'spf\_full\_T300\_s0.3.out' u 1:2:3 w image
+splot 'spf_full_T300_s0.3.out' u 1:2:3 w image
 ```
 
 ### Compute the final state decomposition
@@ -1000,15 +1005,15 @@ Final state can be decomposed over the energy, giving a kind of DOS of the final
 ```
 &lwinput 
  calculation = 'final' 
- file\_mat2 = 'T\_295K/mat2R' 
- file\_mat3 = '../mat3R\_asr' 
- outdir    = 'T\_295K/' 
+ file_mat2 = 'T_295K/mat2R' 
+ file_mat3 = '../mat3R_asr' 
+ outdir    = 'T_295K/' 
  asr2 = "simple"
  nconf = 3 
  nk =  20, 20, 20 
  nq = 1 ! actually unused
- e\_initial = 490.80 
- q\_initial = -0.5, 0.0, 0.0 
+ e_initial = 490.80 
+ q_initial = -0.5, 0.0, 0.0 
  ne =201 
  de = 3.5 
  e0 = 0. 
@@ -1026,19 +1031,19 @@ Final state over a high-symmetry path in the brillouin zone.
 &lwinput
   calculation = 'final'
   prefix="final"
-  file\_mat2 = 'mat2R'
-  file\_mat3 = 'mat3R.asr.sparse'
+  file_mat2 = 'mat2R'
+  file_mat3 = 'mat3R.asr.sparse'
   outdir    = './LW/'  
   asr2 = 'simple'   
   nk =  31, 31, 31
   xk0 = 1,1,1
-  sort\_freq = 'overlap'
+  sort_freq = 'overlap'
   ne = 2000
   de = 0.5
 
-  e\_initial = 682.  ! a
-  q\_initial = 0.0000010000,    0.0000000000,    0.0000000000 
-  q\_resolved = .true.
+  e_initial = 682.  ! a
+  q_initial = 0.0000010000,    0.0000000000,    0.0000000000 
+  q_resolved = .true.
   sigmaq= 0.02
 /
  CONFIGS
@@ -1072,20 +1077,20 @@ Final state as a 3D density map, plotted with XCrysDen. Note that the 40×40×40
 &lwinput
   calculation = 'final'
   prefix="G394-50K-111"
-  file\_mat2 = 'FILDYN/mat2R'
-  file\_mat3 = 'FILD3DYN/mat3R.asr.sparse'
+  file_mat2 = 'FILDYN/mat2R'
+  file_mat3 = 'FILD3DYN/mat3R.asr.sparse'
   outdir    = './FS/'
   asr2 = 'simple'
   nk = 200,200,200
-  grid\_type = 'random'
-  q\_initial = 0.05, 0.00, 0.00
-  nu\_initial = 3
+  grid_type = 'random'
+  q_initial = 0.05, 0.00, 0.00
+  nu_initial = 3
 
   ne = 650
   de = 0.5
 
-  q\_resolved = .false.
-  q\_summed = .true.
+  q_resolved = .false.
+  q_summed = .true.
   sigmaq= 0.05
 
 /
@@ -1104,14 +1109,14 @@ you can use the [option "plane"](#qpoints) to plot a section of the unit cell.
 ```
 &lwinput 
  calculation = 'lw full' 
- prefix="lw\_2d" 
- file\_mat2 = '../../1l.FILDYN/mat2R.4.vac.nozeu' 
- file\_mat3 = '../../1l.FILD3DYN/mat3R.xxx\_asr\_sparse' 
+ prefix="lw_2d" 
+ file_mat2 = '../../1l.FILDYN/mat2R.4.vac.nozeu' 
+ file_mat3 = '../../1l.FILD3DYN/mat3R.xxx_asr_sparse' 
  outdir    = './' 
  asr2 = 'simple'
  nconf = 1 
  nk = 20,20,1 
- sort\_shifted\_freq = .false. 
+ sort_shifted_freq = .false. 
 / 
 CONFIGS 
 1.0    300
@@ -1121,7 +1126,7 @@ QPOINTS bz
 
 You can then plot the resulting file with a gnuplot command like this (you will have to tune the pointsize and of course select the correct band to plot):
 ```
-p 'lw\_2d.50x50x1@bz\_T300\_s10.out' u 3:4:12 w p palette pt 7 pointsize 1.7 not
+p 'lw_2d.50x50x1@bz_T300_s10.out' u 3:4:12 w p palette pt 7 pointsize 1.7 not
 ```
 
 This is an example from graphene (done using 128x128 BZ-centered points):
@@ -1129,7 +1134,7 @@ This is an example from graphene (done using 128x128 BZ-centered points):
 ![graphene bz](images/graphene-bz.png){ width=70% }
 
 
-## d3\_tk.x examples
+## d3_tk.x examples
 
 ### Compute the SMA solution of the BTE
 The following input file computes the thermal conductivity in the Single-Mode Approximation. This example uses a finer grid of 24x24x24 q-points to compute the phonon lifetime on a grid of 12x12x12 points, which is integrated to compute the thermal conductivity. Furthermore, the natural isotopic distribution of Silicon is used.
@@ -1137,15 +1142,15 @@ The following input file computes the thermal conductivity in the Single-Mode Ap
 &tkinput 
  calculation = 'sma' 
  prefix="tk"
- file\_mat2 = './mat2R' 
- file\_mat3 = './FILD3DYN/mat3R.asr.sparse' 
+ file_mat2 = './mat2R' 
+ file_mat3 = './FILD3DYN/mat3R.asr.sparse' 
  outdir    = './' 
  asr2 = 'simple' 
  nconf = 1
  nk    = 12,12,12
- nk\_in = 24,24,24
- casimir\_scattering=.false. 
- isotopic\_disorder =.true.
+ nk_in = 24,24,24
+ casimir_scattering=.false. 
+ isotopic_disorder =.true.
 / 
 CONFIGS 
 5.0    10 
@@ -1159,16 +1164,16 @@ The following input file computes the thermal conductivity solving the BTE by fu
 &tkinput 
  calculation = 'cgp' 
  prefix="tk"
- file\_mat2 = './mat2R' 
- file\_mat3 = './FILD3DYN/mat3R.asr.sparse' 
+ file_mat2 = './mat2R' 
+ file_mat3 = './FILD3DYN/mat3R.asr.sparse' 
  outdir    = './' 
  asr2 = 'simple' 
  nconf = 9
  nk = 24,24,24
- niter\_max = 100
- thr\_tk = 1.d-4
- casimir\_scattering=.true. 
- sample\_length\_mu = 1.0 
+ niter_max = 100
+ thr_tk = 1.d-4
+ casimir_scattering=.true. 
+ sample_length_mu = 1.0 
 / 
 CONFIGS 
 5.0    10 
