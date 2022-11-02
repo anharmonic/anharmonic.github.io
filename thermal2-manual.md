@@ -7,7 +7,9 @@ permalink: /thermal2/
 <h1 style="color:#6f02ec; font-size:36px; font-weight:bold;">Thermal2 manual</h1>
 
 # Foreword
-The thermal2 suite of codes has been written starting in 2014 by Lorenzo Paulatto<sup>[1](#ref1)</sup>. It descends from an initial set of unreleased codes written by Giorgia Fugallo<sup>[1](#ref1),[2](#ref2)</sup> and Andrea Cepellotti<sup>[3](#ref3)</sup>, both have also participated in the development. The code contains some subroutines from the [Quantum-ESPRESSO](https://www.quantum-espresso.org) distribution. Other people who have given a positive contribution to code development include Mauri<sup>[1](#ref1),[4](#ref4)</sup>, Raffaelo Bianco<sup>[1](#ref1),[16](#ref16)</sup>, Ion Errea<sup>[1](#ref1),[5](#ref5)</sup> and Nicola Marzari<sup>[3](#ref3)</sup>.
+The thermal2 suite of codes has been written starting in 2014 by Lorenzo Paulatto<sup>[1](#ref1)</sup>. It descends from an initial set of unreleased codes written by Giorgia Fugallo<sup>[1](#ref1),[2](#ref2)</sup> and Andrea Cepellotti<sup>[3](#ref3)</sup>, both have also participated in the development. The Wigner conductivity expression has been developed by Michele Simoncelli<sup>[17](#ref17)</sup>
+
+The code contains some subroutines from the [Quantum-ESPRESSO](https://www.quantum-espresso.org) distribution. Other people who have given a positive contribution to code development include Francesco Mauri<sup>[1](#ref1),[4](#ref4)</sup>, Raffaelo Bianco<sup>[1](#ref1),[16](#ref16)</sup>, Ion Errea<sup>[1](#ref1),[5](#ref5)</sup> and Nicola Marzari<sup>[3](#ref3)</sup>.
 
 ## Copyright
 All the files are provided under the [GPL license, v2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html) or newer and, when possible, under the [CeCILL license](https://cecill.info/licences/Licence\_CeCILL\_V2.1-fr.html). A single file nist\_isotopes\_db.f90 contains public domain data from the National Institute of Standards and Technology.
@@ -1201,6 +1203,7 @@ In particular ref. 1 describes the calculation of 3rd order dynamical matrices u
 14. <a name="ref14" href="https://journals.aps.org/prb/abstract/10.1103/PhysRevB.61.6677">M. Omini and A. Sparavigna, Phys. Rev. B 61, 6677 (2000)</a>
 15. <a name="ref15" href="https://journals.aps.org/prb/abstract/10.1103/PhysRevB.88.045430">L. Paulatto, D Fournier, M Marangolo, M Eddrief, P Atkinson, M Calandra. Phys. Rev. B 101 (20), 205419 (2020)</a>
 16. <a name="ref16" href="https://journals.aps.org/prb/abstract/10.1103/PhysRevB.96.014111">R. Bianco, I. Errea, L. Paulatto, M. Calandra, and F. Mauri. Phys. Rev. B 96, 014111 (2017)</a>
+17. <a name="ref17" href="https://www.nature.com/articles/s41567-019-0520-x.pdf?proof=t%29Nature">Simoncelli, Marzari, Mauri, Nature Physics volume 15, 809–813 (2019)</a>
 
 # Change Log
 See the changelog file in the "Doc" subdirectory.
