@@ -12,7 +12,7 @@ The thermal2 suite of codes has been written starting in 2014 by Lorenzo Paulatt
 The code contains some subroutines from the [Quantum-ESPRESSO](https://www.quantum-espresso.org) distribution. Other people who have given a positive contribution to code development include Francesco Mauri<sup>[1](#ref1),[4](#ref4)</sup>, Raffaelo Bianco<sup>[1](#ref1),[16](#ref16)</sup>, Ion Errea<sup>[1](#ref1),[5](#ref5)</sup> and Nicola Marzari<sup>[3](#ref3)</sup>.
 
 ## Copyright
-All the files are provided under the [GPL license, v2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html) or newer and, when possible, under the [CeCILL license](https://cecill.info/licences/Licence\_CeCILL\_V2.1-fr.html). A single file nist\_isotopes\_db.f90 contains public domain data from the National Institute of Standards and Technology.
+All the files are provided under the [GPL license, v2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html) or newer and, when possible, under the [CeCILL license](https://cecill.info/licences/Licence_CeCILL_V2.1-fr.html). A single file nist\_isotopes\_db.f90 contains public domain data from the National Institute of Standards and Technology.
 
 ## Citing
 We would greatly appreciate if when using the thermal2 suite of codes you cite the following papers where the underlying theory is described in detail (see also the [the bibliography](#Bibliography)):
@@ -91,7 +91,7 @@ This code converts a file of third order FCs from dense form to sparse form; it 
 Syntax:
 ```
 sparse.x [-i mat3R.input] [-o mat3R.output] 
-	    [-t threshold] [-n num\_trials]
+	    [-t threshold] [-n num_trials]
 ```
 Where ma3R.input (default mat3R) is the name of the dense file of Fcs, mat3R.output will be the output file of sparse FCs (you can use "none" to avoid saving them to file); threshold is in Ry/bohr<sup>3</sup> (all matrix elements smaller than this will be discarded, default: zero, do not discard anything) and num\_trials is the number of random trial q-point triplets to compute by Fourier interpolation. If num\_trials is provided, the code will print out the elapsed time using the dense and sparse algorithm, the speedup and the eventual discrepancy between the two methods (which should be zero if the threshold is zero)
 
@@ -100,14 +100,14 @@ This code applies the acoustic sum rules (ASR) to the third order FCs. It can on
 Syntax:
 ```
 asr3.x [-i mat3R.input] [-o mat3R.output]
-       [-t threshold] [-n iter\_max]
+       [-t threshold] [-n iter_max]
 ```       
 These options will read the dense FCs from file mat3R.input, apply the ASR iteratively until threshold is reached (default 10<sup>-12</sup>), or for iter\_max, then save it to mat3R.output (default: mat3R.input.asr). If a file named "STOP" is found in the working directory, the code will stop after the next iteration and  immediately save the FCs to mat3R.output
 
 #### d3\_recenter.x
 NOTE: this code is useful for debugging, but it is provided "as is", with no support or guarantee.
 ```
-d3\_recenter.x NQX NQY NQZ [-n NFAR]
+d3_recenter.x NQX NQY NQZ [-n NFAR]
            [-i mat3R.input] [-o mat3R.output] [-w]
 ```
 Reads force constants from mat3R.input, interpolate them on a grid of NQX × NQY × NQZ points, recenter them on a Wigner-Seitz cell constructed up to NFAR unit cells and save the result in mat3R.input.recenter.
@@ -118,8 +118,8 @@ If the -w option is specified, the intermediate D3 matrices will, for the NQX ×
 
 #### d3\_import\_shengbte.x
 ```
-d3\_import\_shengbte.x NQX NQY NQZ [-n NFAR] [-w] [-s mat2R]
-           [-i FORCE\_CONSTANT\_THIRD] [-o mat3R.shengbte] 
+d3_import_shengbte.x NQX NQY NQZ [-n NFAR] [-w] [-s mat2R]
+           [-i FORCE_CONSTANT_THIRD] [-o mat3R.shengbte] 
 ```
 Reads the 3-body force constants produced by Mingo & Carrete code thirdorder.py6 and import them to the thermal2 format. The size of the supercell used for the FCs calculation must be specified as NQX × NQY × NQZ. In order to prepare the FCs for Fourier interpolation, they are taken to reciprocal space and then back to real space, and re-centered including up to NFAR neighbouring cell to ensure locality.
 
@@ -178,7 +178,7 @@ The following scripts are in the tools subdirectory, they can be useful in speci
 Reads a list of D3 matrix files in XML format from standard input and write them to a single ASCII file called d3.txt
 apply\_asr.sh
 ```
-apply\_asr.sh [-i FILDYN.in] [-o FILDYN.out] [-a ASR\_TYPE]
+apply_asr.sh [-i FILDYN.in] [-o FILDYN.out] [-a ASR_TYPE]
 ```
 A simple bash script that applies the sum rule to a set of dynamical matrix files (FILDYN.in*, default: dyn) produced by phonon and saves them with a different name (FILDYN.out*, default: asr\_dyn). Useful to apply the sum rule ‘crystal’ (default for ASR\_TYPE) which is not supported by the thermal2 codes yet. The final fildyn files can be used normally with d3\_q2r.x or q2r.x.
 
@@ -304,11 +304,11 @@ After the namelist, the code reads n\_volumes lines, each line contains the name
 ```
 &qhainput
  ...
- n\_volumes = 3
+ n_volumes = 3
 /
-mat2R\_1   -85.72256763
-mat2R\_2   -85.72385873
-mat2R\_3   -85.73049838
+mat2R_1   -85.72256763
+mat2R_2   -85.72385873
+mat2R_3   -85.73049838
 ```
 It may be necessary to enclose the name of the file in quotes "…" if it contains any special character, such as "/". The energy are in Ry and are just the "total energy" printed by pw.x at total convergence.
 
@@ -411,7 +411,7 @@ will output as the final lines the most important decay processes. See also sigm
 As q\_summed, but the energy dependence is not integrated out. The output file will contain an analysis of the decay process as a function of the final state q-point and energy. Note that this file can be huge, and it is almost impossible to plot for an entire grid. Along a line, you can produce a color plot using this gnuplot command (assuming that the file freq.out contains the frequencies):
 ```
 set palette defined (0  "white", 1  "red") 
-plot "fs\_qresolved\_T300\_s1.out" u 1:2:6 w image, \
+plot "fs_qresolved_T300_s1.out" u 1:2:6 w image, \
      for [i=6:11] 'freq.out' u 2:i w l lt -1 not
 ```
 See also sigmaq and q\_summed and the output format. Note that the "image" plot mode suppose that the x-axis spacing is constant, if it is not, you will have to do a 3D "splot" with "view map" in order to obtain a good plot.
@@ -884,9 +884,9 @@ The following example is useful for testing the convergence of the linewidth cal
 ```
 &lwinput 
  calculation = 'lw imag' 
- prefix = 'lw\_NK' 
- file\_mat2 = '../FILDYN/mat2R.100Ry.4' 
- file\_mat3 = '../FILD3DYN/mat3R\_asr\_sparse' 
+ prefix = 'lw_NK' 
+ file_mat2 = '../FILDYN/mat2R.100Ry.4' 
+ file_mat3 = '../FILD3DYN/mat3R_asr_sparse' 
  outdir    = './' 
  asr2 = 'simple'  
  nconf = 7
@@ -910,9 +910,9 @@ You can then extract the data with a script like this:
 
 #!/bin/bash
 for smr in 0.1 0.2 0.5 1.0 2.0 5.0 10.0;do
-	grep "^ *1 " lw\_*s${smr}.out|\
+	grep "^ *1 " lw_*s${smr}.out|\
 	awk '{print $1,$(NF-2),$(NF-1),$NF}'|\
-	sed -re 's/lw\_|\_T|\_s|.out|:/  /g' |\
+	sed -re 's/lw_|_T|_s|.out|:/  /g' |\
 	sort -k 1n > s${smr}.dat;
 done 
 ```
@@ -928,14 +928,14 @@ In brief: do not take a value too small for the smearing, something of the order
 ```
 &lwinput 
  calculation = 'lw full'
- file\_mat2 = 'mat2R' 
- file\_mat3 = 'mat3R.xxx\_asr\_sparse' 
+ file_mat2 = 'mat2R' 
+ file_mat3 = 'mat3R.xxx_asr_sparse' 
  outdir    = './' 
  asr2 = 'simple' 
  nconf = 15 
  nk = 100,100,10 
  nq = 5 
- sort\_shifted\_freq = .true. 
+ sort_shifted_freq = .true. 
 / 
 CONFIGS 
 5.0     0 
@@ -967,8 +967,8 @@ Spectral function calculations are not as well optimized as linewidth ones and c
 ```
 &lwinput 
  calculation = 'spf'
- file\_mat2 = 'mat2R' 
- file\_mat3 = 'mat3R.xxx\_asr\_sparse' 
+ file_mat2 = 'mat2R' 
+ file_mat3 = 'mat3R.xxx_asr_sparse' 
  outdir    = './' 
  asr2 = 'simple' 
  nconf = 1
@@ -1000,15 +1000,15 @@ Final state can be decomposed over the energy, giving a kind of DOS of the final
 ```
 &lwinput 
  calculation = 'final' 
- file\_mat2 = 'T\_295K/mat2R' 
- file\_mat3 = '../mat3R\_asr' 
- outdir    = 'T\_295K/' 
+ file_mat2 = 'T_295K/mat2R' 
+ file_mat3 = '../mat3R_asr' 
+ outdir    = 'T_295K/' 
  asr2 = "simple"
  nconf = 3 
  nk =  20, 20, 20 
  nq = 1 ! actually unused
- e\_initial = 490.80 
- q\_initial = -0.5, 0.0, 0.0 
+ e_initial = 490.80 
+ q_initial = -0.5, 0.0, 0.0 
  ne =201 
  de = 3.5 
  e0 = 0. 
@@ -1026,8 +1026,8 @@ Final state over a high-symmetry path in the brillouin zone.
 &lwinput
   calculation = 'final'
   prefix="final"
-  file\_mat2 = 'mat2R'
-  file\_mat3 = 'mat3R.asr.sparse'
+  file_mat2 = 'mat2R'
+  file_mat3 = 'mat3R.asr.sparse'
   outdir    = './LW/'  
   asr2 = 'simple'   
   nk =  31, 31, 31
@@ -1036,9 +1036,9 @@ Final state over a high-symmetry path in the brillouin zone.
   ne = 2000
   de = 0.5
 
-  e\_initial = 682.  ! a
-  q\_initial = 0.0000010000,    0.0000000000,    0.0000000000 
-  q\_resolved = .true.
+  e_initial = 682.  ! a
+  q_initial = 0.0000010000,    0.0000000000,    0.0000000000 
+  q_resolved = .true.
   sigmaq= 0.02
 /
  CONFIGS
@@ -1072,20 +1072,20 @@ Final state as a 3D density map, plotted with XCrysDen. Note that the 40×40×40
 &lwinput
   calculation = 'final'
   prefix="G394-50K-111"
-  file\_mat2 = 'FILDYN/mat2R'
-  file\_mat3 = 'FILD3DYN/mat3R.asr.sparse'
+  file_mat2 = 'FILDYN/mat2R'
+  file_mat3 = 'FILD3DYN/mat3R.asr.sparse'
   outdir    = './FS/'
   asr2 = 'simple'
   nk = 200,200,200
-  grid\_type = 'random'
-  q\_initial = 0.05, 0.00, 0.00
-  nu\_initial = 3
+  grid_type = 'random'
+  q_initial = 0.05, 0.00, 0.00
+  nu_initial = 3
 
   ne = 650
   de = 0.5
 
-  q\_resolved = .false.
-  q\_summed = .true.
+  q_resolved = .false.
+  q_summed = .true.
   sigmaq= 0.05
 
 /
@@ -1104,14 +1104,14 @@ you can use the [option "plane"](#qpoints) to plot a section of the unit cell.
 ```
 &lwinput 
  calculation = 'lw full' 
- prefix="lw\_2d" 
- file\_mat2 = '../../1l.FILDYN/mat2R.4.vac.nozeu' 
- file\_mat3 = '../../1l.FILD3DYN/mat3R.xxx\_asr\_sparse' 
+ prefix="lw_2d" 
+ file_mat2 = '../../1l.FILDYN/mat2R.4.vac.nozeu' 
+ file_mat3 = '../../1l.FILD3DYN/mat3R.xxx\_asr\_sparse' 
  outdir    = './' 
  asr2 = 'simple'
  nconf = 1 
  nk = 20,20,1 
- sort\_shifted\_freq = .false. 
+ sort_shifted_freq = .false. 
 / 
 CONFIGS 
 1.0    300
@@ -1121,7 +1121,7 @@ QPOINTS bz
 
 You can then plot the resulting file with a gnuplot command like this (you will have to tune the pointsize and of course select the correct band to plot):
 ```
-p 'lw\_2d.50x50x1@bz\_T300\_s10.out' u 3:4:12 w p palette pt 7 pointsize 1.7 not
+p 'lw_2d.50x50x1@bz_T300_s10.out' u 3:4:12 w p palette pt 7 pointsize 1.7 not
 ```
 
 This is an example from graphene (done using 128x128 BZ-centered points):
@@ -1137,15 +1137,15 @@ The following input file computes the thermal conductivity in the Single-Mode Ap
 &tkinput 
  calculation = 'sma' 
  prefix="tk"
- file\_mat2 = './mat2R' 
- file\_mat3 = './FILD3DYN/mat3R.asr.sparse' 
+ file_mat2 = './mat2R' 
+ file_mat3 = './FILD3DYN/mat3R.asr.sparse' 
  outdir    = './' 
  asr2 = 'simple' 
  nconf = 1
  nk    = 12,12,12
- nk\_in = 24,24,24
- casimir\_scattering=.false. 
- isotopic\_disorder =.true.
+ nk_in = 24,24,24
+ casimir_scattering=.false. 
+ isotopic_disorder =.true.
 / 
 CONFIGS 
 5.0    10 
@@ -1159,16 +1159,16 @@ The following input file computes the thermal conductivity solving the BTE by fu
 &tkinput 
  calculation = 'cgp' 
  prefix="tk"
- file\_mat2 = './mat2R' 
- file\_mat3 = './FILD3DYN/mat3R.asr.sparse' 
+ file_mat2 = './mat2R' 
+ file_mat3 = './FILD3DYN/mat3R.asr.sparse' 
  outdir    = './' 
  asr2 = 'simple' 
  nconf = 9
  nk = 24,24,24
- niter\_max = 100
- thr\_tk = 1.d-4
- casimir\_scattering=.true. 
- sample\_length\_mu = 1.0 
+ niter_max = 100
+ thr_tk = 1.d-4
+ casimir_scattering=.true. 
+ sample_length_mu = 1.0 
 / 
 CONFIGS 
 5.0    10 
