@@ -1,0 +1,2603 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode,linktoc=all}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[top=3cm,left=3cm,right=3cm,bottom=3cm]{geometry}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{csquotes}
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Thermal2 User Manual},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Thermal2 User Manual}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{User Manual and Quick Reference}
+\author{}
+\date{}
+
+\makeatletter
+\def\@xobeysp{\mbox{}\space}
+\def\verbatim@font{\normalfont\ttfamily\raggedright}
+%\def\enquote#1{{``#1''}}
+\makeatother
+
+%lp
+\setmainfont{TeX Gyre Schola}
+\setmathfont{TeX Gyre Schola Math}
+
+\begin{document}
+\begin{titlepage}
+\input{tp-thermal2.tex}
+\end{titlepage}
+
+{
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+\hypertarget{foreword}{%
+\section{Foreword}\label{foreword}}
+
+The thermal2 suite of codes has been written starting in 2014 by Lorenzo
+Paulatto{[}\protect\hyperlink{ref1}{1}{]}. It descends from an initial
+set of unreleased codes written by Giorgia
+Fugallo{[}\protect\hyperlink{ref1}{1},\protect\hyperlink{ref2}{2}{]} and
+Andrea Cepellotti{[}\protect\hyperlink{ref3}{3}{]}, both have also
+participated in the development. The Wigner conductivity expression has
+been developed by Michele
+Simoncelli{[}\protect\hyperlink{ref17}{17},\protect\hyperlink{ref18}{18}{]}.
+
+\hypertarget{copyright}{%
+\subsection{Copyright}\label{copyright}}
+
+All the files are provided under the
+\href{https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html}{GPL
+license, v2} or newer and, when possible, under the
+\href{https://cecill.info/licences/Licence_CeCILL_V2.1-fr.html}{CeCILL
+license}. A single file nist\_isotopes\_db.f90 contains public domain
+data from the National Institute of Standards and Technology.
+
+\hypertarget{citing}{%
+\subsection{Citing}\label{citing}}
+
+We would greatly appreciate if when using the thermal2 suite of codes
+you cite the following papers where the underlying theory is described
+in detail (see also the \protect\hyperlink{Bibliography}{the
+bibliography}):
+
+\begin{itemize}
+\tightlist
+\item
+  All applications: L. Paulatto, F. Mauri, and M. Lazzeri, Phys. Rev.~B
+  87, 214303 (2013)
+\item
+  Exact BTE solution: G. Fugallo, M. Lazzeri, L. Paulatto, and F. Mauri,
+  Phys. Rev.~B 88, 045430 (2013)
+\item
+  Spectral functions: L. Paulatto, I. Errea, M. Calandra, and F. Mauri,
+  Phys. Rev.~B 91, 054304 (2015)
+\item
+  Finite size effects: L. Paulatto, D. Fournier, M. Marangolo, M.
+  Eddrief, P. Atkinson, M. Calandra. Phys. Rev.~B 101 (20), 205419
+  (2020)
+\item
+  For Wigner conductivity: Simoncelli, Marzari, Mauri, Nature Physics
+  volume 15, 809--813 (2019) and Simoncelli, Marzari, Mauri, Physical
+  Review X 12 041011 (2022).
+\end{itemize}
+
+\hypertarget{table-of-contents}{%
+\section{Table of contents}\label{table-of-contents}}
+
+\hypertarget{quick-reference-manual}{%
+\section{Quick Reference Manual}\label{quick-reference-manual}}
+
+\hypertarget{compiling-the-code}{%
+\subsection{Compiling the code}\label{compiling-the-code}}
+
+The thermal2 codes come bundled with the D3Q code, used to compute
+ab-initio the 3rd order dynamical matrices. We refer you to the D3Q
+manual for more detailed instruction on compiling. A separate
+stand-alone distribution of the thermal2 codes is being considered and
+may be available in the future.
+
+\hypertarget{list-of-codes}{%
+\subsection{List of codes}\label{list-of-codes}}
+
+The thermal2 suite of codes contains a number of small specialized codes
+that only take command line arguments, and a few larger codes that read
+input from a file. This is the list of codes and a brief description.
+
+\hypertarget{main-codes}{%
+\subsubsection{Main codes}\label{main-codes}}
+
+Each of these codes will be reviewed in detail in a separate section.
+
+\hypertarget{harmonic-phonons-d3_r2q.x}{%
+\paragraph{Harmonic phonons
+(d3\_r2q.x)}\label{harmonic-phonons-d3_r2q.x}}
+
+This code can compute the phonon frequency at a q-point or along a path,
+it can optionally print out the dynamical matrix. It is analogous to the
+matdyn.x code of the Quantum-ESPRESSO (QE) Phonon suite, but it uses the
+highly optimized subroutines developed for d3\_lw.x and d3\_tk.x. It
+should be used to check the phonon dispersion before doing more serious
+calculations. It can also compute some useful harmonic phonon
+quantities: 1. group velocities 2. interpolated dynamical matrices at
+any q-point 3. mean square displacement of atoms at a give temperature
+4. phonon internal energy and zero-point energy
+
+See also \protect\hyperlink{d3_r2qx}{d3\_q2r.x}.
+
+\hypertarget{quasi-harmonic-approximation-d3_qha.x}{%
+\paragraph{Quasi harmonic approximation
+(d3\_qha.x)}\label{quasi-harmonic-approximation-d3_qha.x}}
+
+An efficient and very easy to use quasi-harmonic approximation
+implementation. It includes hydrostatic pressure effect and
+equation-of-state fitting. See also
+\protect\hyperlink{d3_qhax}{d3\_qha.x input format}
+
+\hypertarget{third-order-linewidth-d3_lw.x.}{%
+\paragraph{Third order linewidth
+(d3\_lw.x).}\label{third-order-linewidth-d3_lw.x.}}
+
+This code computes phonon anharmonic properties: 1. phonon linewidth
+(i.e.~its inverse lifetime, aka HWHM, aka the Imaginary part of the
+bubble-diagram self energy), 2. the entire bubble-diagram self energy
+(comprising both the third order linewidth and the lineshift) and 3. the
+phonon spectral weight for a range of energies. 4. the final state
+decomposition of an energy, interpreted as two-phonons scattering
+
+See also \protect\hyperlink{d3_lwx}{d3\_lw.x input format}.
+
+It always includes the intrinsic anharmonic contribution from
+phonon-phonon interaction and can optionally include Casimir border
+scattering and isotope scattering.
+
+\hypertarget{thermal-conductivity-d3_tk.x}{%
+\paragraph{Thermal conductivity
+(d3\_tk.x)}\label{thermal-conductivity-d3_tk.x}}
+
+The tk code computes the thermal conductivity. It can use the
+Single-Mode Approximation (SMA) or the variational approaches
+implemented by Fugallo et.al. {[}2{]} using a robust conjugate gradient
+minimization. It can include Casimir and isotope scattering {[}15{]}.
+See also \protect\hyperlink{d3_tkx}{d3\_tk.x input format}.
+
+\hypertarget{temperature-dependent-phonons-d3_tdph.x}{%
+\paragraph{Temperature-dependent phonons
+(d3\_tdph.x)}\label{temperature-dependent-phonons-d3_tdph.x}}
+
+A simple reciprocal space implementation of the temperature-dependent
+effective potential (TDEP) method. Still experimental, only second order
+force constants are include! See also
+\protect\hyperlink{d3_tdphx}{d3\_tdph.x input format}.
+
+\hypertarget{thermal2-utilities}{%
+\subsubsection{Thermal2 utilities}\label{thermal2-utilities}}
+
+\hypertarget{d3_q2r.x}{%
+\paragraph{d3\_q2r.x}\label{d3_q2r.x}}
+
+This code is analogous to the q2r.x code of QE, and it uses the same
+input, but produces a file of Force Constants (FCs) which has already
+been re-centered in the reciprocal space Wigner-Seitz cell to make
+Fourier Interpolation faster.
+
+In addition to the standard q2r variables, you can specify
+\enquote{nfar} which is the distance from the origin, in unit cells,
+used to construct the first Brilloouin zone. Setting nfar=2 produces
+\enquote{centered} force constants, useful for Fourier interpolation.
+Setting nfar=0 produces standard \enquote{periodic} force constants that
+can be directly compared with the ones from Quantum ESPRESSO.
+
+\hypertarget{d3_qq2rr.x}{%
+\paragraph{d3\_qq2rr.x}\label{d3_qq2rr.x}}
+
+Analogous to q2r.x, but operates on the 3rd order matrices. This codes
+takes as command line arguments the dimension of the q-points grid and
+optionally the name of the output file. You must feed it feed by
+standard input the list of anharmonic dynamical matrices in the XML
+format produced by d3q.x. For example, d3q was run with
+fild3dyn=\enquote{anh} for a NQX × NQY × NQZ grid, you can compute the
+3rd order FCs as:
+
+\begin{verbatim}
+ls anh* | qq2rr.x NQX NQY NQZ [-o mat3R] [-f NFAR] [-w]
+\end{verbatim}
+
+The result will be written by default to a file called mat3R, but you
+can change this with the -o option. You can specify the optional
+argument NFAR (default=2) which is the number of neighbors that the code
+will scan to build the Wigner-Seitz cell. The default value usually
+works, a larger value may be necessary with very anisotropic cells or if
+atoms are placed very far away from the origin. You can set it to zero
+to avoid any re-centering: The resulting force constant will be
+unsuitable for doing any further calculation, due to aliasing in the
+Fourier interpolation, but they may be easier to import/convert to
+another code format.
+
+The code will automatically select from the list the files that it needs
+to fill the grid; all the other files will be discarded. Which means
+that you can easily compute the force constants for any sub-lattice of
+the one available, just by changing the values of NQX, NQY and NQZ.
+
+After writing the force constant to file, the code will perform two
+optional tests (you can skip them pressing CTRL-C). First test: for this
+test the initial D3 matrices will be recomputed using the force
+constants with both the real and imaginary parts (which should be zero).
+Second test: recompute the D3 matrices with only the real part of the
+force constants. If any discrepancy is detected it will be printed on
+output. Notice that any discrepancy in the first test indicate a very
+serious problem with the D3 calculation. On the other hand, some
+discrepancy is inevitable in the second test; especially if you your
+atoms where not in the theoretical equilibrium positions. Also,
+increasing the cutoff and k-points can improve the consistency of the
+second test.
+
+If the -w option is specified, when performing the FFT test, if the
+re-computed D3 matrix differs significantly from the initial one it will
+be printed to a file. The file will start with prefix
+\enquote{anh\_cmplx} for the first test and \enquote{anh\_real} for the
+second test.
+
+\hypertarget{d3_sparse.x}{%
+\paragraph{d3\_sparse.x}\label{d3_sparse.x}}
+
+This code converts a file of third order FCs from dense form to sparse
+form; it can optionally discard elements that are smaller than a custom
+threshold. It can also measure the speedup gained by using the sparse
+FCs instead of the dense ones. Syntax:
+
+\begin{verbatim}
+sparse.x [-i mat3R.input] [-o mat3R.output] 
+        [-t threshold] [-n num_trials]
+\end{verbatim}
+
+Where ma3R.input (default mat3R) is the name of the dense file of Fcs,
+mat3R.output will be the output file of sparse FCs (you can use
+\enquote{none} to avoid saving them to file); threshold is in
+Ry/bohr{[}3{]} (all matrix elements smaller than this will be discarded,
+default: zero, do not discard anything) and num\_trials is the number of
+random trial q-point triplets to compute by Fourier interpolation. If
+num\_trials is provided, the code will print out the elapsed time using
+the dense and sparse algorithm, the speedup and the eventual discrepancy
+between the two methods (which should be zero if the threshold is zero)
+
+\hypertarget{d3_asr3.x}{%
+\paragraph{d3\_asr3.x}\label{d3_asr3.x}}
+
+This code applies the acoustic sum rules (ASR) to the third order FCs.
+It can only work on dense Fcs, not on the sparse ones. As the sum is
+applied iteratively, it will automatically stop after 10,000 iterations,
+or when the residual violation of the ASR is less than 10{[}-12{]} or if
+a file named STOP is found in the running directory. Syntax:
+
+\begin{verbatim}
+asr3.x [-i mat3R.input] [-o mat3R.output]
+       [-t threshold] [-n iter_max]
+\end{verbatim}
+
+These options will read the dense FCs from file mat3R.input, apply the
+ASR iteratively until threshold is reached (default 10{[}-12{]}), or for
+iter\_max, then save it to mat3R.output (default: mat3R.input.asr). If a
+file named \enquote{STOP} is found in the working directory, the code
+will stop after the next iteration and immediately save the FCs to
+mat3R.output
+
+\hypertarget{d3_recenter.x}{%
+\paragraph{d3\_recenter.x}\label{d3_recenter.x}}
+
+NOTE: this code is useful for debugging, but it is provided \enquote{as
+is}, with no support or guarantee.
+
+\begin{verbatim}
+d3_recenter.x NQX NQY NQZ [-n NFAR]
+           [-i mat3R.input] [-o mat3R.output] [-w]
+\end{verbatim}
+
+Reads force constants from mat3R.input, interpolate them on a grid of
+NQX × NQY × NQZ points, recenter them on a Wigner-Seitz cell constructed
+up to NFAR unit cells and save the result in mat3R.input.recenter.
+
+Uses the properties of Fourier interpolation to transform the 3rd order
+force constants from a grid to another. If the new grid is different
+than the initial one, some interpolation will be done, if the grid is
+the same, you can use the nfar parameter to recalculate the Wigner-Seitz
+cell centering. This code be useful to compare the results from grids of
+different sizes, or to put the force constants in a format that is
+easier to understand for external codes.
+
+If the -w option is specified, the intermediate D3 matrices will, for
+the NQX × NQY × NQZ grid will be written to files called
+atmp\_Q1\ldots\_Q2\ldots\_Q\ldots.
+
+\hypertarget{d3_import_shengbte.x}{%
+\paragraph{d3\_import\_shengbte.x}\label{d3_import_shengbte.x}}
+
+\begin{verbatim}
+d3_import_shengbte.x NQX NQY NQZ [-n NFAR] [-w] [-s mat2R]
+           [-i FORCE_CONSTANT_THIRD] [-o mat3R.shengbte] 
+\end{verbatim}
+
+Reads the 3-body force constants produced by Mingo \& Carrete code
+thirdorder.py6 and import them to the thermal2 format. The size of the
+supercell used for the FCs calculation must be specified as NQX × NQY ×
+NQZ. In order to prepare the FCs for Fourier interpolation, they are
+taken to reciprocal space and then back to real space, and re-centered
+including up to NFAR neighbouring cell to ensure locality.
+
+In order to read the system information (cell and position of the atoms)
+a file containing the force constants header in the thermal2 format must
+be provided with the -s option (default: mat2R). Note that a 2nd order
+FCs file, produced with d3\_q2r.x or even with normal q2r.x, for the
+same system, is sufficient.
+
+If the -w option is specified, the intermediate D3 matrices, generated
+on the NQX × NQY × NQZ grid, will be written to files with names
+atmp\_Q1\ldots\_Q2\ldots\_Q3\ldots{} (check the manual of d3q for
+details on the file names).
+
+See also \protect\hyperlink{import_phonopypy}{import\_phonopy.py}.
+
+\hypertarget{d3_sqom.x}{%
+\paragraph{d3\_sqom.x}\label{d3_sqom.x}}
+
+NOTE: this code is experimental and not widely tested, use at your own
+risk.
+
+This codes reads a spectral weight file from d3\_lw.x and computes the
+convolution with a Lorentzian function that has an energy-dependent
+FWHM. This procedures simulates the broadening introduced by Raman
+spectroscopy experiments. This code can also sum and average the
+spectral function coming from several different files, to simulate the
+uncertainty of the neutron wavevectors. It reads its input from a file
+called input.SQOM. Please see teh example input.SQOM in Examples for
+details.
+
+\hypertarget{experimental-codes}{%
+\subsubsection{Experimental codes:}\label{experimental-codes}}
+
+\hypertarget{d3_db.x}{%
+\paragraph{d3\_db.x}\label{d3_db.x}}
+
+Uses the ansatz of ref. \protect\hyperlink{ref16}{16} to apply the
+anharmonic correction to the dynamical matrix (instead that on the
+phonon mode). Can be used to obtain 3rd-order corrected matrices that
+can be interpolated. In takes mostly the same input variables as
+d3\_lw.x in \protect\hyperlink{calculation-character-default-lw}{the
+\enquote{lw full} case} (but in namelist \&dbinput) and will print out
+dynamical matrix files for all the requested q-points.
+
+\hypertarget{tools}{%
+\subsubsection{Tools}\label{tools}}
+
+In the tools/ directory, a selection of tools for pre- and
+post-processing of data.
+
+\hypertarget{funcoft.sh}{%
+\paragraph{funcoft.sh}\label{funcoft.sh}}
+
+This is a short bash script to get a plottable file of the linewidth of
+a specific phonon mode as a function of temperature.
+
+It reads a list of linewidth files produced by d3\_lw.x and extracts the
+frequency, linewidth (and if possible shifted frequency) from all files
+for a specific phonon q-point and band and prints a list ordered by
+temperature and smearing. Syntax:
+
+\begin{verbatim}
+  funcoft.sh point mode file [file2 [file3...]]
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  point: index of the point to collect among the files
+\item
+  mode: number of the phonon mode 1\ldots3~nat
+\end{itemize}
+
+The output will contain 5 columns:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  temperature
+\item
+  smearing
+\item
+  omega
+\item
+  linewidth (gamma, HWHM)
+\item
+  shifted frequency (if available in the file)
+\end{enumerate}
+
+This script is provided \enquote{as is}, using non-standard names for
+the output files can break it.
+
+\hypertarget{recompute-sma.m}{%
+\paragraph{recompute-sma.m}\label{recompute-sma.m}}
+
+A simple octave/mathlab script that allow you to recompute the thermal
+conductivity in single mode approximation using the output from d3\_tk.x
+(using store\_lw=.true.) and d3\_r2q.x (using
+calculation=\enquote{extr}). This script allow you to quickly combine
+different intrinsic/extrinsic scattering sources without repeating the
+entire calculation, to manually change parameter and to extract useful
+information, like the per-mod contribution to thermal transport. Please
+note that this is not a brainless script: some editing (i.e.~at the very
+list the unit cell volume) and understanding of the physics is requires.
+
+\hypertarget{diffd3.x}{%
+\paragraph{diffd3.x}\label{diffd3.x}}
+
+Compare two D3 files, write on output the matrix elements and the
+maximum difference. Take as arguments either two file names (the first
+and second D3 matrix) or two directory names a file name, which will be
+opened in both directories.
+
+\hypertarget{d3_sc2c.x}{%
+\paragraph{d3\_sc2c.x}\label{d3_sc2c.x}}
+
+Open two D3 files, the first for a unit cell calculation for an
+arbitrary triplet, the second for a supercell calculation for a triplet
+of kind (0,q,-q). Then it refold the super-cell D3 matrix to the unit
+cell and compares the two.
+
+The following scripts are in the tools subdirectory, they can be useful
+in specific circumstances. They have little documentation, do not
+hesitate to ask for help if you cannot make them work.
+
+\hypertarget{xml2giorgia.x}{%
+\paragraph{xml2giorgia.x}\label{xml2giorgia.x}}
+
+Reads a list of D3 matrix files in XML format from standard input and
+write them to a single ASCII file called d3.txt
+
+\hypertarget{apply_asr.sh}{%
+\paragraph{apply\_asr.sh}\label{apply_asr.sh}}
+
+\begin{verbatim}
+apply_asr.sh [-i FILDYN.in] [-o FILDYN.out] [-a ASR_TYPE]
+\end{verbatim}
+
+A simple bash script that applies the sum rule to a set of dynamical
+matrix files (FILDYN.in\emph{, default: dyn) produced by phonon and
+saves them with a different name (FILDYN.out}, default: asr\_dyn).
+Useful to apply the sum rule \enquote{crystal} (default for ASR\_TYPE)
+which is not supported by the thermal2 codes yet. The final fildyn files
+can be used normally with d3\_q2r.x or q2r.x.
+
+\hypertarget{import_phonopy.py}{%
+\paragraph{import\_phonopy.py}\label{import_phonopy.py}}
+
+In tools you can also file a python script import\_phonopy\_qe.py and
+import\_phonopy\_vasp.py to import the FORCE\_CONSTANTS files of 2-body
+force constants produced by phonopy (with QE and VASP respectively).
+This script is in a very rudimentary stage, it will produce a file
+called \enquote{fc} with the force constants in the standard QE format.
+You will have to convert it to the thermal2 format with the fc2mat2R.sh
+script, also found in tools. A similar tool to convert 3-body force
+constants from phono3py could be obtained generalizing this one, but
+lack of documentatio makes it difficult to test.
+
+\hypertarget{fc2mat2r.sh}{%
+\paragraph{fc2mat2R.sh}\label{fc2mat2r.sh}}
+
+Convert a force constants file from the standard q2r format to the
+optimized format produced by d3\_q2r and used by thermal2. Do not use
+this script if you can use the original dynamical matrix files from
+phonon, use them instead as it is more accurate.
+
+\hypertarget{apply_asr.sh-1}{%
+\paragraph{apply\_asr.sh}\label{apply_asr.sh-1}}
+
+Apply the acoustic sum rule to a set of dynamical matrices using q2r and
+matdyn. Thermal2 does not implement the more sofisticate sum-rule
+methods, but you can apply them directly to the dynamical matrices using
+this little script.
+
+\hypertarget{codes-input-and-output}{%
+\section{Codes input and output}\label{codes-input-and-output}}
+
+The three main codes read their configuration from input files. All the
+variables included in the namelists can also be specified as command
+line arguments with the format
+
+\begin{verbatim}
+--keyword value
+\end{verbatim}
+
+You may have to put quotes around the value if it contains special
+characters or spaces. Note that this mechanism is still a bit
+experimental, and there is currently no way to specify the data blocks
+(QPOINTS, CONFIGS, etc.) from command line.
+
+\hypertarget{d3_r2q.x-code}{%
+\subsection{d3\_r2q.x code}\label{d3_r2q.x-code}}
+
+This code reads the 2nd order FCs and computes a number of different
+quantities that only depend on the harmonic 2nd order force constants,
+it is currently evolving and should be quite easy to modify and extend
+according to your needs. It reads its input from a Fortran namelist
+called \&r2qinput which contains the variables listed in the next
+section.
+
+After the namelist, the code will look for the keyword QPOINTS and will
+start reading the list of q-points. This part is described in detail in
+section QPOINTS
+
+\hypertarget{namelist-r2qinput}{%
+\subsubsection{Namelist \&r2qinput}\label{namelist-r2qinput}}
+
+\hypertarget{calculation-character-default-freq}{%
+\paragraph{\texorpdfstring{calculation (CHARACTER, default:
+\enquote{freq})}{calculation (CHARACTER, default: ``freq'')}}\label{calculation-character-default-freq}}
+
+The type of calculation to perform, currently this can be:
+
+\begin{itemize}
+\tightlist
+\item
+  \enquote{freq}: Compute the phonon frequencies, this keyword that you
+  specify nq and a QPOINTS section.
+\item
+  \enquote{jdos}: Compute the joint density of state. You will have to
+  specify the integration grid nk and a configuration in the CONFIGS
+  section (if you specify more, only the first configuration will be
+  used)
+\item
+  \enquote{rms} : Compute the root mean square displacement of the atoms
+  around their equilibrium positions in the harmonic hamiltonian at a
+  give temperature. It requires nk and one single configuration in
+  CONFIG.
+\item
+  \enquote{fh}: Compute the phonon free energy or, for T=0, the
+  zero-point energy.
+\end{itemize}
+
+\hypertarget{prefix-character-default-the-value-of-calculation}{%
+\paragraph{prefix (CHARACTER, default: the value of
+calculation)}\label{prefix-character-default-the-value-of-calculation}}
+
+The first part of the output file name, the file will be called
+\enquote{prefix.out}.
+
+\hypertarget{outdir-character-default-.-i.e.-the-current-directory}{%
+\paragraph{\texorpdfstring{outdir (CHARACTER, default: \enquote{./},
+I.e. the current
+directory)}{outdir (CHARACTER, default: ``./'', I.e. the current directory)}}\label{outdir-character-default-.-i.e.-the-current-directory}}
+
+Location where the output file will be saved.
+
+\hypertarget{file_mat2-character-no-default}{%
+\paragraph{file\_mat2 (CHARACTER, no
+default)}\label{file_mat2-character-no-default}}
+
+The file of the 2nd order force constants, produced by thermal2 internal
+version of q2r.x
+
+\hypertarget{asr2-character-default-no}{%
+\paragraph{\texorpdfstring{asr2 (CHARACTER, default:
+\enquote{no})}{asr2 (CHARACTER, default: ``no'')}}\label{asr2-character-default-no}}
+
+Method used to apply the acoustic sum rule, can be
+
+\begin{itemize}
+\tightlist
+\item
+  \enquote{no} (do not apply ASR)
+\item
+  \enquote{simple} (apply the compensation term to the on-site force
+  constant)
+\end{itemize}
+
+\hypertarget{nq-integer-no-default}{%
+\paragraph{nq (INTEGER, no default)}\label{nq-integer-no-default}}
+
+Number of q-points to read (see the QPOINTS section below)
+
+\hypertarget{print_dynmat-logical-default-.false.}{%
+\paragraph{print\_dynmat (LOGICAL, default:
+.false.)}\label{print_dynmat-logical-default-.false.}}
+
+If set to .true. A file containing the dynamical matrix, in phonon
+format, will be saved for each q-point (only works for
+calculation=\enquote{freq}). The file name will be
+\enquote{r2q\_dyn\_NQ} where NQ is the progressive number of the point.
+
+\hypertarget{sort_freq-character-default-default}{%
+\paragraph{\texorpdfstring{sort\_freq (CHARACTER, default:
+\enquote{default})}{sort\_freq (CHARACTER, default: ``default'')}}\label{sort_freq-character-default-default}}
+
+When plotting the linewidth and frequencies along a path, there are
+several ways to order the frequencies and associated linewidth and
+shifted frequencies:
+
+\begin{itemize}
+\tightlist
+\item
+  \enquote{default}: keep the default order of increasing frequencies
+\item
+  \enquote{overlap}: sort each point in order to maximize the overlap of
+  each band polarization with the corresponding band at the previous
+  point. This is the best choice for paths, but probably will not work
+  for 2D or 3D grid plots
+\end{itemize}
+
+\hypertarget{print_velocity-logical-default-.false.}{%
+\paragraph{print\_velocity (LOGICAL, default:
+.false.)}\label{print_velocity-logical-default-.false.}}
+
+If set to .true. a file containing the phonon group velocities will be
+saved (only applies when calculation=\enquote{freq}). The file name will
+be prefix\_vel.out, after the path length and the q-point, the
+velocities are printed in Cartesian coordinates, Rydberg units
+(1.09×10{[}6{]} m·s−1).
+
+\hypertarget{ne-de-e0-sigma_e-integer-real-real-in-cm-1-no-default}{%
+\paragraph{ne, de, e0, sigma\_e (INTEGER, REAL, REAL, in cm-1 no
+default)}\label{ne-de-e0-sigma_e-integer-real-real-in-cm-1-no-default}}
+
+Used for jdos calculation, see the description in \&lwinput section,
+below.
+
+\hypertarget{output-format}{%
+\subsubsection{Output format}\label{output-format}}
+
+The r2q.x code will produce an output file for every configuration. The
+output files will be named \$prefix.out (where \$prefix is the value of
+the input variable prefix). It contains the following columns:
+
+\begin{itemize}
+\tightlist
+\item
+  1 The line number i.e.~point index
+\item
+  2 The length of the q-point path or, if computing over a grid the
+  weight of the q-points
+\item
+  3→5 The coordinates of the q-point in units of 2π/alat
+\item
+  6→5+3~nat The phonon frequencies in cm-1.
+\end{itemize}
+
+\hypertarget{d3_qha.x-code}{%
+\subsection{d3\_qha.x code}\label{d3_qha.x-code}}
+
+This code reads the 2nd order FCs for a series of volumes and computes
+the phonon free energy for a given list of temperature, optionally
+adding a pV (pressure × volume) hydrostatic term. It then fits the total
+free energy with an equation of state to find the equilibrium volume at
+each temperature, and find the temperature/volume curve and the
+volumetric thermal expansion coefficient.
+
+\hypertarget{namelist-qhainput}{%
+\subsubsection{Namelist \&qhainput}\label{namelist-qhainput}}
+
+\hypertarget{calculation-character-default-gibbs}{%
+\paragraph{\texorpdfstring{calculation (CHARACTER, default:
+\enquote{gibbs})}{calculation (CHARACTER, default: ``gibbs'')}}\label{calculation-character-default-gibbs}}
+
+The type of calculation to perform, at the moment it can only do the
+default.
+
+\hypertarget{prefix-character-default-the-value-of-calculation-1}{%
+\paragraph{prefix (CHARACTER, default: the value of
+calculation)}\label{prefix-character-default-the-value-of-calculation-1}}
+
+The first part of the output file name, the file will be called
+\enquote{prefix\ldots.out}. Where the \enquote{\ldots{}} part depends on
+the kind of calculation (See the
+\protect\hyperlink{output-format-1}{Output format} section)
+
+\hypertarget{outdir-character-default-.-i.e.-the-current-directory-1}{%
+\paragraph{\texorpdfstring{outdir (CHARACTER, default: \enquote{./},
+i.e.~the current
+directory)}{outdir (CHARACTER, default: ``./'', i.e.~the current directory)}}\label{outdir-character-default-.-i.e.-the-current-directory-1}}
+
+Location where the output file will be saved.a
+
+\hypertarget{nt-dt-t0-integer-real-real-in-k}{%
+\paragraph{nT, dT, T0 (INTEGER, REAL, REAL, in
+K)}\label{nt-dt-t0-integer-real-real-in-k}}
+
+These three variables define the list of temperatures to compute: T0,
+T0+dT, \ldots, T0+(nT-1)dT. Use a sufficiently small value for dT in
+order to have a reliable thermal expansion coefficient.
+
+\hypertarget{asr2-character-default-no-1}{%
+\paragraph{\texorpdfstring{asr2 (CHARACTER, default:
+\enquote{no})}{asr2 (CHARACTER, default: ``no'')}}\label{asr2-character-default-no-1}}
+
+Method used to apply the acoustic sum rule, can be \enquote{no} (do not
+apply ASR), \enquote{simple} (apply the compensation term to the on-site
+force constant). You can use the script tools/apply\_asr.sh in order to
+apply more sophisticated sum rules using matdyn.x from qe.
+
+\hypertarget{nk-3x-integer-no-default}{%
+\paragraph{nk (3x INTEGER, no default)}\label{nk-3x-integer-no-default}}
+
+The size of the grid used to integrate the phonon-phonon interaction
+processes.
+
+\hypertarget{grid_type-character-default-simple}{%
+\paragraph{\texorpdfstring{grid\_type (CHARACTER, default:
+\enquote{simple})}{grid\_type (CHARACTER, default: ``simple'')}}\label{grid_type-character-default-simple}}
+
+Set this to \enquote{simple} to use a regular unshifted grid in
+reciprocal space. See the
+\protect\hyperlink{grid_type-character-default-simple-1}{description of
+d3\_lw.x input} for more details about this option.
+
+\hypertarget{press_kbar-real-kbar-0}{%
+\paragraph{press\_kbar (REAL, kbar, 0)}\label{press_kbar-real-kbar-0}}
+
+\hypertarget{press_gpa-real-gpa-0}{%
+\paragraph{press\_Gpa (REAL, Gpa, 0)}\label{press_gpa-real-gpa-0}}
+
+Optionally add an hydrostatic pressure, which will contribute a term pV
+to the total energy. The sign convention for pressure is that higher
+positive pressure means pushing stronger on the sample (i.e.~you may
+want to use a positive pressure value 99\% of the times).
+
+\hypertarget{n_volumes-integer-no-default}{%
+\paragraph{n\_volumes (INTEGER, no
+default)}\label{n_volumes-integer-no-default}}
+
+The number of volumes that have been computed ab-initio. The code expect
+to find a list of n\_volumes force constant files and total electronic
+energies after the namelist.
+
+\hypertarget{eos-character-default-murn}{%
+\subsubsection{\texorpdfstring{eos (CHARACTER, default:
+\enquote{murn})}{eos (CHARACTER, default: ``murn'')}}\label{eos-character-default-murn}}
+
+Kind of equation of state to use:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  murn → Murnaghan
+\item
+  birch1 → Birch 1st order
+\item
+  birch3 → Birch 3rd order
+\item
+  keane → Keane
+\end{enumerate}
+
+Note that in principle the EOS are empiriclly suitable for V-P
+(volume-pressure) curves, not for V-T. In practice they work remarkably
+well in all the cases we have tested.
+
+\hypertarget{list-of-volumes}{%
+\subsubsection{List of volumes}\label{list-of-volumes}}
+
+After the namelist, the code reads n\_volumes lines, each line contains
+the name of a force-constant file (produced by d3\_q2r.x) and the total
+electronic energy corresponding to it. For examples:
+
+\begin{verbatim}
+&qhainput
+ ...
+ n_volumes = 3
+/
+mat2R_1   -85.72256763
+mat2R_2   -85.72385873
+mat2R_3   -85.73049838
+\end{verbatim}
+
+It may be necessary to enclose the name of the file in quotes
+\enquote{\ldots{}} if it contains any special character, such as
+\enquote{/}. The energy are in Ry and are just the \enquote{total
+energy} printed by pw.x at total convergence.
+
+\hypertarget{output-format-1}{%
+\subsubsection{Output format}\label{output-format-1}}
+
+The code will create, in outdir, a file for each temperature with the
+equation of state for that temperature, and a final file with the
+theoretical volume/temperature curve, For each temperature, a file
+called \(prefix_T\)temperature.dat, in the file header you will find
+these informations that are obtained by fitting the total Gibbs free
+energy with an equation of state:
+
+\begin{itemize}
+\tightlist
+\item
+  v0: the equilibrium volume at this temperature
+\item
+  g0: the theoretical minimu of the free energy at v0
+\item
+  k0, dk0, d2k0: bulk modulus, its first and second derivatives
+\end{itemize}
+
+Afterwards, the file will contain these columns: 1. Cell volume in bohr
+2. total Gibbs temperature dependent energy (g) 3. total electronic
+energy (from input) 4. zero-point vibrational energy 5. phonon free
+energy 6. hydrostatic contribution (pV) 7. total energy w.r.t the
+minimum of the equation of state fitted (g-g0) 8. total Gibbs free
+energy from the fit
+
+The final file, called \$prefix.dat, contains the following columns: 1.
+Temperature\\
+2. Volume (bohr3)\\
+3. Volumetric thermal expansion\\
+4. Theoretical total free energy, at the equilibrium volume for this
+temperature (g(T,v0)) 5. Bulk modulus, its first and second derivatives
+
+\hypertarget{d3_lw.x-code}{%
+\subsection{d3\_lw.x code}\label{d3_lw.x-code}}
+
+This code can compute the intrinsic phonon-phonon interaction and the
+interaction of phonons with isotopic disorder and border scattering. It
+reads its input variables from the \&lwinput namelist and from the
+QPOINTS, CONFIGS and ISOTOPES lists, which are described in detail in
+their corresponding sections.
+
+\hypertarget{namelist-lwinput}{%
+\subsubsection{Namelist \&lwinput}\label{namelist-lwinput}}
+
+\hypertarget{calculation-character-default-lw}{%
+\paragraph{\texorpdfstring{calculation (CHARACTER, default:
+\enquote{lw})}{calculation (CHARACTER, default: ``lw'')}}\label{calculation-character-default-lw}}
+
+The type of calculation to perform, it can take several different
+values:
+
+\begin{itemize}
+\tightlist
+\item
+  \enquote{lw imag}: compute the imaginary part of the self-energy,
+  i.e.~the phonon linewidth. In this mode the code will enforce
+  conservation of energy with a Diract delta function approximated with
+  a Gaussian function of width delta, read from the CONFIGS section.
+\item
+  \enquote{lw full}: compute the entire self energy, the real part is
+  the lineshift and the imaginary part is the linewidth. In this case
+  the value of delta from the CONFIGS will be used as a regularization
+  for the self-energy.
+\item
+  \enquote{spf full}: compute the spectra function, also known as σ(ω),
+  for a list of energies, provided by the input variables ne, de, e0 and
+  sigma\_e (see below) and for all q-points.
+\item
+  \enquote{spf imag}: as \enquote{spf full}, but only the imaginary part
+  of the self-energy will be used, i.e.~the spectra function will be
+  centered around the non-shifted phonon energy. This is often in better
+  agreement with experiments than \enquote{spf full}, unless you also
+  include somehow the 4-phonons self-energy contribution, because the
+  real part of the 3-phonon term and the 4-phonon terms tend to cancel
+  each other out.
+\item
+  \enquote{spf simple}: simulate the spectral function as a
+  superposition of Lorentzian functions centered around the phonon
+  frequencies and appropriate width, see also ne, de and n0. This is
+  equivalent to \enquote{spf full} when the anharmonicity is very weak.
+\item
+  \enquote{final}: decompose the contribution to the linewidth to a
+  specific energy and q-point (specified with the e\_initial and
+  q\_initial keywords) over the energy of the final states in the
+  scattering process or over the final q, or both (see q\_summed and
+  q\_resolved). In the first case you must specify the range of final
+  energies to consider with the ne, de and e0 keywords; in the second
+  case the possible final q-points will be read from the QPOINTS
+  section.
+\end{itemize}
+
+\hypertarget{prefix-character-default-the-value-of-calculation-2}{%
+\paragraph{prefix (CHARACTER, default: the value of
+calculation)}\label{prefix-character-default-the-value-of-calculation-2}}
+
+The first part of the output file name, the file will be called
+\enquote{prefix\ldots.out}. Where the \enquote{\ldots{}} part depends on
+the kind of calculation (See the
+\protect\hyperlink{output-format-2}{Output format section})
+
+\hypertarget{outdir-character-default-.-i.e.-the-current-directory-2}{%
+\paragraph{\texorpdfstring{outdir (CHARACTER, default: \enquote{./},
+i.e.~the current
+directory)}{outdir (CHARACTER, default: ``./'', i.e.~the current directory)}}\label{outdir-character-default-.-i.e.-the-current-directory-2}}
+
+Location where the output file will be saved.
+
+\hypertarget{file_mat2-character-no-default-1}{%
+\paragraph{file\_mat2 (CHARACTER, no
+default)}\label{file_mat2-character-no-default-1}}
+
+The file of the 2nd order force constants, produced by thermal2 internal
+version of q2r.x
+
+\hypertarget{file_mat3-character-no-default}{%
+\paragraph{file\_mat3 (CHARACTER, no
+default)}\label{file_mat3-character-no-default}}
+
+The file of the 3rd order force constants, produced by qq2rr.x or asr3.x
+or sparse.x
+
+\hypertarget{asr2-character-default-no-2}{%
+\paragraph{\texorpdfstring{asr2 (CHARACTER, default:
+\enquote{no})}{asr2 (CHARACTER, default: ``no'')}}\label{asr2-character-default-no-2}}
+
+Method used to apply the acoustic sum rule, can be \enquote{no} (do not
+apply ASR), \enquote{simple} (apply the compensation term to the on-site
+force constant).
+
+\hypertarget{nq-integer-no-default-1}{%
+\paragraph{nq (INTEGER, no default)}\label{nq-integer-no-default-1}}
+
+Number of q-points to read (see below)
+
+\hypertarget{nconf-integer-no-default}{%
+\paragraph{nconf (INTEGER, no default)}\label{nconf-integer-no-default}}
+
+Number of configurations to read in the CONFIGS section, see the
+detailed description below.
+
+\hypertarget{nk-3x-integer-no-default-1}{%
+\paragraph{nk (3x INTEGER, no
+default)}\label{nk-3x-integer-no-default-1}}
+
+The size of the grid used to integrate the phonon-phonon interaction
+processes.
+
+\hypertarget{grid_type-character-default-simple-1}{%
+\paragraph{\texorpdfstring{grid\_type (CHARACTER, default:
+\enquote{simple})}{grid\_type (CHARACTER, default: ``simple'')}}\label{grid_type-character-default-simple-1}}
+
+Set this to \enquote{simple} to use a regular unshifted grid in
+reciprocal space.
+
+Use \enquote{random} to use a grid shifted by a random vector; the
+random shift is not applied to the directions where there is only one
+k-point, i.e.~if you have a N×M×1 grid, there will be no shift along z.
+Using a random shifted grid, can easily reduce the number of points
+required for convergence by half in each direction, for a speed-up of 8
+for linewidth calculations and 64 times for tk calculations; however, it
+will break symmetry, and give (slightly) different thermal conductivity
+for different directions, even in highly symmetric crystals. See also
+\protect\hyperlink{xk0-3x-real-default-000}{xk0} to manually apply a
+grid shift. Shifted grids are currently disabled for CGP calculations,
+the reason is that we did not manage to impose the detailed balance
+condition in this case, causing convergency issues and runaway
+minimization. If you are at the limit of computational power, it is
+possible to disable this limitation in the code, but a careful
+examination of the minimization procedure must be done.
+
+Set to \enquote{bz} to use a grid centered in the Brillouin zone. This
+option will duplicate the points that are on the boundary of the BZ and
+assign them an appropriate integration weight. Using a BZ grid should
+eliminate a possible source of unwanted symmetry breaking, although it
+adds some complexity, uses more points, and its effectiveness is not
+evident in practice. It can be useful for doing plots, but apart from
+this case, we recommend using \enquote{simple} instead.
+
+\hypertarget{xk0-3x-real-default-000}{%
+\paragraph{xk0 (3x REAL, default:
+0,0,0)}\label{xk0-3x-real-default-000}}
+
+A shift to apply to the grid of k-points, in units of half the lattice
+spacing; i.e.~set it to (1,1,1) to have the standard Monkhorst-Pack
+shifted grid, any fractional values is allowed.
+
+\hypertarget{ne-de-e0-sigma_e-integer-real-real-in-cm-1-no-default-1}{%
+\paragraph{ne, de, e0, sigma\_e (INTEGER, REAL, REAL, in cm-1 no
+default)}\label{ne-de-e0-sigma_e-integer-real-real-in-cm-1-no-default-1}}
+
+When doing a Spectral function (d3\_lw.x) or Final state (d3\_lw.x ) or
+Joint-DOS (d3\_r2q.x) calculation you have to define an energy axis with
+these variables. The axis will include ne equally spaced points starting
+from e0 and up to e0+(ne-1)de. The sum over the q-points will be
+convoluted with a gaussian of width sigma\_e (default: 5~de) to obtain a
+smooth curve.
+
+\hypertarget{nu_initial-1..3nat-no-default}{%
+\paragraph{nu\_initial (1..3×nat, no
+default)}\label{nu_initial-1..3nat-no-default}}
+
+When doing a Final state decomposition calculation, this is the band of
+the initial state considered in the scattering process. If not
+specified, the final state will be computed for all initial bands at the
+energ specified by e\_initial, but as a consequence it will not be
+decomposed over the final bands.
+
+\hypertarget{e_initial-in-cm-1-no-default}{%
+\paragraph{e\_initial (in cm-1, no
+default)}\label{e_initial-in-cm-1-no-default}}
+
+When doing a Final state decomposition calculation, this is the energy
+of the initial state considered in the scattering process. If not
+specified, the energy of the phonon corresponding to nu\_initial will be
+used.
+
+\hypertarget{q_initial-3x-real-in-units-of-2ux3c0alat}{%
+\paragraph{q\_initial (3x REAL, in units of
+2π/alat)}\label{q_initial-3x-real-in-units-of-2ux3c0alat}}
+
+As e\_initial, specifies the initial q-point.
+
+\hypertarget{q_summed-logical-default-false}{%
+\paragraph{q\_summed (LOGICAL, default:
+false)}\label{q_summed-logical-default-false}}
+
+When doing a final state calculation, set to true to project the
+infinitesimal contribution to the linewidth over the given final
+q-points, the energy dependence is integrated out. The analysis is
+performed over the q-points specified in the QPOINTS section, you can
+use either a path or a grid, depending on the kind of plot you want,
+using a xsf or bxsf kind of grid can be used to do a 3D plot with
+\href{http://www.xcrysden.org}{XCrysDen}. The full grid, specified by
+nk, will still be used to compute the linewidth, but te contribution
+will be projected to each q-point in the list with a Gaussian smearing
+given by sigmaq.
+
+Note that even high-symmetry points can, and often do, decay toward
+lower symmetry points; a high-symmetry path can easily miss the most
+important final states. We recommend using a relatively coarse grid
+first, you will be able to spot the most favored points by sorting the
+output file. I.e. this command: sort -gk 5 final\_T300\_s1.out will
+output as the final lines the most important decay processes. See also
+sigmaq and q\_resolved and the output format. See also the
+\protect\hyperlink{compute-the-spectral-function-along-a-path}{examples}.
+
+\hypertarget{q_resolved-logical-default-false}{%
+\paragraph{q\_resolved (LOGICAL, default:
+false)}\label{q_resolved-logical-default-false}}
+
+As q\_summed, but the energy dependence is not integrated out. The
+output file will contain an analysis of the decay process as a function
+of the final state q-point and energy. Note that this file can be huge,
+and it is almost impossible to plot for an entire grid. Along a line,
+you can produce a color plot using this gnuplot command (assuming that
+the file freq.out contains the frequencies):
+
+\begin{verbatim}
+set palette defined (0  "white", 1  "red") 
+plot "fs_qresolved_T300_s1.out" u 1:2:6 w image, \
+     for [i=6:11] 'freq.out' u 2:i w l lt -1 not
+\end{verbatim}
+
+See also sigmaq and q\_summed and the output format. Note that the
+\enquote{image} plot mode suppose that the x-axis spacing is constant,
+if it is not, you will have to do a 3D \enquote{splot} with
+\enquote{view map} in order to obtain a good plot.
+
+\hypertarget{sigmaq-real-default-0.1-in-units-of-2ux3c0alat}{%
+\paragraph{sigmaq (REAL, default: 0.1 in units of
+2π/alat)}\label{sigmaq-real-default-0.1-in-units-of-2ux3c0alat}}
+
+Used in conjunction with q\_summed or q\_resolved to obtain a nice
+smooth plot over the q-points by convoluting it with a Gaussian function
+of width sigmaq. Set it to something of the order of the spacing between
+the q-points.
+
+\hypertarget{exp_t_factor-logical-default-false}{%
+\paragraph{exp\_t\_factor (LOGICAL, default:
+false)}\label{exp_t_factor-logical-default-false}}
+
+UNTESTED/EXPERIMENTAL! When doing a spectra function calculation, add an
+elastic peak of equation (1 + f\_bose(e,T)) / e) which should emulate
+the elastic peak of neutron spectroscopy.
+
+\hypertarget{sort_freq-character-default-default-1}{%
+\paragraph{\texorpdfstring{sort\_freq (CHARACTER, default:
+\enquote{default})}{sort\_freq (CHARACTER, default: ``default'')}}\label{sort_freq-character-default-default-1}}
+
+When plotting the linewidth and frequencies along a path, there are
+several ways to order the frequencies and associated linewidth and
+shifted frequencies:
+
+\begin{itemize}
+\tightlist
+\item
+  \enquote{default}: keep the default order of increasing frequencies
+\item
+  \enquote{overlap}: sort each point in order to maximize the overlap of
+  each band polarization with the corresponding band at the previous
+  point. This is the best choice for paths, but probably will not work
+  for 2D or 3D grid plots
+\item
+  \enquote{shifted}: sort in order of shifted frequencies,
+  i.e.~frequency+lineshift. It is only meaningful when doing a
+  \enquote{lw full} calculation, it can help to have good quality plots
+  when \enquote{overlap} fails.
+\end{itemize}
+
+\hypertarget{isotopic_disorder-logical-default-false}{%
+\paragraph{isotopic\_disorder (LOGICAL, default:
+false)}\label{isotopic_disorder-logical-default-false}}
+
+Set this to true to include scattering from isotopic disorder. You will
+also have to specify the isotopic composition of every element in the
+system in the ISOTOPES section. NOTE: isotopes are only used for
+linewidth calculation, they are no used for spectral functions and final
+state decomposition.
+
+\hypertarget{casimir_scattering-logical-default-false}{%
+\paragraph{casimir\_scattering (LOGICAL, default:
+false)}\label{casimir_scattering-logical-default-false}}
+
+Set this variable to true to include scattering with boundary, treated
+with the Casimir formula. See the following variables for detail on how
+to specify the boundary structure. Casimi scattering is only applied to
+linewidth calculation, it has no effect on spectra function and final
+state calculations.
+
+\hypertarget{sample_dir-3x-real-normalized-default-no-direction}{%
+\paragraph{sample\_dir (3x REAL, normalized, default: no
+direction)}\label{sample_dir-3x-real-normalized-default-no-direction}}
+
+The direction in which Casimir scattering is prevalent. Set it to zero
+to consider omnidirectional scattering, i.e.~scattering from grains, or
+to a specific direction to consider a wire. More complex geometries are
+not implemented yet, please let us know if you are interested.
+
+\hypertarget{sample_length_au-real-bohr-no-default}{%
+\paragraph{sample\_length\_au (REAL, bohr, no
+default)}\label{sample_length_au-real-bohr-no-default}}
+
+\hypertarget{sample_length_mu-real-micrometers-no-default}{%
+\paragraph{sample\_length\_mu (REAL, micrometers, no
+default)}\label{sample_length_mu-real-micrometers-no-default}}
+
+\hypertarget{sample_length_mm-real-millimeters-no-default}{%
+\paragraph{sample\_length\_mm (REAL, millimeters, no
+default)}\label{sample_length_mm-real-millimeters-no-default}}
+
+The average scattering length in the Casimir model; you can specify only
+one of the three variables, according to the unit of measure you prefer.
+Note that the Caimir model also include a structure factor, usually set
+to 2, which is not included in our implementation; you will have to
+include it directly in the gain size in input.
+
+\hypertarget{max_seconds-no-default-in-seconds}{%
+\paragraph{max\_seconds (no default, in
+seconds)}\label{max_seconds-no-default-in-seconds}}
+
+\hypertarget{max_time-format-hh.mmss}{%
+\paragraph{max\_time (format hh.mmss)}\label{max_time-format-hh.mmss}}
+
+The maximum running time after which the code will stop, you can only
+set one of the two. Notice that only tk.x includes a restart mechanism.
+
+\hypertarget{output-format-2}{%
+\subsubsection{Output format}\label{output-format-2}}
+
+The lw.x code will produce an output file for every configuration. The
+output files will be named \$prefix\_T\$XX\_s\$YY.out Where \$XX is the
+temperature in Kelvin and \$YY the delta in cm-1. Each output file will
+contain a relatively large number of columns, depending on the
+calculation.
+
+NOTE: In all of the following cases case when specifying QPOINTS as
+\enquote{grid} or \enquote{bz}, the length of the path will actually be
+replaced by the weight of the point used to do an integral in reciprocal
+space. Calculation \enquote{lw imag} Number of the column, or columns
+and its and content:
+
+\begin{itemize}
+\tightlist
+\item
+  1 The line number i.e.~point index
+\item
+  2 The length of the q-point path (when doing a path) or the weight of
+  the q-point (when doing a grid calculation)
+\item
+  3→5 The coordinates of the q-point in 2π/alat.
+\item
+  6→5+3~nat The unperturbed phonon frequencies in cm-1
+\item
+  6+3~nat→5+6~nat The linewidth (HWHM) in cm-1
+\end{itemize}
+
+Calculation \enquote{lw full}:
+
+\begin{itemize}
+\tightlist
+\item
+  1→5+6~nat. Same content as \enquote{lw imag}
+\item
+  6+6~nat→5+8~nat.
+\end{itemize}
+
+The shifted phonon frequencies (i.e.~frequency+shift) in cm-1. If the
+sort\_shifted\_q keyword was set to true, the shifted frequencies are
+sorted in increasing order and the corresponding linewidth are sorted
+accordingly. The unperturbed frequencies are left unchanged.
+
+Calculation \enquote{spf}:
+
+\begin{itemize}
+\tightlist
+\item
+  1 The energy axis in cm-1
+\item
+  2 The length of the q-point path (when doing a path) or the weight of
+  the q-point (when doing a grid calculation)
+\item
+  3 The total spectral function in 1/cm-1
+\item
+  4→3+3~nat Contribution to the spectral function from each band in
+  1/cm-1
+\end{itemize}
+
+Note that the energy axis cycles faster than the path length and there
+is a whitespace after each q-point which makes plotting with gnuplot
+\enquote{pm3d} style easy with this syntax (column 3 is used twice, both
+for heigth and colour): sp \enquote{file} u 1:2:3:3 w pm3d
+
+Calculation \enquote{final}, if nu\_initial \textbf{is not} specified:
+
+\begin{itemize}
+\tightlist
+\item
+  1 The energy axis in cm-1
+\item
+  2 The total final state weight in 1/cm-1
+\item
+  3 Cohalescence part of the total final state weight in 1/cm-1
+\item
+  4 Scattering part of the total final state weight in 1/cm-1
+\item
+  5→4+3 nat Contribution to the final state \textbf{from} each band in
+  1/cm-1
+\item
+  5+3nat→4+6 nat Cohalescence to the final state \textbf{from} each band
+  in 1/cm-1
+\item
+  5+6nat→4+9 nat Scattering to the final state \textbf{from} each band
+  in 1/cm-1
+\end{itemize}
+
+Calculation \enquote{final}, if nu\_initial \textbf{is} specified:
+
+\begin{itemize}
+\tightlist
+\item
+  1 The energy axis in cm-1
+\item
+  2 The total final state weight in 1/cm-1
+\item
+  3 Cohalescence part of the total final state weight in 1/cm-1
+\item
+  4 Scattering part of the total final state weight in 1/cm-1
+\item
+  5→4+3 nat Contribution to the final state \textbf{to} each band in
+  1/cm-1
+\item
+  5+3nat→4+6 nat Cohalescence to the final state \textbf{to} each band
+  in 1/cm-1
+\item
+  5+6nat→4+9 nat Scattering to the final state \textbf{to} each band in
+  1/cm-1
+\end{itemize}
+
+Calculation \enquote{final}, q\_resolved TRUE:
+
+\begin{itemize}
+\tightlist
+\item
+  1 The energy axis in cm-1
+\item
+  2 The length of the q-point path (when doing a path, units 2π/alat) or
+  the weight of the q-point (when doing a grid calculation)
+\item
+  3→5 The coordinates of the q-point in (2π/alat).
+\item
+  6 The infinitesimal contribution to the linewidth, as a function of
+  energy and q (1/cm-1)
+\item
+  7→6+3~nat The infinitesimal contribution to the linewidth, decomposed
+  by band (1/cm-1)
+\end{itemize}
+
+Calculation \enquote{final}, q\_summed TRUE:
+
+\begin{itemize}
+\tightlist
+\item
+  1 The length of the q-point path (when doing a path, units 2π/alat) or
+  the weight of the q-point (when doing a grid calculation)
+\item
+  2→4 The coordinates of the q-point in (2π/alat).
+\item
+  5 The infinitesimal contribution to the linewidth from this q-point
+  (1/cm-1)
+\item
+  6→5+3~nat The infinitesimal contribution to the linewidth, decomposed
+  by band (1/cm-1)
+\end{itemize}
+
+\hypertarget{d3_tk.x-code}{%
+\subsection{d3\_tk.x code}\label{d3_tk.x-code}}
+
+The d3\_tk.x code can compute the thermal conductivity coefficient in
+the SMA or by exact diagonalization of the BTE. Most of its input
+variables are the same as d3\_lw.x, we refer to the previous section for
+their description
+
+\hypertarget{namelist-tkinput}{%
+\subsubsection{Namelist \&tkinput}\label{namelist-tkinput}}
+
+Most of the variable used by d3\_tk.x are also used for d3\_lw.x. The
+following variables have the same meaning as in d3\_lw.x: outdir,
+prefix, file\_mat2, file\_mat3, asr2, nconf, nk, grid\_type, xk0,
+isotopic\_disorder, casimir\_scattering, sample\_direction,
+sample\_length\_* The following variables are specific of d3\_tk.x.
+
+\hypertarget{calculation-character-default-sma}{%
+\paragraph{\texorpdfstring{calculation (CHARACTER, default:
+\enquote{sma})}{calculation (CHARACTER, default: ``sma'')}}\label{calculation-character-default-sma}}
+
+Set this variable to \enquote{sma} to compute use the single mode
+approximation or to \enquote{cgp} to do an iterative diagonalization of
+the BTE with the Conjugate Gradient algorithm with preconditioning.
+Please note that \enquote{cgp} algorithm will also output the SMA
+thermal conductivity at its first iteration, but computed in a slightly
+different way which is slower but guarantees the phonon-phonon
+scattering matrix to be well defined and the functional to be minimized
+to be positive definite.
+
+\hypertarget{nk_in-3x-integer-default-same-value-as-nk}{%
+\paragraph{nk\_in (3x INTEGER, default: same value as
+nk)}\label{nk_in-3x-integer-default-same-value-as-nk}}
+
+When doing a \enquote{sma} calculation, the linewidth will be computed,
+for each point in the nk grid, integrating over the nk\_in grid. Thermal
+conductivity will then be integrated over the nk grid. In principle,
+there is no reason for the two grids to be identical, as one quantity
+could be harder to converge than the other. When doing a CGP
+calculation, the inner and outer grids must be identical, nk\_in will be
+ignored and nk used instead.
+
+\hypertarget{grid_type_in-character-default-same-value-as-grid_type}{%
+\paragraph{grid\_type\_in (CHARACTER, default: same value as
+grid\_type)}\label{grid_type_in-character-default-same-value-as-grid_type}}
+
+Same as grid\_type, but applied to the inner grid. Ignored for
+\enquote{cgp} calculations.
+
+\hypertarget{xk0_in-3x-real-default-same-value-as-xk0}{%
+\paragraph{xk0\_in (3x REAL, default: same value as
+xk0)}\label{xk0_in-3x-real-default-same-value-as-xk0}}
+
+Same as xk0, but applied to the inner grid. Ignored for \enquote{cgp}
+calculations.
+
+\hypertarget{thr_tk-real-default-1.d-4-wmk}{%
+\paragraph{thr\_tk (REAL, default: 1.d-4
+W/mK)}\label{thr_tk-real-default-1.d-4-wmk}}
+
+Threshold on the convergence of thermal conductivity the of the CGP
+minimization when solving the BTE. The default value should be enough to
+get the thermal conductivity with 4 or 5 significant digits.
+
+\hypertarget{niter_max-integer-default-1000}{%
+\paragraph{niter\_max (INTEGER, default:
+1000)}\label{niter_max-integer-default-1000}}
+
+Maximum number of iteration of the CGP algorithm. Normally less than 100
+iterations are needed.
+
+\hypertarget{store_lw-logical-default-.false.}{%
+\paragraph{store\_lw (LOGICAL, default:
+.false.)}\label{store_lw-logical-default-.false.}}
+
+Set this to true, when doing a SMA calculation, and the code will write
+to disk the values of the intrinsic, isotopi and casimir linewidths at
+the end of the calculation. In the tool/ you can find an octave/matlab
+script recompute\_sma.m to recompute the SMA tk from these files. This
+can be used to inexpensively test different isotopic and Casimir
+scattering parameters without repeating the expensive intrinsic
+linewidth calculation. See also intrinsic\_scattering
+
+\hypertarget{intrinsic_scattering-logical-default-.true.}{%
+\paragraph{intrinsic\_scattering (LOGICAL, default:
+.true.)}\label{intrinsic_scattering-logical-default-.true.}}
+
+If this parameter is set to false, during a SMA calculation, the code
+will skip the calculation of the intrinsic phonon-phonon scattering. At
+the end, thermal conductivity cannot not be computed, hence be sure to
+set store\_lw=.true., or the calculation will be wasted, in order to
+store isotopic and Casimir linewidths.
+
+\hypertarget{restart-logical-default-.false.}{%
+\paragraph{restart (LOGICAL, default:
+.false.)}\label{restart-logical-default-.false.}}
+
+Set this to true, when doing a CGP calculation, and the code will write
+to disk the state of the minimization at each iteration, it will then be
+able to restart from the last step. Set this to .false. will have two
+effects: 1) the code will ignore any restart information already present
+on disk and 2) the code will not write restart information on disk.
+Restart information can take quite a bit of space for dense grids.
+
+\hypertarget{mfp_cutoff-logical-default-false}{%
+\paragraph{mfp\_cutoff (LOGICAL, default:
+false)}\label{mfp_cutoff-logical-default-false}}
+
+Set this variable to true to include scattering with boundary, by
+cutting off the contribution of all phonon modes with a mean free path
+(MFP, inverse full linewidth times group velocity) larger than the
+sample size. This approach is simpler than using casimir\_scattering,
+but it assumes that all phonons with a MFP longer than the sample will
+scatter, and all those shorter will not; i.e.~that all phonons with a
+MFP longer than the sample hav an infinite linewidth; this is only true
+in the ballistic regime, which is not the aim of this software anyway.
+We recommend using casimir\_scattering instead. This option will use the
+input variable sample\_dir and sample\_length\_\# to determine the
+cutoff length. This option only works for SMA thermal conductivity.
+
+\hypertarget{volume_factor-real-default-1}{%
+\paragraph{volume\_factor (REAL, default:
+1)}\label{volume_factor-real-default-1}}
+
+A dimensionless parameter to rescale the volume of the crystal unit
+cell. When studying a 2D material, it is useful to normalize the thermal
+conductivity with the volume of bulk, excluding the vacuum space left
+between periodic copies of the 2D slab. I.e. if the bulk material has an
+inter-layer spacing of H and you have built your 2D slab geometry with a
+vacuum distance V, you have to set volume\_factor=H/V.
+
+\hypertarget{output-format-3}{%
+\subsubsection{Output format}\label{output-format-3}}
+
+\hypertarget{sma-calculation}{%
+\paragraph{SMA calculation}\label{sma-calculation}}
+
+When doing a SMA calculation the tk.x code will produce four output
+files:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  A file named \(prefix.\)grid\_size\_TOT.out, where \$prefix is the
+  input value of prefix and \$grid\_size is the size of the integration
+  grid (e.g.~\enquote{20x20x20}). This file will contain one line per
+  configuration, in each line you will:
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  1 the configuration number,
+\item
+  2 the value of sigma
+\item
+  3 the temperature
+\item
+  4→6 the diagonal elements of the thermal conductivity Kxx, Kyy and Kzz
+\item
+  7→12 The off-diagonal elements of K, in this order: Kxy, Kxz, Kyz ,
+  Kyx, Kzx, Kzy.
+\end{itemize}
+
+Two more files with \_P\_sma and \_C instead of \_TOT will contain the
+Phonon contribution (dominant in crystals) and Coherent contribution
+(dominant in glasses) respectively. See Reference
+\protect\hyperlink{ref18}{18} for details.
+
+If the option store\_lw is used, several more, potentially very large,
+files will be created. They contain all the quantities required to
+recompute the SMA thermal conductivity:
+
+\begin{itemize}
+\tightlist
+\item
+  1 q.\(prefix.\)grid\_size.out: the list of q-vectors (3 columns, in
+  cartesian coordinates of 2π/alat) and their respective weight (1
+  columns)
+\item
+  2 freq.\(prefix.\)grid\_size.out: the phonon frequencies (in cm-1, 3x
+  number of atoms columns)
+\item
+  3 lw.\(prefix.\)grid\_size.out: the phonon FWHM (in cm-1, 3x number of
+  atoms columns)
+\item
+  4 vel.\(prefix.\)grid\_size.out: the phonon groups velocity, x,y and z
+  for each band (in Rydberg units, 9x number of atoms columns)
+\end{itemize}
+
+In the \enquote{tools} directory you can find a mathlab/octave script
+\protect\hyperlink{recompute-smam}{recompute\_sma.m} to inexpensively
+recompute the thermal conductivity starting from these files.
+
+\hypertarget{cgp-calculation}{%
+\paragraph{CGP calculation}\label{cgp-calculation}}
+
+When a CGP calculation several files are created: one with the results
+at the last iterations for all the configurations and one file for each
+configurations with the results at each iteration. The thermal
+conductivity K is always in W/(m·K).
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  A file named \(prefix.\)grid\_size\_TOT.out, where \$prefix is the
+  input value of prefix and \$grid\_size is the size of the integration
+  grid (e.g.~\enquote{20x20x20}). This file will contain the results
+  from the last completed iteration of the code, one line per
+  configuration, with these columns:
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  1 the configuration number,
+\item
+  2 the value of sigma
+\item
+  3 the temperature
+\item
+  4-6 the diagonal elements of the thermal conductivity Kxx, Kyy and Kzz
+\item
+  7-12 the off-diagonal elements of K, in this order: Kxy, Kyz, Kyz ,
+  Kyx, Kzx, Kzy.
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Two more files with \_P\_sma and \_C instead of \_TOT contain the
+  Phonon at the SMA level (i.e.~at the first iteration, dominant in
+  crystals) and Coherent (dominant in harmonic glasses) contribution to
+  thermal conductivity.
+\item
+  A file for every input configuration, named
+  \(prefix.\)grid\_size\_s\(XX_T\)YY.out, where \$XX is the smearing in
+  cm-1 and \$YY is the temperature in Kelvin. A line is appended to each
+  file at each iteration. The columns are the same as the previous file,
+  except that column 1 contains the iteration number.
+\end{enumerate}
+
+\hypertarget{d3_tdph.x-code}{%
+\subsection{d3\_tdph.x code}\label{d3_tdph.x-code}}
+
+This code reads a set of initial dynamical matrices for a given system
+and optimizes the harmonic force constants over a series of images that
+can be the output of a molecular dynamics calculation performed with
+Quantum ESPRESSO, or of a Langevin Dynamics calculation from the PIOUD
+code. The code will expect that the simulation supercell is the same for
+the force constants and the dynamics simulations.
+
+\hypertarget{namelist-tdphinput}{%
+\subsubsection{Namelist \&tdphinput}\label{namelist-tdphinput}}
+
+\hypertarget{ai-character-default-md}{%
+\paragraph{\texorpdfstring{ai (CHARACTER, default
+\enquote{md})}{ai (CHARACTER, default ``md'')}}\label{ai-character-default-md}}
+
+Select if the samplig comes from a QE molecular dynamics run (in this
+case, read the output of QR from fmd) or from a PIOUD calculation (reads
+from files fforce, ftau and ftoten)
+
+\hypertarget{fforce-ftau-ftoten-character-default-forces.dat-positions.dat-pioud.dat}{%
+\paragraph{\texorpdfstring{fforce, ftau, ftoten (CHARACTER, default
+\enquote{forces.dat}, \enquote{positions.dat},
+\enquote{pioud.dat})}{fforce, ftau, ftoten (CHARACTER, default ``forces.dat'', ``positions.dat'', ``pioud.dat'')}}\label{fforce-ftau-ftoten-character-default-forces.dat-positions.dat-pioud.dat}}
+
+Output files from PIOUD containing the ab-initio forces, ions
+coordinates and total energy.
+
+\hypertarget{fmd-character-default-md.out}{%
+\paragraph{\texorpdfstring{fmd (CHARACTER, default
+\enquote{md.out})}{fmd (CHARACTER, default ``md.out'')}}\label{fmd-character-default-md.out}}
+
+Output file from QE
+
+\hypertarget{file_mat2-character-default-mat2r}{%
+\paragraph{\texorpdfstring{file\_mat2 (CHARACTER, default
+\enquote{mat2R})}{file\_mat2 (CHARACTER, default ``mat2R'')}}\label{file_mat2-character-default-mat2r}}
+
+File of the force constants. Must be in \enquote{periodic} form
+(i.e.~generated using -f 0 with d3\_q2r.x)
+
+\hypertarget{nfirst-nskip-nread-integer-default-1-100-50000}{%
+\paragraph{nfirst, nskip, nread (INTEGER, default 1, 100,
+50000)}\label{nfirst-nskip-nread-integer-default-1-100-50000}}
+
+When reading the MD or PIOUD file, read one every nskip steps starting
+from nfirst until nread steps are read in total.
+
+\hypertarget{nmax-integer-default-50000}{%
+\paragraph{nmax (INTEGER, default:
+50000)}\label{nmax-integer-default-50000}}
+
+Instead of specifying nread, one can use nmax to stop reading after
+reachin step nmax of the MD simulation.
+
+\hypertarget{e0-real-default-0}{%
+\subsubsection{e0 (REAL, default: 0)}\label{e0-real-default-0}}
+
+A constant to remove from the total energy, i.e.~the ground state
+energy. Useful for plotting but has no direct effect on the results.
+
+\hypertarget{basis-character-default-mu}{%
+\subsubsection{\texorpdfstring{basis (CHARACTER, default
+\enquote{mu})}{basis (CHARACTER, default ``mu'')}}\label{basis-character-default-mu}}
+
+When building the basis of symmetric dynamical matrices, ouse one of
+these initial guesses:
+
+\begin{itemize}
+\tightlist
+\item
+  \enquote{simple} orthogonal matrices hermitean matrices with a single
+  diagonal or two non-diagonal non-zero elements
+\item
+  \enquote{mu} from the eignevectors of the original dynamical matrices,
+  from file\_mat2, discard the acoustic modes at q=0.
+\item
+  \enquote{random} start from random matricex (rarely works because of
+  accidental degeneracies)
+\end{itemize}
+
+\hypertarget{minimization-character-default-ph}{%
+\subsubsection{\texorpdfstring{minimization (CHARACTER, default
+\enquote{ph})}{minimization (CHARACTER, default ``ph'')}}\label{minimization-character-default-ph}}
+
+When minimizing the phonon parameters, use one of these methods:
+
+\begin{itemize}
+\tightlist
+\item
+  \enquote{ph} only minimize the phonon degrees of freedom
+\item
+  \enquote{ph+zstar} first minimize the phonons, then the effective
+  charges degrees of freedom. It gives rarely any improvement over
+  \enquote{ph} because the efefctive charges do not depend strongly on
+  temperature.
+\item
+  \enquote{global} minimize all degrees of freedom simultaneously, this
+  method can (and often will) produce unphysical solution if the
+  supercell is not huge.
+\end{itemize}
+
+\hypertarget{randomization-real-default-0.}{%
+\subsubsection{randomization (REAL, default
+0.)}\label{randomization-real-default-0.}}
+
+Add some random noise to the initial phonon parameters. If it is a
+positive number, all parameters will be randomized with the same
+amplitude (proportional to its value times the largest parameter). If it
+is a negative value, each parameter will be multiplied by a random
+factor between -randomizaiton and +randomization.
+
+\hypertarget{output-format-4}{%
+\subsection{Output format}\label{output-format-4}}
+
+The code will produce two force constant files:
+
+\begin{itemize}
+\tightlist
+\item
+  \enquote{matOUT.center} in centered format, suitable for Fourier
+  interpolation, band dispersion, etc.
+\item
+  \enquote{matOUR.periodic} in periodic form, for restarting or other
+  manipulations.
+\end{itemize}
+
+It also produces a file tdph.log containing these columns:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  The iteration number
+\item
+  The chi square
+\item
+  and onward: the phonon parameters.
+\end{enumerate}
+
+If using minimization = \enquote{ph+zstar}, the zstar minimization will
+be at the end of the file (with a different number of columns)
+
+\hypertarget{common-input-cards}{%
+\subsection{Common input cards}\label{common-input-cards}}
+
+\hypertarget{qpoints}{%
+\subsubsection{QPOINTS}\label{qpoints}}
+
+The \enquote{QPOINTS} card instruct the code to start reading a list of
+nq q-points, nq has been previously entered in the namelist. On the same
+line as QPOINTS thre optional keywords can be specified:
+
+\hypertarget{cartesian-default}{%
+\paragraph{cartesian (DEFAULT)}\label{cartesian-default}}
+
+The points will be specified on Cartesian axis in units of 2π/alat,
+where alat is the lattice parameter. This is the default behavior of the
+code and is equivalent to not specifying any keyword.
+
+\hypertarget{crystal}{%
+\paragraph{crystal}\label{crystal}}
+
+The points are going to be specified on the basis of the reciprocal
+lattice vectors.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+In the default, \enquote{cartesian} and \enquote{crystal} cases, the
+code will now start reading the q-points, one per line. After the
+q-point cooordinates, each line can optionally include an integer
+number, np, which instructs the code to make a straight path from the
+previous point to this one formed by np+1 points.
+
+The code will also compute the total length of the path along the
+q-points. This length is printed in the output file (usually, 2nd
+column) and is useful for plotting.
+
+You can use the special value -1 for np, to reset the length of the path
+at a certain point. The d3\_lw.x code will also perform a special action
+depending on the context:
+
+\begin{itemize}
+\tightlist
+\item
+  When doing a linewidth calculation: print an empty line (useful for
+  gnuplot 3D plots).
+\item
+  When doing a spectral function calculation: continue writing to a new
+  output file, which will have "\_pN" appended to its name; N is a
+  number increasing at each path reset.
+\end{itemize}
+
+If two consecutive points in the list are equivalent minus a G-vector,
+and if the latter has no np, or np=1, then the two points are added to
+the list with the same path length. This allows one to jump between
+equivalent point without having a discontinuity in the plot.
+
+Another special value is the special value np=0 skips the point, but
+puts in in the list as null \enquote{previous point}. I.e. the path will
+continue from the next point, as if the null point was the previous one.
+This allows to introduce a discontinuity in the path without resetting
+the length.
+
+\hypertarget{grid}{%
+\paragraph{grid}\label{grid}}
+
+Only used by the d3\_lw.x code when the calculation type is
+\enquote{grid}. On the next line the code will try to read three integer
+numbers, NQX, NQY and NQZ, which will define the dimension of the grid.
+
+\hypertarget{bz}{%
+\paragraph{bz}\label{bz}}
+
+Equivalent to \enquote{grid} but the grid will be translated in the
+Brillouin zone (i.e.~the Wigner-Seitz cell of the reciprocal lattice),
+points on the boundaries will be duplicated to all the equivalent ones.
+If you specify grid or bz, you can add, on the same line, a vector by
+which the grid will be shifted. The vector is in units of half the grid
+spacing, i.e.~a value of 1 indicates the standard Monkhorst-Pack shift,
+you can use any value.
+
+\hypertarget{xsf-or-bxsf}{%
+\paragraph{xsf or bxsf}\label{xsf-or-bxsf}}
+
+Only used when doing final state decomposition. Produces a filesuitable
+for 3D plotting with XCrysDen, in the xsf or bxsf format. The first is
+more flexible, but the second is more suitable for Brillouin-zone plot.
+The code will try to read three integer numbers, NQX, NQY and NQZ, note
+that the grid size will actually be NQX+1, for xsf, according to
+XCrysDen conventions.
+
+\hypertarget{plane}{%
+\paragraph{plane}\label{plane}}
+
+Specify a plane of q-points, it will read four lines:
+
+\begin{verbatim}
+n1 n2
+e1x e1y e1z
+e2x e2y e2z
+q0x q0y q0z
+\end{verbatim}
+
+Which are the grid size (n1, n2) two vectors defining the surface
+(e1,e2) and the origin (q0). The first point in the surface is q0, the
+last is q0+e1+e2
+
+\hypertarget{examples}{%
+\paragraph{Examples}\label{examples}}
+
+Select the Γ point (000) and the X point (001) in a cubic lattice:
+
+\begin{verbatim}
+QPOINTS
+ 2
+0.0 0.0 0.0
+0.0 0.0 1.0 
+\end{verbatim}
+
+Make a path K→ Γ → M in a hexagonal lattice, the path will include a
+total of 41 points:
+
+\begin{verbatim}
+QPOINTS
+ 3
+0.0 0.33333 0.33333
+0.0 0.0 0.0   20
+0.0 0.0 0.5   20
+\end{verbatim}
+
+Make a line K→ Γ and then M→ Γ (in a hexagonal lattice), the path will
+include a total of 82 points:
+
+\begin{verbatim}
+QPOINTS crystal
+ 4
+0.33333 0.33333 0.0
+0.0     0.0     0.0   20
+0.0     0.5     0.0   0
+0.0     0.0     0.0   20
+\end{verbatim}
+
+Make a 10 × 10 × 10 points grid
+
+\begin{verbatim}
+QPOINTS grid
+10 10 10
+\end{verbatim}
+
+Make a 10 × 10 × 1 points grid, shifted in the plane 10 × 10, but not
+along the third direction.
+
+\begin{verbatim}
+QPOINTS grid 1 1 0
+10 10 1
+\end{verbatim}
+
+Make three parallel lines of 101 points each, reset the path length
+after each line
+
+\begin{verbatim}
+QPOINTS
+ 6
+0 0   0
+0 0   1  100
+0 0.1 0  -1
+0 0.1 1  00
+0 0.2 0  -1
+0 0.2 1  100
+\end{verbatim}
+
+\hypertarget{configs}{%
+\subsubsection{CONFIGS}\label{configs}}
+
+The \enquote{CONFIGS} card instructs the code to start reading a list of
+sigma (in cm-1)/temperature (in K) configurations. Sigma can be the
+width of a Gaussian smearing or the regularization of the self-energy,
+depending on the type of calculation. Configurations can be specified as
+a list (default), or as a matrix. In the former case a simple list is
+expected; in the latter case the code reads two lists: one of sigma and
+one of T and generates all possible couples. list
+
+If you specify \enquote{CONFIGS list} or just \enquote{CONFIGS}, the
+number of configurations \enquote{nconf} is expected on the next line
+(deprecated: you can also use the nconf variable in the namelist).
+Afterwards, the code will read nconf lines, and expects a couple
+\enquote{sigma T} on each line. If on a certain line only one number is
+present, the code assumes it to be a temperature and it reuses the
+previous value of the delta.
+
+\emph{matrix} After \enquote{CONFIGS matrix} the code will scan for the
+keyword \enquote{T} (\enquote{sigma}), followed, on the same line, by
+the number of temperatures (sigmas), the default value of 1 is taken if
+missing. The code will the read, on the following lines, the required
+values of temperature (sigma). See also the example below.
+
+\hypertarget{examples-1}{%
+\paragraph{Examples}\label{examples-1}}
+
+Select three configurations of increasing values of sigma and
+temperature:
+
+\begin{verbatim}
+CONFIGS
+ 3
+1.0  100
+2.0  200
+3.0  300
+\end{verbatim}
+
+Select five different temperatures, all with the same smearing of 1cm-1:
+
+\begin{verbatim}
+CONFIGS
+ 5
+1.0     0
+    100
+    200
+    300
+    400
+\end{verbatim}
+
+Build thirty configurations, from 10 values of temperature (K) and 3 of
+smearing (cm-1):
+
+\begin{verbatim}
+CONFIGS matrix
+  T  10
+ 10.  20.  50. 100.  200.
+300. 400. 500. 750. 1000.
+ sigma  3
+2.
+3.
+4.
+\end{verbatim}
+
+Undocumented: using a negative or zero value for the smearing. This
+features can change at any time in the future, possibly to become a
+proper input variables. A negative value of the smearing can activate a
+few \enquote{hidden} features of the d3\_lw.x code. In particular, when
+doing a \enquote{lw full} or \enquote{final state} calculation, setting
+the smearing to zero will use the static formula for the linewidth,
+where the energy denominators are just ω1+ω2 and ω1-ω2, the latter
+becomes a derivative (of the Bose-Einstein distribution) when the modes
+2 and 3 are degenerate. A negative value of sigma, will also use the
+static limit but with a regularization of the denominator. The static
+limit is not currently implemented for the spectral function, and it
+does not make sense for the \enquote{lw imag} calculation.
+
+\hypertarget{isotopes}{%
+\subsubsection{ISOTOPES}\label{isotopes}}
+
+After this card the code will read the information about the isotopic
+composition of all elements present in the calculation. This list will
+only be read if \enquote{isotopic\_disorder} is set to true in the
+namelist. Note that specifying the isotopes is not necessary, if this
+card is omitted the natural isotopic concentration will be used.
+
+Each element, identified by its name, must appear in the same order as
+in the file of the force constants. The isotopic composition can be
+specified in several different ways.
+
+An isotopically pure element can be specified either by atomic number of
+the isotope or by setting manually its mass in atomic mass units
+(i.e.~mass of 12C=12):
+
+\begin{verbatim}
+Xx N natm
+\end{verbatim}
+
+Where Xx is the name of the element (e.g., H, Na, Cl), \enquote{N} is a
+keyword and natm is the atomic number
+
+\begin{verbatim}
+Xx M matm
+\end{verbatim}
+
+Where Xx is the name of the element (e.g., H, Na, Cl), \enquote{M} is a
+keyword and matm is the atomic mass
+
+If you wish to use the natural isotope concentration for an element you
+can use the following syntax:
+
+\begin{verbatim}
+Xx natural
+\end{verbatim}
+
+Where Xx is the name of the element and \enquote{natural} is a keyword.
+The natural isotope concentration is stored in the file
+nist\_isotopes\_db.f90 of the thermal2 distribution. It is obtained from
+the NIST online database, available on the NIST website7.
+
+If you wish to set the isotope concentration by hand you can use the
+following syntax
+
+\begin{verbatim}
+Xx isotopes niso
+ m1 c1
+ …
+ mniso cniso
+\end{verbatim}
+
+Where Xx is the name of the element, \enquote{isotopes} is a keyword and
+niso is the number of isotopes. You will then list the mass and
+concentration of each isotopes, on niso separate lines.
+
+Finally, you can also specify directly the average mass for the element
+and its variance, which are the only two quantities that are actually
+used in the linewidth and thermal conductivity calculation. You can use
+the following syntax:
+
+\begin{verbatim}
+Xx manual gm gs
+\end{verbatim}
+
+Where Xx is the element name, \enquote{manual} is a keyword, gm is the
+average mass and gs is its variance (both in Dalton units).
+
+\hypertarget{examples-2}{%
+\paragraph{Examples}\label{examples-2}}
+
+In the following example we will set Hydrogen isotopic concentration to
+1) pure one-proton H 2) pure Deuterium 3) 50\% H and 50\% D 4) Hydrogen
+natural concentration 5) set gm and gs manually
+
+\begin{verbatim}
+H N 1
+H M 2.01410178
+H isotopes 2
+    1.00000000 0.5
+    2.01410178 0.5
+H natural
+H manual 1.02  0.01
+\end{verbatim}
+
+\hypertarget{input-examples}{%
+\section{Input Examples}\label{input-examples}}
+
+In the next sections you will find some example input files for the main
+codes of thermal2. You will find more examples, included a
+
+\hypertarget{d3_lw.x-examples}{%
+\subsection{d3\_lw.x examples}\label{d3_lw.x-examples}}
+
+\hypertarget{computing-the-linewidth-of-a-single-point}{%
+\subsubsection{Computing the linewidth of a single
+point}\label{computing-the-linewidth-of-a-single-point}}
+
+This example input would compute the linewidth of q-point (1/3 1/3 0) in
+crystal (aka fractional) coordinates for 15 different values of
+temperature.
+
+\begin{verbatim}
+&lwinput 
+ calculation = 'lw real' 
+ prefix="lw_rnozp" 
+
+ ! file_mat2 = '../1l.FILDYN/mat2R.120ry.4.nozeu' 
+ file_mat2 = '../FILDYN/mat2R.8_nozeu' 
+ file_mat3 = '../FILD3DYN/mat3R.xxx_asr15_sparse' 
+ outdir    = './' 
+ asr2 = 'simple' 
+ nconf = 15
+ nk = 200,200,1 
+ nq = 1
+ sort_freq = "overlap"
+/ 
+CONFIGS 
+2.0     0 
+       10 
+       50 
+       100 
+       150 
+       200 
+       250 
+       300 
+       350 
+       400 
+       500 
+       600 
+       700 
+       800 
+       900 
+QPOINTS crystal 
+0.33333333333 0.333333333333 0.0
+\end{verbatim}
+
+\hypertarget{testing-convergence-with-smearing-and-grid}{%
+\subsubsection{Testing convergence with smearing and
+grid}\label{testing-convergence-with-smearing-and-grid}}
+
+The following example is useful for testing the convergence of the
+linewidth calculation as a function of the smearing value. The input
+should be run several times replacing NK with increasing values. You can
+then collect the linewidth of a band and plot a curve for every smearing
+as a function of the grid size.
+
+\begin{verbatim}
+&lwinput 
+ calculation = 'lw imag' 
+ prefix = 'lw_NK' 
+ file_mat2 = '../FILDYN/mat2R.100Ry.4' 
+ file_mat3 = '../FILD3DYN/mat3R_asr_sparse' 
+ outdir    = './' 
+ asr2 = 'simple'  
+ nconf = 7
+ nk = NK, NK, NK
+ nq = 1
+/ 
+CONFIGS 
+ 0.1 300
+ 0.2 300
+ 0.5 300
+ 1.0 300
+ 2.0 300
+ 5.0 300
+10.0 300
+QPOINTS 
+0 0 0
+\end{verbatim}
+
+You can then extract the data with a script like this:
+
+\begin{verbatim}
+#!/bin/bash
+for smr in 0.1 0.2 0.5 1.0 2.0 5.0 10.0;do
+    grep "^ *1 " lw_*s${smr}.out|\
+    awk '{print $1,$(NF-2),$(NF-1),$NF}'|\
+    sed -re 's/lw_|_T|_s|.out|:/  /g' |\
+    sort -k 1n > s${smr}.dat;
+done 
+\end{verbatim}
+
+And proceed to plot the curves included in the files s0.1.dat \ldots{}
+s10.0.dat, e.g.~with gnuplot.
+\includegraphics[width=0.7\textwidth,height=\textheight]{images/conv.png}
+
+You see that larger values of smearing converge with smaller grids but
+not to exactly the same value as smaller smearing. Using a smearing of
+the same order of magnitude as the average linewidth of the acoustic
+band is a good idea as the smearing can be identified with the intrinsic
+uncertainty of the phonon energy. An ideal procedure would use the
+actual linewidth for the smearing, but this should be done iteratively
+which would be much more computationally expensive. This scheme may
+eventually be implemented in the code if there is enough request.
+
+In brief: do not take a value too small for the smearing, something of
+the order of a cm-1 is usually fine.
+
+\hypertarget{compute-the-linewidth-along-a-path-in-the-bz}{%
+\subsubsection{Compute the linewidth along a path in the
+BZ}\label{compute-the-linewidth-along-a-path-in-the-bz}}
+
+\begin{verbatim}
+&lwinput 
+ calculation = 'lw full'
+ file_mat2 = 'mat2R' 
+ file_mat3 = 'mat3R.xxx_asr_sparse' 
+ outdir    = './' 
+ asr2 = 'simple' 
+ nconf = 15 
+ nk = 100,100,10 
+ nq = 5 
+ sort_shifted_freq = .true. 
+/ 
+CONFIGS 
+5.0     0 
+       10 
+       50 
+       100 
+       150 
+       200 
+       250 
+       300 
+       350 
+       400 
+       500 
+       600 
+       700 
+       800 
+       900 
+QPOINTS 
+0 0 0 
+0.5 0.0 0.0 100 
+0.33333333333 0.333333333333 0.0 74 
+0.0 0.0 0.0 94 
+0.0 0.0 0.5 25
+\end{verbatim}
+
+\hypertarget{compute-the-spectral-function-along-a-path}{%
+\subsubsection{Compute the spectral function along a
+path}\label{compute-the-spectral-function-along-a-path}}
+
+Spectral function calculations are not as well optimized as linewidth
+ones and can be much more memory intensive. If you are running out of
+memory, do not use more configuration that necessary, especially if
+running on massive parallel machines such as IBM BlueGENE.
+
+\begin{verbatim}
+&lwinput 
+ calculation = 'spf'
+ file_mat2 = 'mat2R' 
+ file_mat3 = 'mat3R.xxx_asr_sparse' 
+ outdir    = './' 
+ asr2 = 'simple' 
+ nconf = 1
+ nk = 100,100,10 
+ nq = 5 
+ ne = 500
+ de = 1.0
+/ 
+CONFIGS 
+5.0     300 
+QPOINTS 
+0 0 0 
+0.5 0.0 0.0 100 
+0.33333333333 0.333333333333 0.0 74 
+0.0 0.0 0.0 94 
+0.0 0.0 0.5 25
+\end{verbatim}
+
+You can obtain a color plot like those of
+ref.~\protect\hyperlink{ref5}{5} with this gnuplot script:
+
+\begin{verbatim}
+set log cb 
+splot 'spf_full_T300_s0.3.out' u 1:2:3 w image
+\end{verbatim}
+
+\hypertarget{compute-the-final-state-decomposition}{%
+\subsubsection{Compute the final state
+decomposition}\label{compute-the-final-state-decomposition}}
+
+Final state can be decomposed over the energy, giving a kind of DOS of
+the final state, over the q-points or both. The next example decomposes
+only over energy.
+
+\begin{verbatim}
+&lwinput 
+ calculation = 'final' 
+ file_mat2 = 'T_295K/mat2R' 
+ file_mat3 = '../mat3R_asr' 
+ outdir    = 'T_295K/' 
+ asr2 = "simple"
+ nconf = 3 
+ nk =  20, 20, 20 
+ nq = 1 ! actually unused
+ e_initial = 490.80 
+ q_initial = -0.5, 0.0, 0.0 
+ ne =201 
+ de = 3.5 
+ e0 = 0. 
+/ 
+CONFIGS 
+ 5      295 
+10      295 
+20      295 
+QPOINTS 
+0.0 0.0 0.0
+\end{verbatim}
+
+Final state over a high-symmetry path in the brillouin zone.
+
+\begin{verbatim}
+&lwinput
+  calculation = 'final'
+  prefix="final"
+  file_mat2 = 'mat2R'
+  file_mat3 = 'mat3R.asr.sparse'
+  outdir    = './LW/'  
+  asr2 = 'simple'   
+  nk =  31, 31, 31
+  xk0 = 1,1,1
+  sort_freq = 'overlap'
+  ne = 2000
+  de = 0.5
+
+  e_initial = 682.  ! a
+  q_initial = 0.0000010000,    0.0000000000,    0.0000000000 
+  q_resolved = .true.
+  sigmaq= 0.02
+/
+ CONFIGS
+  12
+ 5.0 300
+     400
+     500
+     600
+     700
+     800
+     900
+     1000
+     1100
+     1200
+     1300
+     1400
+ QPOINTS 
+5
+0.0000000000    0.0000000000    0.0000000000 1 Γ
+1.0000000000    0.0000000000    0.0000000000 20 X
+1.0000000000    1.0000000000    0.0000000000 20 X
+0.0000000000    0.0000000000    0.0000000000 50 Γ
+0.5000000000    0.5000000000    0.5000000000 20 L
+\end{verbatim}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{images/final.png}
+\caption{final state over a path in the BZ}
+\end{figure}
+
+Final state as a 3D density map, plotted with XCrysDen. Note that the
+40×40×40 grid used for plotting does not have to be the same as the nk
+grid used to compute the linewidth. Best result are obtained when it is
+considerably coarser, as here. Using a finer grid for plotting than for
+computing will just result in \enquote{balls} appearing at the
+integration points.
+
+\begin{verbatim}
+&lwinput
+  calculation = 'final'
+  prefix="G394-50K-111"
+  file_mat2 = 'FILDYN/mat2R'
+  file_mat3 = 'FILD3DYN/mat3R.asr.sparse'
+  outdir    = './FS/'
+  asr2 = 'simple'
+  nk = 200,200,200
+  grid_type = 'random'
+  q_initial = 0.05, 0.00, 0.00
+  nu_initial = 3
+
+  ne = 650
+  de = 0.5
+
+  q_resolved = .false.
+  q_summed = .true.
+  sigmaq= 0.05
+
+/
+ CONFIGS 
+ 1
+ 2.0  50
+QPOINTS bxsf
+ 40 40 40
+\end{verbatim}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{images/LA-0.05-111.png}
+\caption{final state in 3D with XCrysDen}
+\end{figure}
+
+\hypertarget{color-map-plot-of-the-lw-in-the-bz-2d-systems}{%
+\subsubsection{Color-map plot of the LW in the BZ (2D
+systems)}\label{color-map-plot-of-the-lw-in-the-bz-2d-systems}}
+
+In bidimensional materials it can be interesting to plot the linewidth
+of a certain band over the entire Brillouin zone. In a 3D materials, it
+is more tricky to get a nice picture, you can use the
+\protect\hyperlink{qpoints}{option \enquote{plane}} to plot a section of
+the unit cell.
+
+\begin{verbatim}
+&lwinput 
+ calculation = 'lw full' 
+ prefix="lw_2d" 
+ file_mat2 = '../../1l.FILDYN/mat2R.4.vac.nozeu' 
+ file_mat3 = '../../1l.FILD3DYN/mat3R.xxx_asr_sparse' 
+ outdir    = './' 
+ asr2 = 'simple'
+ nconf = 1 
+ nk = 20,20,1 
+ sort_shifted_freq = .false. 
+/ 
+CONFIGS 
+1.0    300
+QPOINTS bz 
+ 50 50 1
+\end{verbatim}
+
+You can then plot the resulting file with a gnuplot command like this
+(you will have to tune the pointsize and of course select the correct
+band to plot):
+
+\begin{verbatim}
+p 'lw_2d.50x50x1@bz_T300_s10.out' u 3:4:12 w p palette pt 7 pointsize 1.7 not
+\end{verbatim}
+
+This is an example from graphene (done using 128x128 BZ-centered
+points):
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{images/graphene-bz.png}
+\caption{graphene bz}
+\end{figure}
+
+\hypertarget{d3_tk.x-examples}{%
+\subsection{d3\_tk.x examples}\label{d3_tk.x-examples}}
+
+\hypertarget{compute-the-sma-solution-of-the-bte}{%
+\subsubsection{Compute the SMA solution of the
+BTE}\label{compute-the-sma-solution-of-the-bte}}
+
+The following input file computes the thermal conductivity in the
+Single-Mode Approximation. This example uses a finer grid of 24x24x24
+q-points to compute the phonon lifetime on a grid of 12x12x12 points,
+which is integrated to compute the thermal conductivity. Furthermore,
+the natural isotopic distribution of Silicon is used.
+
+\begin{verbatim}
+&tkinput 
+ calculation = 'sma' 
+ prefix="tk"
+ file_mat2 = './mat2R' 
+ file_mat3 = './FILD3DYN/mat3R.asr.sparse' 
+ outdir    = './' 
+ asr2 = 'simple' 
+ nconf = 1
+ nk    = 12,12,12
+ nk_in = 24,24,24
+ casimir_scattering=.false. 
+ isotopic_disorder =.true.
+/ 
+CONFIGS 
+5.0    10 
+ISOTOPES 
+ Si natural
+\end{verbatim}
+
+\hypertarget{compute-the-exact-solution-of-the-bte}{%
+\subsubsection{Compute the exact solution of the
+BTE}\label{compute-the-exact-solution-of-the-bte}}
+
+The following input file computes the thermal conductivity solving the
+BTE by functional minimization. This example also includes border
+scattering on grains of 1 micrometer average size.
+
+\begin{verbatim}
+&tkinput 
+ calculation = 'cgp' 
+ prefix="tk"
+ file_mat2 = './mat2R' 
+ file_mat3 = './FILD3DYN/mat3R.asr.sparse' 
+ outdir    = './' 
+ asr2 = 'simple' 
+ nconf = 9
+ nk = 24,24,24
+ niter_max = 100
+ thr_tk = 1.d-4
+ casimir_scattering=.true. 
+ sample_length_mu = 1.0 
+/ 
+CONFIGS 
+5.0    10 
+       20 
+       50 
+       100 
+       200 
+       300 
+       500 
+       1000 
+       2000
+\end{verbatim}
+
+\hypertarget{bibliography}{%
+\section{Bibliography}\label{bibliography}}
+
+A list of essential bibliographic references follows. When using this
+code you are not required to cite all of these work, however the authors
+would greatly appreciate if you cited references 1-4 where the theory
+and implementation of this work is described in detail.
+
+In particular ref. 1 describes the calculation of 3rd order dynamical
+matrices using DFPT, and the calculation of ph-ph linewidth; ref. 2
+describes the iterative solution of the BTE. In ref. 9 the formula used
+to compute the phonon-phonon scattering is derived. See also refs. 10-14
+for previous methods, and for the inclusion of isotopic and border
+scattering. Ref. 3 and 4 include important applications and analysis of
+the BTE exact solution. Reference 5 describes the calculation of phonon
+spectral functions and the combination of 3rd and 4th order. References
+6-8 contain the foundation of the theory used. The geometric terms used
+to include finite-size effects are described in detail in ref. 15.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  L. Paulatto, F. Mauri, and M. Lazzeri, Phys. Rev.~B 87, 214303 (2013).
+\item
+  G. Fugallo, M. Lazzeri, L. Paulatto, and F. Mauri, Phys. Rev.~B 88,
+  045430 (2013).
+\item
+  A. Cepellotti, G. Fugallo, L. Paulatto, M. Lazzeri, F. Mauri, N.
+  Marzari, Nature communications 6, 6400 (2015)
+\item
+  G. Fugallo, A. Cepellotti, L. Paulatto, M. Lazzeri, N. Marzari, F.
+  Mauri, Nano letters 14 (11), 6109-6114 (2014)
+\item
+  Lorenzo Paulatto, Ion Errea, Matteo Calandra, and Francesco Mauri,
+  Phys. Rev.~B 91, 054304 (2015)
+\item
+  M. Calandra, M. Lazzeri, F. Mauri, Physica C 456, 38--44 (2007)
+\item
+  Michele Lazzeri and Stefano de Gironcoli, Phys. Rev.~Lett. 81, 2096
+  (1998)
+\item
+  N. Bonini, M. Lazzeri, N. Marzari, and F. Mauri, Phys. Rev.~Lett. 99,
+  176802 (2007)
+\item
+  J. Garg, N. Bonini, B. Kozinsky et al., Phys. Rev.~Lett. 106, 045901
+  (2011)
+\item
+  Joseph Callaway, Phys. Rev.~113, 1046
+\item
+  M. Omini, A. Sparavigna, Il Nuovo Cimento, 19, 1537 (1997)
+\item
+  M. Omini and A. Sparavigna, Phys. Rev.~B 53, 9064 (1996)
+\item
+  M. Omini, A. Sparavigna, Physica B: Condensed Matter 212, 101-112,
+  (1995)
+\item
+  M. Omini and A. Sparavigna, Phys. Rev.~B 61, 6677 (2000)
+\item
+  L. Paulatto, D Fournier, M Marangolo, M Eddrief, P Atkinson, M
+  Calandra. Phys. Rev.~B 101 (20), 205419 (2020)
+\item
+  R. Bianco, I. Errea, L. Paulatto, M. Calandra, and F. Mauri. Phys.
+  Rev.~B 96, 014111 (2017)
+\item
+  Simoncelli, Marzari, Mauri, Nature Physics volume 15, 809--813 (2019)
+\item
+  Simoncelli, Marzari, Mauri, Phys. Rev.~X 12, 041011 (2022)
+\end{enumerate}
+
+\hypertarget{change-log}{%
+\section{Change Log}\label{change-log}}
+
+See the changelog file in the \enquote{Doc} subdirectory.
+
+\end{document}
