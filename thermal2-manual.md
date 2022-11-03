@@ -7,7 +7,7 @@ permalink: /thermal2/
 <h1 style="color:#6f02ec; font-size:36px; font-weight:bold;">Thermal2 manual</h1>
 
 # Foreword
-The thermal2 suite of codes has been written starting in 2014 by Lorenzo Paulatto<sup>[1](#ref1)</sup>. It descends from an initial set of unreleased codes written by Giorgia Fugallo<sup>[1](#ref1),[2](#ref2)</sup> and Andrea Cepellotti<sup>[3](#ref3)</sup>, both have also participated in the development. The Wigner conductivity expression has been developed by Michele Simoncelli<sup>[17](#ref17)</sup>
+The thermal2 suite of codes has been written starting in 2014 by Lorenzo Paulatto<sup>[1](#ref1)</sup>. It descends from an initial set of unreleased codes written by Giorgia Fugallo<sup>[1](#ref1),[2](#ref2)</sup> and Andrea Cepellotti<sup>[3](#ref3)</sup>, both have also participated in the development. The Wigner conductivity expression has been developed by Michele Simoncelli<sup>[17](#ref17)</sup><sup>[18](#ref18)</sup>.
 
 The code contains some subroutines from the [Quantum-ESPRESSO](https://www.quantum-espresso.org) distribution. Other people who have given a positive contribution to code development include Francesco Mauri<sup>[1](#ref1),[4](#ref4)</sup>, Raffaelo Bianco<sup>[1](#ref1),[16](#ref16)</sup>, Ion Errea<sup>[1](#ref1),[5](#ref5)</sup> and Nicola Marzari<sup>[3](#ref3)</sup>.
 
@@ -21,7 +21,7 @@ We would greatly appreciate if when using the thermal2 suite of codes you cite t
 * Exact BTE solution: G. Fugallo, M. Lazzeri, L. Paulatto, and F. Mauri, Phys. Rev. B 88, 045430 (2013)
 * Spectral functions: L. Paulatto, I. Errea, M. Calandra, and F. Mauri, Phys. Rev. B 91, 054304 (2015)
 * Finite size effects: L. Paulatto, D. Fournier, M. Marangolo, M. Eddrief, P. Atkinson, M. Calandra. Phys. Rev. B 101 (20), 205419 (2020)
-* For Wigner conductivity: Simoncelli, Marzari, Mauri, Nature Physics volume 15, 809–813 (2019) and https://arxiv.org/abs/2112.06897
+* For Wigner conductivity: Simoncelli, Marzari, Mauri, Nature Physics volume 15, 809–813 (2019) and Simoncelli, Marzari, Mauri, Physical Review X 12 041011 (2022).
 
 # Table of contents
 [[_TOC_]]
@@ -1209,6 +1209,7 @@ In particular ref. 1 describes the calculation of 3rd order dynamical matrices u
 15. <a name="ref15" href="https://journals.aps.org/prb/abstract/10.1103/PhysRevB.88.045430">L. Paulatto, D Fournier, M Marangolo, M Eddrief, P Atkinson, M Calandra. Phys. Rev. B 101 (20), 205419 (2020)</a>
 16. <a name="ref16" href="https://journals.aps.org/prb/abstract/10.1103/PhysRevB.96.014111">R. Bianco, I. Errea, L. Paulatto, M. Calandra, and F. Mauri. Phys. Rev. B 96, 014111 (2017)</a>
 17. <a name="ref17" href="https://www.nature.com/articles/s41567-019-0520-x.pdf?proof=t%29Nature">Simoncelli, Marzari, Mauri, Nature Physics volume 15, 809–813 (2019)</a>
+18. <a name="ref17" href="https://doi.org/10.1103/PhysRevX.12.041011">Simoncelli, Marzari, Mauri, Phys. Rev. X 12, 041011 (2022)</a>
 
 # Change Log
 See the changelog file in the "Doc" subdirectory.
