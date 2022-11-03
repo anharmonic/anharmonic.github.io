@@ -7,7 +7,7 @@ permalink: /thermal2/
 <h1 style="color:#6f02ec; font-size:36px; font-weight:bold;">Thermal2 manual</h1>
 
 # Foreword
-The thermal2 suite of codes has been written starting in 2014 by Lorenzo Paulatto<sup>[1](#ref1)</sup>. It descends from an initial set of unreleased codes written by Giorgia Fugallo<sup>[1](#ref1),[2](#ref2)</sup> and Andrea Cepellotti<sup>[3](#ref3)</sup>, both have also participated in the development. The Wigner conductivity expression has been developed by Michele Simoncelli<sup>[17](#ref17)</sup><sup>[18](#ref18)</sup>.
+The thermal2 suite of codes has been written starting in 2014 by Lorenzo Paulatto<sup>[1](#ref1)</sup>. It descends from an initial set of unreleased codes written by Giorgia Fugallo<sup>[1](#ref1),[2](#ref2)</sup> and Andrea Cepellotti<sup>[3](#ref3)</sup>, both have also participated in the development. The Wigner conductivity expression has been developed by Michele Simoncelli<sup>[17](#ref17),[18](#ref18)</sup>.
 
 The code contains some subroutines from the [Quantum-ESPRESSO](https://www.quantum-espresso.org) distribution. Other people who have given a positive contribution to code development include Francesco Mauri<sup>[1](#ref1),[4](#ref4)</sup>, Raffaelo Bianco<sup>[1](#ref1),[16](#ref16)</sup>, Ion Errea<sup>[1](#ref1),[5](#ref5)</sup> and Nicola Marzari<sup>[3](#ref3)</sup>.
 
@@ -567,14 +567,16 @@ A dimensionless parameter to rescale the volume of the crystal unit cell. When s
 ### Output format
 
 #### SMA calculation
-When doing a SMA calculation the tk.x code will produce two output files:
+When doing a SMA calculation the tk.x code will produce four output files:
 
-1. A file named $prefix.$grid_size.out, where $prefix is the input value of prefix and $grid_size is the size of the integration grid (e.g. "20x20x20"). This file will contain one line per configuration, in each line you will:
+1. A file named $prefix.$grid_size_TOT.out, where $prefix is the input value of prefix and $grid_size is the size of the integration grid (e.g. "20x20x20"). This file will contain one line per configuration, in each line you will:
 * 1 the configuration number,
 * 2 the value of sigma
 * 3 the temperature
 * 4→6 the diagonal elements of the thermal conductivity Kxx, Kyy and Kzz
 * 7→12 The off-diagonal elements of K, in this order:  Kxy, Kxz, Kyz , Kyx, Kzx, Kzy.
+
+Two more files with _P_sma and _C instead of _TOT will contain the Phonon contribution (dominant in crystals) and Coherent contribution (dominant in glasses) respectively. See Reference [18](#ref18) for details. 
 
 If the option store_lw is used, several more, potentially very large, files will be created. They contain all the quantities required to recompute the SMA thermal conductivity:
 
@@ -588,13 +590,14 @@ In the "tools" directory you can find a mathlab/octave script [recompute_sma.m](
 #### CGP calculation
 When a CGP calculation several files are created: one with the results at the last iterations for all the configurations and one file for each configurations with the results at each iteration. The thermal conductivity K is always in W/(m·K).
 
-1. A file named $prefix.$grid_size.out, where $prefix is the input value of prefix and $grid_size is the size of the integration grid (e.g. "20x20x20"). This file will contain the results from the last completed iteration of the code, one line per configuration, with these columns:
+1. A file named $prefix.$grid_size_TOT.out, where $prefix is the input value of prefix and $grid_size is the size of the integration grid (e.g. "20x20x20"). This file will contain the results from the last completed iteration of the code, one line per configuration, with these columns:
 * 1 the configuration number,
 * 2 the value of sigma 
 * 3 the temperature 
 * 4-6 the diagonal elements of the thermal conductivity Kxx, Kyy and Kzz 
 * 7-12 the off-diagonal elements of K, in this order:  Kxy, Kyz, Kyz , Kyx, Kzx, Kzy.
-2. A file for every input configuration, named $prefix.$grid_size_s$XX_T$YY.out, where $XX is the smearing in cm-1 and $YY is the temperature in Kelvin. A line is appended to each file at each iteration. The columns are the same as the previous file, except that column 1 contains the iteration number.
+2. Two more files with _P_sma and _C instead of _TOT contain the Phonon at the SMA level (i.e. at the first iteration, dominant in crystals) and Coherent (dominant in harmonic glasses) contribution to thermal conductivity.
+3. A file for every input configuration, named $prefix.$grid_size_s$XX_T$YY.out, where $XX is the smearing in cm-1 and $YY is the temperature in Kelvin. A line is appended to each file at each iteration. The columns are the same as the previous file, except that column 1 contains the iteration number.
 
 ## d3_tdph.x code
 This code reads a set of initial dynamical matrices for a given system and optimizes the harmonic force constants over a series of images that can be the output of a molecular dynamics calculation performed with Quantum ESPRESSO, or of a Langevin Dynamics calculation from the PIOUD code. The code will expect that the simulation supercell is the same for the force constants and the dynamics simulations. 
@@ -1208,8 +1211,8 @@ In particular ref. 1 describes the calculation of 3rd order dynamical matrices u
 14. <a name="ref14" href="https://journals.aps.org/prb/abstract/10.1103/PhysRevB.61.6677">M. Omini and A. Sparavigna, Phys. Rev. B 61, 6677 (2000)</a>
 15. <a name="ref15" href="https://journals.aps.org/prb/abstract/10.1103/PhysRevB.88.045430">L. Paulatto, D Fournier, M Marangolo, M Eddrief, P Atkinson, M Calandra. Phys. Rev. B 101 (20), 205419 (2020)</a>
 16. <a name="ref16" href="https://journals.aps.org/prb/abstract/10.1103/PhysRevB.96.014111">R. Bianco, I. Errea, L. Paulatto, M. Calandra, and F. Mauri. Phys. Rev. B 96, 014111 (2017)</a>
-17. <a name="ref17" href="https://www.nature.com/articles/s41567-019-0520-x.pdf?proof=t%29Nature">Simoncelli, Marzari, Mauri, Nature Physics volume 15, 809–813 (2019)</a>
-18. <a name="ref17" href="https://doi.org/10.1103/PhysRevX.12.041011">Simoncelli, Marzari, Mauri, Phys. Rev. X 12, 041011 (2022)</a>
+17. <a name="ref17" href="https://www.nature.com/articles/s41567-019-0520-x">Simoncelli, Marzari, Mauri, Nature Physics volume 15, 809–813 (2019)</a>
+18. <a name="ref18" href="https://doi.org/10.1103/PhysRevX.12.041011">Simoncelli, Marzari, Mauri, Phys. Rev. X 12, 041011 (2022)</a>
 
 # Change Log
 See the changelog file in the "Doc" subdirectory.

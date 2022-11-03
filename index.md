@@ -43,6 +43,7 @@ If you have published a paper using the d3q or thermal2 software and would like 
 - [Spectral simulation of heat transfer across polytype interfaces
 N Izitounene, ND Le, B Davier, P Dollfus, L Paulatto, J Saint‐Martin
 Crystal Research and Technology 57 (9), 2200017 (2022)](https://onlinelibrary.wiley.com/doi/full/10.1002/crat.202200017)
+- [Wigner Formulation of Thermal Transport in Solids.  Michele Simoncelli, Nicola Marzari, and Francesco Mauri.  Phys. Rev. X 12, 041011](https://doi.org/10.1103/PhysRevX.12.041011)
 
 ### 2021
 - [First-principles modeling of the infrared spectrum of Fe-and Al-bearing lizardite. E Balan, E Fritsch, G Radtke, L Paulatto, F Juillot, F Baron, S Petit European Journal of Mineralogy 33 (5), 647-657 (2022)](https://ejm.copernicus.org/articles/33/647/2021/)
@@ -61,6 +62,7 @@ M Markov, J Sjakste, N Vast, B Perrin, L Paulatto
 Journal of Physics: Conference Series 1461 (1), 012165 (2020)](https://iopscience.iop.org/article/10.1088/1742-6596/1461/1/012165/meta)
 
 ### 2019
+- [Unified theory of thermal transport in crystals and glasses. Michele Simoncelli, Nicola Marzari & Francesco Mauri. Nature Physics volume 15, pages809–813](https://www.nature.com/articles/s41567-019-0520-x)
 - [Strong anharmonicity and high thermoelectric efficiency in high-temperature SnS from first principles
 U Aseginolaza, R Bianco, L Monacelli, L Paulatto, M Calandra, F Mauri, A Bergara, I Errea
 Physical Review B 100 (21), 214307 (2019)](https://journals.aps.org/prb/abstract/10.1103/PhysRevB.100.214307)
