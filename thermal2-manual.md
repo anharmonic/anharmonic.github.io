@@ -215,6 +215,7 @@ After the namelist, the code will look for the keyword QPOINTS and will start re
 The type of calculation to perform, currently this can be:
 
 * "freq": Compute the phonon frequencies, this keyword that you specify nq and a QPOINTS section.
+* ""dos": Compute both phonon dos and pdos (dos projected on atoms)
 * "jdos": Compute the joint density of state. You will have to specify the integration grid nk and a configuration in the CONFIGS section (if you specify more, only the first configuration will be used)
 * "rms" : Compute the root mean square displacement of the atoms around their equilibrium positions in the harmonic hamiltonian at a give temperature. It requires nk and one single configuration in CONFIG.
 * "fh": Compute the phonon free energy or, for T=0, the zero-point energy.
