@@ -39,6 +39,15 @@ Including finite-size effect, disorder, isotopes
 # Selection of Published works
 If you have published a paper using the d3q or thermal2 software and would like to have it listed here, please <a href="mailto:lorenzo.paulatto@sorbonne-universite.fr">contact me</a>.
 
+### 2025
+- [Pressure-and temperature-dependent anharmonicity of MgO: Implications for the thermal conductivity of planetary mantles.  S Chabane, L Paulatto, D Antonangeli, P Giura.  Earth and Planetary Science Letters 651, 119170.](https://www.sciencedirect.com/science/article/pii/S0012821X24006022)
+
+### 2024
+- [Structural and electronic phase changes in GaGeTe with pressure.  A Pawbake, C Bellin, L Paulatto, D Narang, K Béneut, B Baptiste, P Giura, et.al. Physical Review B 109 (5), 054107.](https://journals.aps.org/prb/abstract/10.1103/PhysRevB.109.054107)
+
+### 2023
+- [Reciprocal space temperature-dependent phonons method from ab-initio dynamics.  IB Garba, T Morresi, C Bouillaguet, M Casula, L Paulatto.  Journal of Physics: Condensed Matter 35 (39), 395402](https://iopscience.iop.org/article/10.1088/1361-648X/acdbf9)
+
 ### 2022
 - [Spectral simulation of heat transfer across polytype interfaces
 N Izitounene, ND Le, B Davier, P Dollfus, L Paulatto, J Saint‐Martin
