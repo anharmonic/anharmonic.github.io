@@ -1,7 +1,7 @@
 ---
 layout: default 
 ---
-<h1 style="color:#6f02ec; font-size:36px; font-weight:bold;">Anharmonic properties of materials</h1>
+<h1 style="color:#6f02ed; font-size:36px; font-weight:bold;">Anharmonic properties of materials</h1>
 
 The code for anharmonic properties of materials is composed of two parts:
 #### d3q
