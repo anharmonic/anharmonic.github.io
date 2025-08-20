@@ -529,7 +529,8 @@ The d3_tk.x code can compute the thermal conductivity coefficient in the SMA or 
 
 ### Namelist &tkinput
 Most of the variable used by d3_tk.x are also used for d3_lw.x. The following variables have the same meaning as in d3_lw.x:
-outdir, prefix, file_mat2, file_mat3, asr2,  nconf, nk, grid_type, xk0, isotopic_disorder, casimir_scattering,  sample_direction, sample_length_*
+outdir, prefix, file_mat2, file_mat3, asr2,  nconf, nk, grid_type, xk0, isotopic_disorder, casimir_scattering,  sample_direction, sample_length_.
+
 The following variables are specific of d3_tk.x.
 
 #### calculation (CHARACTER, default: "sma")
@@ -560,7 +561,7 @@ If this parameter is set to false, during a SMA calculation, the code will skip 
 Set this to true, when doing a CGP calculation, and the code will write to disk the state of the minimization at each iteration, it will then be able to restart from the last step. Set this to .false. will have two effects: 1) the code will ignore any restart information already present on disk and 2) the code will not write restart information on disk. Restart information can take quite a bit of space for dense grids.
 
 #### mfp_cutoff (LOGICAL, default: false)
-Set this variable to true to include scattering with boundary, by cutting off the contribution of all phonon modes with a mean free path (MFP, inverse full linewidth times group velocity) larger than the sample size. This approach is simpler than using casimir_scattering, but it assumes that all phonons with a MFP longer than the sample will scatter, and all those shorter will not; i.e. that all phonons with a MFP longer than the sample hav an infinite linewidth; this is only true in the ballistic regime, which is not the aim of this software anyway. We recommend using casimir_scattering instead. This option will use the input variable sample_dir and sample_length_# to determine the cutoff length. This option only works for SMA thermal conductivity. 
+Set this variable to true to include scattering with boundary, by cutting off the contribution of all phonon modes with a mean free path (MFP, inverse full linewidth times group velocity) larger than the sample size. This approach is simpler than using casimir_scattering, but it assumes that all phonons with a MFP longer than the sample will scatter, and all those shorter will not; i.e. that all phonons with a MFP longer than the sample have an infinite linewidth; this is only true in the ballistic regime, which is not the aim of this software anyway. We recommend using casimir_scattering instead. This option will use the input variable sample_dir and sample_length_# to determine the cutoff length. This option only works for SMA thermal conductivity. 
 
 #### volume_factor (REAL, default: 1)
 A dimensionless parameter to rescale the volume of the crystal unit cell. When studying a 2D material, it is useful to normalize the thermal conductivity with the volume of bulk, excluding the vacuum space left between periodic copies of the 2D slab. I.e. if the bulk material has an inter-layer spacing of H and you have built your 2D slab geometry with a vacuum distance V, you have to set volume_factor=H/V.
@@ -570,7 +571,7 @@ A dimensionless parameter to rescale the volume of the crystal unit cell. When s
 #### SMA calculation
 When doing a SMA calculation the tk.x code will produce four output files:
 
-1. A file named $prefix.$grid_size_TOT.out, where $prefix is the input value of prefix and $grid_size is the size of the integration grid (e.g. "20x20x20"). This file will contain one line per configuration, in each line you will:
+1. A file named $prefix.$grid_size_TOT.out, where $prefix is the input value of prefix and $grid_size is the size of the integration grid (e.g. "20×20×20"). This file will contain one line per configuration, in each line you have:
 * 1 the configuration number,
 * 2 the value of sigma
 * 3 the temperature
@@ -581,7 +582,7 @@ Two more files with _P_sma and _C instead of _TOT will contain the Phonon contri
 
 If the option store_lw is used, several more, potentially very large, files will be created. They contain all the quantities required to recompute the SMA thermal conductivity:
 
-* 1 q.$prefix.$grid_size.out: the list of q-vectors (3 columns, in cartesian coordinates of 2π/alat) and their respective weight (1 columns)
+* 1 q.$prefix.$grid_size.out: the list of q-vectors (3 columns, in cartesian coordinates of 2π/alat) and their respective weight (1 column)
 * 2 freq.$prefix.$grid_size.out: the phonon frequencies (in cm-1, 3x number of atoms columns)
 * 3 lw.$prefix.$grid_size.out: the phonon FWHM (in cm-1, 3x number of atoms columns)
 * 4 vel.$prefix.$grid_size.out: the phonon groups velocity, x,y and z for each band (in Rydberg units, 9x number of atoms columns)
@@ -589,7 +590,7 @@ If the option store_lw is used, several more, potentially very large, files will
 In the "tools" directory you can find a mathlab/octave script [recompute_sma.m](#recompute-smam) to inexpensively recompute the thermal conductivity starting from these files.
 
 #### CGP calculation
-When a CGP calculation several files are created: one with the results at the last iterations for all the configurations and one file for each configurations with the results at each iteration. The thermal conductivity K is always in W/(m·K).
+When doing a CGP calculation several files are created: one with the results at the last iterations for all the configurations and one file for each configurations with the results at each iteration. The thermal conductivity K is always in W/(m·K).
 
 1. A file named $prefix.$grid_size_TOT.out, where $prefix is the input value of prefix and $grid_size is the size of the integration grid (e.g. "20x20x20"). This file will contain the results from the last completed iteration of the code, one line per configuration, with these columns:
 * 1 the configuration number,
@@ -601,7 +602,7 @@ When a CGP calculation several files are created: one with the results at the la
 3. A file for every input configuration, named $prefix.$grid_size_s$XX_T$YY.out, where $XX is the smearing in cm-1 and $YY is the temperature in Kelvin. A line is appended to each file at each iteration. The columns are the same as the previous file, except that column 1 contains the iteration number.
 
 ## d3_tdph.x code
-This code reads a set of initial dynamical matrices for a given system and optimizes the harmonic force constants over a series of images that can be the output of a molecular dynamics calculation performed with Quantum ESPRESSO, or of a Langevin Dynamics calculation from the PIOUD code. The code will expect that the simulation supercell is the same for the force constants and the dynamics simulations. 
+This code reads a set of initial dynamical matrices for a given system and optimizes the harmonic force constants over a series of images that can be the output of a molecular dynamics calculation performed with Quantum ESPRESSO, or of a Langevin Dynamics calculation from the PIOUD code. The code will expect that the simulation supercell is the same for the force constants and the dynamics simulations. Also check the TDPH example in the distribution.
 
 ### Namelist &tdphinput
 
@@ -609,28 +610,28 @@ This code reads a set of initial dynamical matrices for a given system and optim
 Select if the samplig comes from a QE molecular dynamics run (in this case, read the output of QR from fmd) or from a PIOUD calculation (reads from files fforce, ftau and ftoten)
 
 #### fforce, ftau, ftoten (CHARACTER, default "forces.dat", "positions.dat", "pioud.dat")
-Output files from PIOUD containing the ab-initio forces, ions coordinates and total energy.
+To be used with ai='pioud': Output files from PIOUD containing the ab-initio forces, ions coordinates and total energy.
 
 #### fmd (CHARACTER, default "md.out")
-Output file from QE
+To be used with ai='md': Output file from a QE molecular dynamics run. The first time the code is run, in serial, it parses the file and creates and "extract" file which only contains the essential lines. On subsequent run (in serial or parallel), the extract file will be used instead, as long as the same value for nfist and nskip is used.
 
 #### file_mat2 (CHARACTER, default "mat2R")
 File of the force constants. Must be in "periodic" form (i.e. generated using -f 0 with d3_q2r.x)
 
-#### nfirst, nskip, nread (INTEGER, default 1, 100, 50000)
+#### nfirst, nskip, nread (INTEGER, default 1, 100, 1000)
 When reading the MD or PIOUD file, read one every nskip steps starting from nfirst until nread steps are read in total.
 
-#### nmax (INTEGER, default: 50000)
+#### nmax (INTEGER, default: no)
 Instead of specifying nread, one can use nmax to stop reading after reachin step nmax of the MD simulation.
 
 ### e0 (REAL, default: 0)
-A constant to remove from the total energy, i.e. the ground state energy. Useful for plotting but has no direct effect on the results.
+The total energy of the unit cell, treated as a constant to remove from the total energy of the MD simulation. Useful for plotting but has no direct effect on the results.
 
 ### basis (CHARACTER, default "mu")
 When building the basis of symmetric dynamical matrices, ouse one of these initial guesses: 
 
 * "simple" orthogonal matrices hermitean matrices with a single diagonal or two non-diagonal non-zero elements
-* "mu" from the eignevectors of the original dynamical matrices, from file_mat2, discard the acoustic modes at q=0.
+* "mu" from the eigenvectors of the original dynamical matrices, from file_mat2, discard the acoustic modes at q=0.
 * "random" start from random matricex (rarely works because of accidental degeneracies)
 
 ### minimization  (CHARACTER, default "ph")
