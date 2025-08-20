@@ -681,7 +681,7 @@ You can use the special value -1 for np, to reset the length of the path at a ce
 
 If two consecutive points in the list are equivalent minus a G-vector, and if the latter has no np, or np=1, then the two points are added to the list with the same path length. This allows one to jump between equivalent point without having a discontinuity in the plot.
 
-Another special value is the special value np=0 skips the point, but puts in in the list as null "previous point". I.e. the path will continue from the next point, as if the null point was the previous one. This allows to introduce a discontinuity in the path without resetting the length.
+Another special value is np=0 which skips the point, but puts in in the list as null "previous point". I.e. the path will continue from the next point, as if the null point was the previous one. This allows to introduce a discontinuity in the path without resetting the length.
 
 #### grid
 
@@ -707,6 +707,38 @@ e2x e2y e2z
 q0x q0y q0z
 ```
 Which are the grid size (n1, n2) two vectors defining the surface (e1,e2) and the origin (q0). The first point in the surface is q0, the last is q0+e1+e2
+
+
+#### spherical (work in progress)
+
+Generate one or more shell of point equally spaced in the angular coordinates theta and phi. Syntax:
+```
+QPOINTS spherical q_max phase_theta phase_phi
+nshells ntheta nphi
+```
+This will produce nshells*ntheta*nphi+1 points, such that:
+1. The first point is Gamma
+2. The following points are 
+      q(1,idx) = mq * sin(tht) * cos(phi)
+      q(2,idx) = mq * sin(tht) * sin(phi)
+      q(3,idx) = mq * cos(tht)
+
+With theta = 0... pi + phate_theta, phi = 0... 2pi + phate_phi and mq = max_q*(1... nshells)/nshells
+The corresponding weight will be also computed
+
+#### lebedev (work in progress)
+Generate one or more shells according to lebedev spherical quadrature. Similar to spherical.
+```
+QPOINT lebedev q_max
+ -order nshells 
+```
+or
+```
+QPOINT lebedev q_max
+ index nshells 
+```
+If a negative number -order is provided, the quadrature of the corresponding order will be searched, note that not all order are possible. Otherwise, if a positive number index is provides, up to 62, then an incresing order will be selected automatically. Produces "order" points if only one shell is requested, otherwise order*nshell+1 points, with gamma as the last point in the list.
+
 
 #### Examples
 Select the Γ point (000) and the X point (001) in a cubic lattice:
