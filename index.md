@@ -18,6 +18,11 @@ These codes are loosely coupled with [Quantum-ESPRESSO](https://www.quantum-espr
 
 [Get started!](https://anharmonic.github.io/started/)
 
+Cite as: Lorenzo Paulatto, et. al. Anharmonic - Thermal transport package for Quantum ESPRESSO. 2025. ⟨hal-05109162⟩.  
+[bibtex](hal-05109162v1.bib)/
+[endnote](hal-05109162v1.enw)
+
+
 # Example applications
 ## Intrinsic phonon linewidth
 ### Graphene intrinsic linewidth

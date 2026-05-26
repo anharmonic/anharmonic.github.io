@@ -1,0 +1,51 @@
+
+
+%0 Unpublished work
+%T Anharmonic - Thermal transport package for Quantum ESPRESSO
+%+ Théorie quantique des matériaux [IMPMC] (IMPMC_TQM)
+%+ ALgorithms for coMmunicAtion SecuriTY (ALMASTY)
+%A Paulatto, Lorenzo
+%A Sen, Raja
+%A Ciavatta, Alessandro
+%A Garba, Ibrahim Buba
+%A Bouillaguet, Charles
+%A Fugallo, Giorgia
+%A Monacelli, Lorenzo
+%A Simoncelli, Michele
+%A Cepellotti, Adrea
+%A Errea, Ion
+%A Marzari, Nicola
+%A Mauri, Francesco
+%8 2025-06-12
+%D 2025
+%K Thermal transport
+%K phonon
+%K Anharmonicity
+%Z Physics [physics]/Condensed Matter [cond-mat]
+%Z Physics [physics]/Condensed Matter [cond-mat]/Materials Science [cond-mat.mtrl-sci]Software
+%X A suite of codes to manipulate 2-body and 3-body force constants to study vibrational properties of materials: Thermal transport from first principles, in the single-mode approximation or exact Phonon intrinsic lifetime and lineshift Infrared reflectivity simulation, vibration spectral weight (including neutron scattering form factor), phonon self-energy A simple and efficient implementation of quasi-harmonic approximation, including hydrostatic pressure Fourier interpolation of harmonic and anharmonic force constantsThese codes are loosely coupled with Quantum-ESPRESSO. They can natively use force constants from the ph and d3q codes, but can also import them from real-space thirorder and phonon3py codes.
+%G English
+%2 https://hal.science/hal-05109162v1/document
+%2 https://hal.science/hal-05109162v1/file/d3q-1.3.0-qe7.zip
+%L hal-05109162
+%U https://hal.science/hal-05109162
+%~ IRD
+%~ MNHN
+%~ CNRS
+%~ IMPMC
+%~ ALLINSP
+%~ TESTANNE
+%~ LIP6
+%~ SORBONNE-UNIVERSITE
+%~ SORBONNE-UNIV
+%~ SU-SCIENCES
+%~ SOFTWARE
+%~ SU-TI
+%~ ANR
+%~ ALLIANCE-SU
+%~ IMPMC_TQM
+%~ SUPRA_MATHS_INFO
+%~ SUPRA_SCIENCES_NATURELLES
+%~ SU-LOGICIELS
+%~ ANR_QUANTIQUE
+%~ ANR_QUANTIQUE_2
